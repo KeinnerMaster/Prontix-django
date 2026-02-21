@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Greenery - Products Management</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<base href="/ADMIN/">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0bda50",
+                        "background-light": "#f5f8f6",
+                        "background-dark": "#102216",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Manrope', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100">
+<div class="flex h-screen overflow-hidden">
+<!-- Sidebar Navigation -->
+<aside class="w-64 border-r border-primary/10 bg-white dark:bg-background-dark/50 flex flex-col">
+<div class="p-6 flex items-center gap-3">
+<div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center text-white">
+<span class="material-symbols-outlined">eco</span>
+</div>
+<div>
+<h1 class="text-lg font-bold leading-none">Greenery</h1>
+<p class="text-xs text-primary font-medium">Admin Panel</p>
+</div>
+</div>
+<nav class="flex-1 px-4 space-y-1 mt-4">
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-primary/5 rounded-lg transition-colors" href="admin-dashboard.html">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-sm font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 bg-primary/10 text-primary rounded-lg transition-colors" href="admin-products.html">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="text-sm font-semibold">Products</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-primary/5 rounded-lg transition-colors" href="admin-orders.html">
+<span class="material-symbols-outlined">shopping_cart</span>
+<span class="text-sm font-medium">Orders</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-primary/5 rounded-lg transition-colors" href="admin-settings.html">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-sm font-medium">Settings</span>
+</a>
+</nav>
+<div class="p-4 mt-auto">
+<div class="bg-primary/5 rounded-xl p-4 border border-primary/10">
+<p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Storage Used</p>
+<div class="mt-2 w-full bg-slate-200 dark:bg-slate-700 h-1.5 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[65%]"></div>
+</div>
+<p class="mt-2 text-xs text-slate-600">65% of 1GB used</p>
+</div>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 flex flex-col min-w-0 bg-slate-50/50 dark:bg-background-dark/20 overflow-hidden">
+<!-- Header -->
+<header class="h-16 border-b border-primary/10 bg-white/80 dark:bg-background-dark/80 backdrop-blur flex items-center justify-between px-8 shrink-0">
+<div class="flex items-center gap-2 text-sm text-slate-500">
+<span>Admin</span>
+<span class="material-symbols-outlined text-xs">chevron_right</span>
+<span class="text-slate-900 dark:text-slate-100 font-medium">Products</span>
+</div>
+<div class="flex items-center gap-4">
+<button class="w-10 h-10 flex items-center justify-center rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors relative">
+<span class="material-symbols-outlined text-slate-600">notifications</span>
+<span class="absolute top-2.5 right-2.5 w-2 h-2 bg-primary rounded-full border-2 border-white dark:border-background-dark"></span>
+</button>
+<div class="h-8 w-[1px] bg-slate-200 dark:bg-slate-700"></div>
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-slate-200" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDH2O-4ZfpOLxH6y9J1gAe1TmQv9ImrQd3IfpazS5E3bjVkaYy5wb4DCtgu_78NA9FGeb3jLCQBoLioF-3SQbIiDcidVmRAHo-SnfUpy0Zvz868Nq-nDvpoJAixEOj50NNGCFF1epkWN7UkhExnUK2FIQC5bGN1ckMayIEaLOp4l56eiYA7EikMufgV18sdMF1SVuFWKvQ40_vClgdlgUjb-UjAdtsDJcV6LHDO6kN_Iur9JrZjFkOGiMgno29u5NKxs6q6Hgs3iEw')"></div>
+<span class="text-sm font-semibold">Alex Green</span>
+</div>
+</div>
+</header>
+<!-- Action Bar -->
+<div class="p-8 pb-4 shrink-0">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+<div>
+<h2 class="text-3xl font-extrabold tracking-tight">Products Management</h2>
+<p class="text-slate-500 text-sm mt-1">Manage your inventory, pricing, and availability.</p>
+</div>
+<button class="bg-primary hover:bg-primary/90 text-white px-5 py-2.5 rounded-lg font-bold text-sm inline-flex items-center gap-2 transition-all shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined text-lg">add</span>
+                        Add Product
+                    </button>
+</div>
+<div class="flex gap-4">
+<div class="relative flex-1 max-w-md">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-white dark:bg-background-dark border border-slate-200 dark:border-slate-700 rounded-lg focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all placeholder:text-slate-400 text-sm" placeholder="Search products..." type="text"/>
+</div>
+<button class="px-4 py-2 border border-slate-200 dark:border-slate-700 rounded-lg bg-white dark:bg-background-dark flex items-center gap-2 text-sm font-medium hover:bg-slate-50 transition-colors">
+<span class="material-symbols-outlined text-slate-500">filter_list</span>
+                        Filters
+                    </button>
+<button class="px-4 py-2 border border-slate-200 dark:border-slate-700 rounded-lg bg-white dark:bg-background-dark flex items-center gap-2 text-sm font-medium hover:bg-slate-50 transition-colors">
+<span class="material-symbols-outlined text-slate-500">download</span>
+                        Export
+                    </button>
+</div>
+</div>
+<!-- Table Container -->
+<div class="flex-1 px-8 pb-8 overflow-auto">
+<div class="bg-white dark:bg-background-dark/40 border border-slate-200 dark:border-slate-800 rounded-xl shadow-sm overflow-hidden">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-slate-50 dark:bg-slate-800/50 border-b border-slate-200 dark:border-slate-800">
+<th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500 w-16">Image</th>
+<th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500">Product Name</th>
+<th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500">Stock Status</th>
+<th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500 text-right">Price</th>
+<th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500 text-center">Status</th>
+<th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500 text-right w-20">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+<!-- Monstera Deliciosa -->
+<tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/30 transition-colors group">
+<td class="px-6 py-4">
+<div class="w-12 h-12 rounded-lg bg-slate-100 border border-slate-200 overflow-hidden shrink-0">
+<div class="w-full h-full bg-cover bg-center" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAC7oWJYRj1e8IF1mg9SDSKaYNvauR7aLzFoJbQjIT2zjU-b2KxLMw9mhm9DFo3DmWM0_G-6M-suSTIiTC52AaikmNOKAc-OFWLcvXTQB7I6VkCjR7KVxb0tNJOA6IyzIr5r3ZhQaNpz2zNHsdMfMMnt7R0V3p-H03kbossqPDwi8wLpCMpB_b_m9NEAkr9tFUhnRWg9F2m25QSEwsZ-xmYBtHwJacvmjq-pgaQYnNmkZDBDgKBqcy0A9pQNliVHqf-ptsF3icpcf8')"></div>
+</div>
+</td>
+<td class="px-6 py-4">
+<div class="flex flex-col">
+<span class="font-bold text-slate-900 dark:text-slate-100">Monstera Deliciosa</span>
+<span class="text-xs text-slate-500 uppercase font-medium">Indoor / Tropical</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<span class="text-sm font-semibold text-primary">45</span>
+<span class="text-sm text-slate-500">in stock</span>
+</div>
+</td>
+<td class="px-6 py-4 text-right">
+<span class="text-sm font-bold">$24.00</span>
+</td>
+<td class="px-6 py-4">
+<div class="flex justify-center">
+<span class="px-2.5 py-1 rounded-full text-xs font-bold bg-primary/10 text-primary uppercase tracking-tight">Active</span>
+</div>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">more_horiz</span>
+</button>
+</td>
+</tr>
+<!-- Snake Plant -->
+<tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/30 transition-colors">
+<td class="px-6 py-4">
+<div class="w-12 h-12 rounded-lg bg-slate-100 border border-slate-200 overflow-hidden shrink-0">
+<div class="w-full h-full bg-cover bg-center" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCxmUsK1eE2k9R0S-3xe1j_j9dnK3Up5h2gAYfKNHm9hFix20LyB-F5tpjKEm40zirZ6Gl5dGAgavs151AhC1CmwSYurCtNBWyRrIJas_cRIgrdrI7lcGQMWlQwAlROzOVfXyS929iXEvnZL8nUNWCj9Vpb8LO0ZGnVxH61KITjUsDCRh8AWkmn2unHZcDPVAxqquDN5WOZohO_Z-6IqOsmtUvDSyZGj2LE_391Hcxsu-GmX-RCrpNtSXsQU3arSB974OH54B20LSE')"></div>
+</div>
+</td>
+<td class="px-6 py-4">
+<div class="flex flex-col">
+<span class="font-bold text-slate-900 dark:text-slate-100">Snake Plant</span>
+<span class="text-xs text-slate-500 uppercase font-medium">Succulent / Low Light</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<span class="text-sm font-semibold text-primary">12</span>
+<span class="text-sm text-slate-500">in stock</span>
+</div>
+</td>
+<td class="px-6 py-4 text-right">
+<span class="text-sm font-bold">$18.00</span>
+</td>
+<td class="px-6 py-4">
+<div class="flex justify-center">
+<span class="px-2.5 py-1 rounded-full text-xs font-bold bg-primary/10 text-primary uppercase tracking-tight">Active</span>
+</div>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">more_horiz</span>
+</button>
+</td>
+</tr>
+<!-- Fiddle Leaf Fig -->
+<tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/30 transition-colors">
+<td class="px-6 py-4">
+<div class="w-12 h-12 rounded-lg bg-slate-100 border border-slate-200 overflow-hidden shrink-0">
+<div class="w-full h-full bg-cover bg-center" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBsUhdsWbGfxVjLgprT0GBGKs3EdwOsgUXGMHMZPQmNkTxNX898k4LIvk2P66YcE0XWUYGYJps1olZsPX0Z0cU6XLy6j0xxF12R88VJXzKxEaslX5bk0nzMd4GIxdQlq8HLeMAr7pyqkLGa1opixsLh5AZdchKXYC9MFC_ImBIl8U-sv8a60kpgaajQqXRbRXDElPoiq4nScqttmNEyFrUtNA_Yt45kbG4i5oWOxiMP_os0jwpjb88Q2GdKm_Iz3uhmsKWhbB9H9Z4')"></div>
+</div>
+</td>
+<td class="px-6 py-4">
+<div class="flex flex-col">
+<span class="font-bold text-slate-900 dark:text-slate-100">Fiddle Leaf Fig</span>
+<span class="text-xs text-slate-500 uppercase font-medium">Tree / Bright Light</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<span class="text-sm font-semibold text-rose-500">0</span>
+<span class="text-sm text-slate-500">in stock</span>
+</div>
+</td>
+<td class="px-6 py-4 text-right">
+<span class="text-sm font-bold">$35.00</span>
+</td>
+<td class="px-6 py-4">
+<div class="flex justify-center">
+<span class="px-2.5 py-1 rounded-full text-xs font-bold bg-slate-100 text-slate-500 uppercase tracking-tight dark:bg-slate-800 dark:text-slate-400">Draft</span>
+</div>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">more_horiz</span>
+</button>
+</td>
+</tr>
+<!-- Peace Lily -->
+<tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/30 transition-colors">
+<td class="px-6 py-4">
+<div class="w-12 h-12 rounded-lg bg-slate-100 border border-slate-200 overflow-hidden shrink-0">
+<div class="w-full h-full bg-cover bg-center" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDf_CUDfYylya5Rk8anVdgbWcWxXwy8pictNlflLkDvWsIZlTncyI4QQ_23hyC6zh2GjRB9O5clOPJQdlkxKNtPuMVulN_CFt1zh3WMezIrEEhiL1EEH-mZzbox40glKGY7gqubjzn8CMXrMdZQfSi5ZAgnlZG7pMXdlH27G2H4t3MaYmN-baHLoNU3W6BZCEIoEnENBb3LpL6gZKJSiOcK1mbtBdkF_uAifq2jxBcqxCQ2UUBFHwM_FJ-sQFfkB7DHrbrTSgHtSNk')"></div>
+</div>
+</td>
+<td class="px-6 py-4">
+<div class="flex flex-col">
+<span class="font-bold text-slate-900 dark:text-slate-100">Peace Lily</span>
+<span class="text-xs text-slate-500 uppercase font-medium">Flowering / Low Light</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<span class="text-sm font-semibold text-primary">28</span>
+<span class="text-sm text-slate-500">in stock</span>
+</div>
+</td>
+<td class="px-6 py-4 text-right">
+<span class="text-sm font-bold">$15.00</span>
+</td>
+<td class="px-6 py-4">
+<div class="flex justify-center">
+<span class="px-2.5 py-1 rounded-full text-xs font-bold bg-primary/10 text-primary uppercase tracking-tight">Active</span>
+</div>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">more_horiz</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+<!-- Pagination -->
+<div class="bg-slate-50 dark:bg-slate-800/30 px-6 py-4 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between">
+<p class="text-sm text-slate-500 font-medium">Showing 1 to 4 of 24 results</p>
+<div class="flex items-center gap-2">
+<button class="w-8 h-8 flex items-center justify-center rounded border border-slate-200 dark:border-slate-700 bg-white dark:bg-background-dark text-slate-400 hover:text-slate-900 transition-colors disabled:opacity-50" disabled="">
+<span class="material-symbols-outlined text-lg">chevron_left</span>
+</button>
+<button class="w-8 h-8 flex items-center justify-center rounded border border-primary bg-primary text-white text-sm font-bold">1</button>
+<button class="w-8 h-8 flex items-center justify-center rounded border border-slate-200 dark:border-slate-700 bg-white dark:bg-background-dark text-slate-600 hover:border-primary transition-colors text-sm font-medium">2</button>
+<button class="w-8 h-8 flex items-center justify-center rounded border border-slate-200 dark:border-slate-700 bg-white dark:bg-background-dark text-slate-600 hover:border-primary transition-colors text-sm font-medium">3</button>
+<span class="text-slate-400">...</span>
+<button class="w-8 h-8 flex items-center justify-center rounded border border-slate-200 dark:border-slate-700 bg-white dark:bg-background-dark text-slate-600 hover:border-primary transition-colors text-sm font-medium">6</button>
+<button class="w-8 h-8 flex items-center justify-center rounded border border-slate-200 dark:border-slate-700 bg-white dark:bg-background-dark text-slate-400 hover:text-slate-900 transition-colors">
+<span class="material-symbols-outlined text-lg">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

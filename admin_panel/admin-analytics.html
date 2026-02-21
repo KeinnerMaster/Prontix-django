@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Greenery Admin - Analytics &amp; Reports</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<base href="/ADMIN/">
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              colors: {
+                "primary": "#0bda50",
+                "background-light": "#f5f8f6",
+                "background-dark": "#102216",
+              },
+              fontFamily: {
+                "display": ["Manrope"]
+              },
+              borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+            },
+          },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Manrope', sans-serif;
+        }
+        .chart-line {
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            animation: dash 2s ease-in-out forwards;
+        }
+        @keyframes dash {
+            to { stroke-dashoffset: 0; }
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen">
+<div class="flex h-screen overflow-hidden">
+<!-- Sidebar Navigation -->
+<aside class="w-64 border-r border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 flex flex-col">
+<div class="p-6 flex items-center gap-3">
+<div class="bg-primary size-10 rounded-lg flex items-center justify-center text-white">
+<span class="material-symbols-outlined">eco</span>
+</div>
+<div>
+<h1 class="text-slate-900 dark:text-white text-base font-bold leading-none">Greenery</h1>
+<p class="text-primary text-[10px] uppercase tracking-wider font-bold mt-1">Admin Panel</p>
+</div>
+</div>
+<nav class="flex-1 px-4 py-2 space-y-1">
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg transition-colors" href="admin-dashboard.html">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-sm font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg transition-colors" href="admin-orders.html">
+<span class="material-symbols-outlined">shopping_cart</span>
+<span class="text-sm font-medium">Orders</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg transition-colors" href="admin-products.html">
+<span class="material-symbols-outlined">potted_plant</span>
+<span class="text-sm font-medium">Products</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg transition-colors" href="admin-customers.html">
+<span class="material-symbols-outlined">group</span>
+<span class="text-sm font-medium">Customers</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 bg-primary/10 text-primary rounded-lg transition-colors" href="admin-analytics.html">
+<span class="material-symbols-outlined font-fill">bar_chart</span>
+<span class="text-sm font-bold">Analytics</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg transition-colors" href="admin-settings.html">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-sm font-medium">Settings</span>
+</a>
+</nav>
+<div class="p-4 border-t border-slate-200 dark:border-slate-800">
+<div class="bg-primary/5 rounded-xl p-4">
+<p class="text-xs font-semibold text-slate-500 dark:text-slate-400 mb-2 uppercase">Plan Usage</p>
+<div class="h-1.5 w-full bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden mb-2">
+<div class="h-full bg-primary w-3/4"></div>
+</div>
+<p class="text-xs text-slate-600 dark:text-slate-400 font-medium">75% of monthly orders</p>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 overflow-y-auto">
+<!-- Top Header -->
+<header class="h-20 border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md sticky top-0 z-10 px-8 flex items-center justify-between">
+<div>
+<h2 class="text-2xl font-extrabold text-slate-900 dark:text-white leading-none">Analytics &amp; Reports</h2>
+<p class="text-slate-500 text-sm mt-1">Monitor your store's performance across all channels.</p>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2 px-4 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg shadow-sm">
+<span class="material-symbols-outlined text-slate-400 text-lg">calendar_today</span>
+<span class="text-sm font-medium">Oct 1, 2023 - Oct 31, 2023</span>
+<span class="material-symbols-outlined text-slate-400 text-lg">expand_more</span>
+</div>
+<button class="bg-primary text-white px-4 py-2 rounded-lg font-bold text-sm flex items-center gap-2 hover:bg-primary/90 transition-all">
+<span class="material-symbols-outlined text-lg">download</span>
+                        Export Report
+                    </button>
+</div>
+</header>
+<div class="p-8 space-y-8">
+<!-- KPI Cards -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<div class="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+<div class="flex justify-between items-start mb-4">
+<div class="bg-primary/10 p-2 rounded-lg">
+<span class="material-symbols-outlined text-primary">payments</span>
+</div>
+<span class="text-primary text-xs font-bold bg-primary/10 px-2 py-1 rounded-full">+12.4%</span>
+</div>
+<p class="text-slate-500 text-sm font-medium">Total Revenue</p>
+<h3 class="text-2xl font-extrabold text-slate-900 dark:text-white mt-1">$45,200.00</h3>
+</div>
+<div class="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+<div class="flex justify-between items-start mb-4">
+<div class="bg-blue-500/10 p-2 rounded-lg">
+<span class="material-symbols-outlined text-blue-500">ads_click</span>
+</div>
+<span class="text-primary text-xs font-bold bg-primary/10 px-2 py-1 rounded-full">+0.5%</span>
+</div>
+<p class="text-slate-500 text-sm font-medium">Conversion Rate</p>
+<h3 class="text-2xl font-extrabold text-slate-900 dark:text-white mt-1">3.42%</h3>
+</div>
+<div class="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+<div class="flex justify-between items-start mb-4">
+<div class="bg-orange-500/10 p-2 rounded-lg">
+<span class="material-symbols-outlined text-orange-500">shopping_bag</span>
+</div>
+<span class="text-primary text-xs font-bold bg-primary/10 px-2 py-1 rounded-full">+2.1%</span>
+</div>
+<p class="text-slate-500 text-sm font-medium">Avg. Order Value</p>
+<h3 class="text-2xl font-extrabold text-slate-900 dark:text-white mt-1">$68.00</h3>
+</div>
+<div class="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+<div class="flex justify-between items-start mb-4">
+<div class="bg-purple-500/10 p-2 rounded-lg">
+<span class="material-symbols-outlined text-purple-500">visibility</span>
+</div>
+<span class="text-primary text-xs font-bold bg-primary/10 px-2 py-1 rounded-full">+8.4%</span>
+</div>
+<p class="text-slate-500 text-sm font-medium">Total Visits</p>
+<h3 class="text-2xl font-extrabold text-slate-900 dark:text-white mt-1">12,500</h3>
+</div>
+</div>
+<!-- Main Chart Section -->
+<div class="bg-white dark:bg-slate-900 p-8 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+<div class="flex items-center justify-between mb-8">
+<div>
+<h4 class="text-lg font-bold text-slate-900 dark:text-white">Sales &amp; Traffic Over Time</h4>
+<p class="text-sm text-slate-500">Daily performance metrics for the current period.</p>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-2">
+<div class="size-3 rounded-full bg-primary"></div>
+<span class="text-xs font-medium text-slate-600 dark:text-slate-400">Sales</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="size-3 rounded-full bg-slate-300 dark:bg-slate-700"></div>
+<span class="text-xs font-medium text-slate-600 dark:text-slate-400">Traffic</span>
+</div>
+</div>
+</div>
+<!-- Mock Line Chart -->
+<div class="relative h-[300px] w-full mt-4">
+<svg class="w-full h-full" preserveaspectratio="none" viewbox="0 0 1000 300">
+<!-- Grid Lines -->
+<line stroke="#f1f5f9" stroke-width="1" x1="0" x2="1000" y1="50" y2="50"></line>
+<line stroke="#f1f5f9" stroke-width="1" x1="0" x2="1000" y1="150" y2="150"></line>
+<line stroke="#f1f5f9" stroke-width="1" x1="0" x2="1000" y1="250" y2="250"></line>
+<!-- Traffic Path (Light Gray) -->
+<path d="M0,220 Q100,200 200,240 T400,180 T600,210 T800,150 T1000,190" fill="none" stroke="#e2e8f0" stroke-width="3"></path>
+<!-- Sales Path (Primary Green) -->
+<path class="chart-line" d="M0,200 L100,180 L200,190 L300,120 L400,140 L500,80 L600,100 L700,60 L800,90 L900,40 L1000,50" fill="none" stroke="#0bda50" stroke-linecap="round" stroke-width="4"></path>
+<!-- Area under Sales -->
+<path d="M0,200 L100,180 L200,190 L300,120 L400,140 L500,80 L600,100 L700,60 L800,90 L900,40 L1000,50 L1000,300 L0,300 Z" fill="url(#salesGradient)"></path>
+<defs>
+<lineargradient id="salesGradient" x1="0%" x2="0%" y1="0%" y2="100%">
+<stop offset="0%" style="stop-color:#0bda50;stop-opacity:0.1"></stop>
+<stop offset="100%" style="stop-color:#0bda50;stop-opacity:0"></stop>
+</lineargradient>
+</defs>
+</svg>
+</div>
+<div class="flex justify-between mt-4 px-2">
+<span class="text-[10px] text-slate-400 font-bold uppercase">Oct 01</span>
+<span class="text-[10px] text-slate-400 font-bold uppercase">Oct 08</span>
+<span class="text-[10px] text-slate-400 font-bold uppercase">Oct 15</span>
+<span class="text-[10px] text-slate-400 font-bold uppercase">Oct 22</span>
+<span class="text-[10px] text-slate-400 font-bold uppercase">Oct 31</span>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Top Selling Products -->
+<div class="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col">
+<div class="p-6 border-b border-slate-100 dark:border-slate-800">
+<h4 class="font-bold text-slate-900 dark:text-white">Top Selling Products</h4>
+</div>
+<div class="p-6 space-y-6 flex-1">
+<div class="flex items-center gap-4">
+<div class="size-12 rounded-lg bg-slate-100 overflow-hidden shrink-0">
+<img class="size-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAfns797eTRdLRHiF3o2KuTpbkVhl4O0lctz7Vi7FI89rPimVempaGfum3m1EjEV0CRdiE4ctx1dB8GGywAQpsrtNJi91_Sf3PWA35pJWFFIdk9t-HsHGeBGahHE_HvEasbb_VOHGo2QbjjMVRr24gOigqlQbaY5DNUcQKgIb6PBXHo92_-13QTmVcTMFigs2b4eMFotyC3YLtg0DnuG2R3yNMkqabH4iwOVT2Oenw0BrfT92dcIaAsjiQ79S0tq950HDIyafkZ4tY"/>
+</div>
+<div class="flex-1">
+<p class="text-sm font-bold text-slate-900 dark:text-white">Monstera Deliciosa</p>
+<p class="text-xs text-slate-500">421 sales</p>
+</div>
+<p class="text-sm font-bold text-primary">$12,430</p>
+</div>
+<div class="flex items-center gap-4">
+<div class="size-12 rounded-lg bg-slate-100 overflow-hidden shrink-0">
+<img class="size-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD9KhINNm6KnBntAMp5B7jY8Pb1-eBZU6XbW0trmODyfxRihfl2AEtwAWfGH9qn5ye7nIe4S54eahduLCZLkL2kcbzwxVoxHtTbcBFJJTxghQe9dhfqX_rPDl1FFVQGgCrqhLzyc0G1lD8kTHwAFwOJYkmCh2rfGKH0gVSKZt9nLBGIFOpMcCxTrUmbeI_eZgP2T_P_tptgbXexxNHPdoP2sGPwlSpDTbRIIpozh5I-P377TeXEe02tKQUq-fS8bHn3D46kxWYi1d4"/>
+</div>
+<div class="flex-1">
+<p class="text-sm font-bold text-slate-900 dark:text-white">Snake Plant Laurentii</p>
+<p class="text-xs text-slate-500">388 sales</p>
+</div>
+<p class="text-sm font-bold text-primary">$9,240</p>
+</div>
+<div class="flex items-center gap-4">
+<div class="size-12 rounded-lg bg-slate-100 overflow-hidden shrink-0">
+<img class="size-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCHuOFnyTOTqKHD4iNEmnBQn6dPKBCPQhdmAuD3Lq7ePdOnzU-xnkwceETf0a9mayAavlMG5ElA_8McXitUwfQJG1fUiFdtMSasEg8aO6GPk3FNcZ3VL3EGPARQHmDDePQKdUMEp4OXbJmDfuo_wWHYq0G6p6NG2Rqkvq3cSeNObwiE4-1dWSn-L6tkXM1qAU3bGf86pAOCa_EtjdnUj-q6MhVlMzogXLnPLhKrRhnaFzgDYif0B3HGtKjyZOO9VyGwe33qHMYh_H0"/>
+</div>
+<div class="flex-1">
+<p class="text-sm font-bold text-slate-900 dark:text-white">Terracotta Pot S-M</p>
+<p class="text-xs text-slate-500">312 sales</p>
+</div>
+<p class="text-sm font-bold text-primary">$4,680</p>
+</div>
+</div>
+<button class="p-4 text-center text-sm font-bold text-slate-600 dark:text-slate-400 border-t border-slate-100 dark:border-slate-800 hover:text-primary transition-colors">
+                            View All Products
+                        </button>
+</div>
+<!-- Sales by Category -->
+<div class="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+<div class="p-6 border-b border-slate-100 dark:border-slate-800">
+<h4 class="font-bold text-slate-900 dark:text-white">Sales by Category</h4>
+</div>
+<div class="p-8 flex flex-col items-center">
+<div class="relative size-48">
+<svg class="size-full transform -rotate-90">
+<!-- Donut Chart -->
+<circle cx="96" cy="96" fill="transparent" r="80" stroke="#f1f5f9" stroke-width="20"></circle>
+<circle cx="96" cy="96" fill="transparent" r="80" stroke="#0bda50" stroke-dasharray="502" stroke-dashoffset="150" stroke-linecap="round" stroke-width="20"></circle>
+<circle cx="96" cy="96" fill="transparent" r="80" stroke="#10b981" stroke-dasharray="502" stroke-dashoffset="350" stroke-linecap="round" stroke-width="20"></circle>
+<circle cx="96" cy="96" fill="transparent" r="80" stroke="#34d399" stroke-dasharray="502" stroke-dashoffset="450" stroke-linecap="round" stroke-width="20"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="text-3xl font-extrabold text-slate-900 dark:text-white">100%</span>
+<span class="text-[10px] text-slate-400 font-bold uppercase">Distribution</span>
+</div>
+</div>
+<div class="w-full mt-8 grid grid-cols-2 gap-4">
+<div class="flex items-center gap-2">
+<div class="size-2 rounded-full bg-primary"></div>
+<span class="text-xs font-medium text-slate-600 dark:text-slate-400">Indoor Plants (45%)</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="size-2 rounded-full bg-[#10b981]"></div>
+<span class="text-xs font-medium text-slate-600 dark:text-slate-400">Pots (30%)</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="size-2 rounded-full bg-[#34d399]"></div>
+<span class="text-xs font-medium text-slate-600 dark:text-slate-400">Tools (15%)</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="size-2 rounded-full bg-slate-200"></div>
+<span class="text-xs font-medium text-slate-600 dark:text-slate-400">Other (10%)</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Traffic Sources -->
+<div class="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+<div class="p-6 border-b border-slate-100 dark:border-slate-800">
+<h4 class="font-bold text-slate-900 dark:text-white">Traffic Sources</h4>
+</div>
+<div class="p-6">
+<table class="w-full">
+<thead>
+<tr class="text-left border-b border-slate-100 dark:border-slate-800">
+<th class="pb-3 text-[10px] font-bold text-slate-400 uppercase tracking-wider">Source</th>
+<th class="pb-3 text-[10px] font-bold text-slate-400 uppercase tracking-wider text-right">Visits</th>
+<th class="pb-3 text-[10px] font-bold text-slate-400 uppercase tracking-wider text-right">Share</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-50 dark:divide-slate-800">
+<tr>
+<td class="py-4">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-slate-400 text-lg">language</span>
+<span class="text-sm font-medium">Direct</span>
+</div>
+</td>
+<td class="py-4 text-right text-sm font-bold">5,000</td>
+<td class="py-4 text-right">
+<div class="flex items-center justify-end gap-2">
+<span class="text-xs font-bold text-slate-700 dark:text-slate-300">40%</span>
+<div class="w-12 h-1.5 bg-slate-100 dark:bg-slate-700 rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[40%]"></div>
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="py-4">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-slate-400 text-lg">search</span>
+<span class="text-sm font-medium">Organic Search</span>
+</div>
+</td>
+<td class="py-4 text-right text-sm font-bold">4,375</td>
+<td class="py-4 text-right">
+<div class="flex items-center justify-end gap-2">
+<span class="text-xs font-bold text-slate-700 dark:text-slate-300">35%</span>
+<div class="w-12 h-1.5 bg-slate-100 dark:bg-slate-700 rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[35%]"></div>
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="py-4">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-slate-400 text-lg">hub</span>
+<span class="text-sm font-medium">Social Media</span>
+</div>
+</td>
+<td class="py-4 text-right text-sm font-bold">3,125</td>
+<td class="py-4 text-right">
+<div class="flex items-center justify-end gap-2">
+<span class="text-xs font-bold text-slate-700 dark:text-slate-300">25%</span>
+<div class="w-12 h-1.5 bg-slate-100 dark:bg-slate-700 rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[25%]"></div>
+</div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer -->
+<footer class="p-8 border-t border-slate-200 dark:border-slate-800 text-center">
+<p class="text-slate-400 text-xs">© 2023 Greenery Dropshipping Site. All reports are synced in real-time.</p>
+</footer>
+</main>
+</div>
+</body></html>
