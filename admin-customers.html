@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Greenery Store - Customer Management</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<base href="/ADMIN/">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0bda50",
+                        "background-light": "#f5f8f6",
+                        "background-dark": "#102216",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen">
+<div class="flex h-screen overflow-hidden">
+<!-- Sidebar Navigation -->
+<aside class="w-64 flex-shrink-0 bg-white dark:bg-slate-900 border-r border-primary/10 flex flex-col justify-between p-4">
+<div class="flex flex-col gap-8">
+<!-- Brand Logo -->
+<div class="flex items-center gap-3 px-2">
+<div class="bg-primary/20 p-2 rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-primary font-bold">eco</span>
+</div>
+<div class="flex flex-col">
+<h1 class="text-slate-900 dark:text-white text-base font-bold leading-none">Greenery</h1>
+<p class="text-primary text-xs font-medium">Admin Dashboard</p>
+</div>
+</div>
+<!-- Nav Links -->
+<nav class="flex flex-col gap-2">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-primary/10 transition-colors text-slate-600 dark:text-slate-400" href="admin-dashboard.html">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-sm font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-primary/10 transition-colors text-slate-600 dark:text-slate-400" href="admin-orders.html">
+<span class="material-symbols-outlined">shopping_bag</span>
+<span class="text-sm font-medium">Orders</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-primary/10 transition-colors text-slate-600 dark:text-slate-400" href="admin-products.html">
+<span class="material-symbols-outlined">potted_plant</span>
+<span class="text-sm font-medium">Products</span>
+</a>
+<!-- Active State -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-primary/10 text-primary border border-primary/20" href="admin-customers.html">
+<span class="material-symbols-outlined fill-1">group</span>
+<span class="text-sm font-bold">Customers</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-primary/10 transition-colors text-slate-600 dark:text-slate-400" href="admin-settings.html">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-sm font-medium">Settings</span>
+</a>
+</nav>
+</div>
+<!-- View Store Button -->
+<div class="pt-4 border-t border-primary/10">
+<a href="../CLIENTE/index.html" target="_blank">
+<button class="w-full flex items-center justify-center gap-2 rounded-lg py-2.5 bg-primary text-slate-900 text-sm font-bold hover:bg-primary/90 transition-all">
+<span class="material-symbols-outlined text-sm">open_in_new</span>
+<span>View Store</span>
+</button>
+</a>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col overflow-y-auto">
+<!-- Header Section -->
+<header class="p-8 pb-4">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+<div>
+<h2 class="text-3xl font-black tracking-tight text-slate-900 dark:text-white">Customer Management</h2>
+<p class="text-slate-500 text-sm mt-1">Manage your customer relationships and view order history.</p>
+</div>
+<button class="inline-flex items-center justify-center gap-2 px-6 h-11 bg-primary text-slate-900 font-bold rounded-lg hover:shadow-lg hover:shadow-primary/20 transition-all">
+<span class="material-symbols-outlined">person_add</span>
+<span>Add Customer</span>
+</button>
+</div>
+</header>
+<!-- Search and Filter Bar -->
+<div class="px-8 py-4">
+<div class="bg-white dark:bg-slate-900 p-2 rounded-xl border border-primary/10 flex flex-col md:flex-row gap-2 shadow-sm">
+<div class="relative flex-1">
+<div class="absolute inset-y-0 left-3 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-slate-400 text-xl">search</span>
+</div>
+<input class="w-full pl-10 pr-4 py-2 bg-transparent border-none focus:ring-0 text-sm placeholder:text-slate-400 text-slate-900 dark:text-white" placeholder="Search customers by name or email..." type="text"/>
+</div>
+<div class="flex items-center gap-2 px-2">
+<button class="flex items-center gap-2 px-4 py-2 rounded-lg bg-primary/5 hover:bg-primary/10 text-slate-600 dark:text-slate-400 text-xs font-bold transition-colors">
+<span class="material-symbols-outlined text-sm">filter_list</span>
+<span>Filter</span>
+</button>
+<button class="flex items-center gap-2 px-4 py-2 rounded-lg bg-primary/5 hover:bg-primary/10 text-slate-600 dark:text-slate-400 text-xs font-bold transition-colors">
+<span class="material-symbols-outlined text-sm">download</span>
+<span>Export</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Table Section -->
+<div class="px-8 py-2 flex-1">
+<div class="bg-white dark:bg-slate-900 rounded-xl border border-primary/10 overflow-hidden shadow-sm">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-primary/5 border-b border-primary/10">
+<th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500">Customer</th>
+<th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500">Email</th>
+<th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500">Total Orders</th>
+<th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500">Total Spent</th>
+<th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500">Status</th>
+<th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500 text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-primary/5">
+<!-- Row 1 -->
+<tr class="hover:bg-primary/[0.02] transition-colors group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-full bg-primary/10 flex-shrink-0 bg-cover bg-center border-2 border-primary/20" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuD_kZTN4-ENtikTK4GuI_AGVbEwN_b7A_YlDGyB-d_mlgP51_Qqs_4cclWrwQhH00HLaFtit4B25Npa3GyemTK4d4BEVZXFpr5x4x8w2ET7Hz_UOAKQ2aYWNWEirxuElLnZtFGyjYXN-40K4JBfT3n4Cfvh3vpA0XMOPLP8ENO54lStenPvmbGjyDflVZIDnJ4MUKLUhhPVy3OCOIeFyNNu5gpXn1YoDyUVywuMeIwytSLJuhBwp6933TKnB5-IdKw-oytNoRbU-TQ')"></div>
+<span class="text-sm font-semibold text-slate-900 dark:text-white">Alex Johnson</span>
+</div>
+</td>
+<td class="px-6 py-4 text-sm text-slate-600 dark:text-slate-400">alex.johnson@example.com</td>
+<td class="px-6 py-4 text-sm font-medium text-slate-900 dark:text-slate-100">12</td>
+<td class="px-6 py-4 text-sm font-bold text-primary">$450.00</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-primary/10 text-primary border border-primary/20">
+                                            Active
+                                        </span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">edit</span>
+</button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-primary/[0.02] transition-colors group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-full bg-primary/10 flex-shrink-0 bg-cover bg-center border-2 border-primary/20" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDNZYzOEAJkTHNZYXLITReQCNH2XOczcGec0tns-nJ13PnCitn02bWZOEeMTdrPXiPEhSPgEUxq5yoNJeszU11trYG2ei7wwdPqsbLUGVKee0n6peYotUE88wc2hG05X3MMkYbKooS7RKBo22-Vao_jEHyw9moIDGCfnul1usL0GVP4Fcs8iSbdcWk_USiPk23j9WhbJEFs61GlqsoA-q2lR3j93bUWOixIL2q0vxGAi_bdAF7WkowX6JcAvwN4BkfcjGsxWWdMXcI')"></div>
+<span class="text-sm font-semibold text-slate-900 dark:text-white">Sarah Miller</span>
+</div>
+</td>
+<td class="px-6 py-4 text-sm text-slate-600 dark:text-slate-400">smiller@webmail.com</td>
+<td class="px-6 py-4 text-sm font-medium text-slate-900 dark:text-slate-100">8</td>
+<td class="px-6 py-4 text-sm font-bold text-primary">$312.45</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-primary/10 text-primary border border-primary/20">
+                                            Active
+                                        </span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">edit</span>
+</button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-primary/[0.02] transition-colors group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-full bg-slate-200 dark:bg-slate-700 flex-shrink-0 bg-cover bg-center border-2 border-slate-300 dark:border-slate-600" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCdnrclQzYYG2j7fGB4HJ34Y2JsUqOY88g-YsyzuSqNQUQ-uoagpUnVXtVuTTzJ7-leGPsnus2VwQvfr11lfsXF4ARABFNMC1bWSXQinvxYx6DRHbnAuTFTiBEcKfGj4tcNgeITl4Jhtzv17lo0I9i8peEU2nbaLs5S8wq6WfdLN7TMo_LEPu0D0WPBuRA1pdROSaHGlH7_WihXpMdntVzHnk84skdwQ2gLrBL6h6pXN5AbKcE6RgsDvxwKvr7vN5HrugfBocAZVew')"></div>
+<span class="text-sm font-semibold text-slate-900 dark:text-white">Marcus Thorne</span>
+</div>
+</td>
+<td class="px-6 py-4 text-sm text-slate-600 dark:text-slate-400">m.thorne@services.com</td>
+<td class="px-6 py-4 text-sm font-medium text-slate-900 dark:text-slate-100">3</td>
+<td class="px-6 py-4 text-sm font-bold text-primary">$89.90</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 border border-slate-200 dark:border-slate-700">
+                                            Inactive
+                                        </span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">edit</span>
+</button>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-primary/[0.02] transition-colors group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-full bg-primary/10 flex-shrink-0 bg-cover bg-center border-2 border-primary/20" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuC7Hxn7XFc0gPvnc4Cb_kgQhi9Id2y3AQDvIRN3_xHUbGBG-o4tH40gnsEqKbNdIyb5z18gNmqARf0Gc3J6hBBKg4CtJDTVKXGP-8yQFBXCH3Rp5LjQNaCPXKdMB5lcTkLAGjqbcif9qJ_CFtMO7Ipd7aj6ng2uQ-i8vGBLKOBwD2dSefkheRryET0YLjNfacCnfN_fiUyyGx4AZI8ndlQi2k1a4bhlPlz6KENPFdWMs08UkOdJnqMGevXmTnqiggOrkX-XcaZxfsg')"></div>
+<span class="text-sm font-semibold text-slate-900 dark:text-white">Elena Rodriguez</span>
+</div>
+</td>
+<td class="px-6 py-4 text-sm text-slate-600 dark:text-slate-400">elena.rod@example.com</td>
+<td class="px-6 py-4 text-sm font-medium text-slate-900 dark:text-slate-100">24</td>
+<td class="px-6 py-4 text-sm font-bold text-primary">$1,250.00</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-primary/10 text-primary border border-primary/20">
+                                            Active
+                                        </span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">edit</span>
+</button>
+</td>
+</tr>
+<!-- Row 5 -->
+<tr class="hover:bg-primary/[0.02] transition-colors group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-full bg-primary/10 flex-shrink-0 bg-cover bg-center border-2 border-primary/20" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCJC2e9-1RU5O1ev464q-14pyouIta8ROkM2qmvnsf4nZdP5VATXfuda26Ik46fKWC7WaVjqQSTZx3qn0y8MuSZB2oAKoBV-Cv37BPKQVQul_84ZcKyI529B7lFXwjSnxL7pAzwCtKkBWDfzOLV6nMXcSs8jeK9qwjsHO1HyE6-2NQDqk_3vTge5Jf-fJtQzoDlEmJifwca8gKk7CZwtgK5GP4pzknwhZN_yWPxNxtU_fZfBjmgf5FLWOFS1TWEqwxOcVgdfC53xHk')"></div>
+<span class="text-sm font-semibold text-slate-900 dark:text-white">Jamie Chen</span>
+</div>
+</td>
+<td class="px-6 py-4 text-sm text-slate-600 dark:text-slate-400">chen.jamie@design.io</td>
+<td class="px-6 py-4 text-sm font-medium text-slate-900 dark:text-slate-100">5</td>
+<td class="px-6 py-4 text-sm font-bold text-primary">$185.20</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-primary/10 text-primary border border-primary/20">
+                                            Active
+                                        </span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">edit</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination -->
+<div class="px-6 py-4 bg-primary/5 flex items-center justify-between border-t border-primary/10">
+<p class="text-sm text-slate-500">Showing <span class="font-bold text-slate-900 dark:text-white">1</span> to <span class="font-bold text-slate-900 dark:text-white">5</span> of <span class="font-bold text-slate-900 dark:text-white">48</span> results</p>
+<div class="flex gap-1">
+<button class="size-8 flex items-center justify-center rounded border border-primary/20 text-slate-400 hover:bg-primary/10 transition-colors">
+<span class="material-symbols-outlined text-lg">chevron_left</span>
+</button>
+<button class="size-8 flex items-center justify-center rounded bg-primary text-slate-900 text-sm font-bold">1</button>
+<button class="size-8 flex items-center justify-center rounded border border-primary/20 text-slate-600 dark:text-slate-400 text-sm font-medium hover:bg-primary/10 transition-colors">2</button>
+<button class="size-8 flex items-center justify-center rounded border border-primary/20 text-slate-600 dark:text-slate-400 text-sm font-medium hover:bg-primary/10 transition-colors">3</button>
+<button class="size-8 flex items-center justify-center rounded border border-primary/20 text-slate-400 hover:bg-primary/10 transition-colors">
+<span class="material-symbols-outlined text-lg">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer Decorative Element -->
+<footer class="p-8 text-center text-slate-400 text-xs mt-auto">
+                © 2024 Greenery Dropshipping Ltd. All Rights Reserved.
+            </footer>
+</main>
+</div>
+</body></html>
