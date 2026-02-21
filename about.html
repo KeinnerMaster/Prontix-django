@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Greenery - Nuestra Historia</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,0..1" />
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Manrope', sans-serif; background-color: #f5f8f6; color: #1e293b; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .text-primary { color: #0bda50; }
+        .bg-primary { background-color: #0bda50; }
+        .border-primary { border-color: #0bda50; }
+        .hover\:text-primary:hover { color: #0bda50; }
+        .hover\:bg-primary:hover { background-color: #0bda50; }
+    </style>
+</head>
+<body class="antialiased">
+    <!-- Header con menú hamburguesa -->
+    <header class="sticky top-0 z-50 bg-white shadow-sm border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <a href="index.html" class="flex items-center space-x-2">
+                    <span class="material-symbols-outlined text-3xl text-primary">potted_plant</span>
+                    <span class="text-xl font-bold text-gray-900">Greenery</span>
+                </a>
+
+                <!-- Menú escritorio -->
+                <nav class="hidden md:flex items-center space-x-8">
+                    <a href="index.html" class="text-gray-700 hover:text-primary transition">Inicio</a>
+                    <a href="product-detail.html" class="text-gray-700 hover:text-primary transition">Plantas</a>
+                    <a href="about.html" class="text-primary font-bold transition">Nosotros</a>
+                    <a href="contact.html" class="text-gray-700 hover:text-primary transition">Contacto</a>
+                    <a href="faq.html" class="text-gray-700 hover:text-primary transition">FAQ</a>
+                </nav>
+
+                <!-- Iconos y botón hamburguesa -->
+                <div class="flex items-center space-x-4">
+                    <a href="shopping-cart.html" class="relative p-2 text-gray-600 hover:text-primary">
+                        <span class="material-symbols-outlined">shopping_cart</span>
+                        <span class="absolute -top-1 -right-1 bg-primary text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">2</span>
+                    </a>
+                    <button id="menuBtn" class="md:hidden p-2 text-gray-600 hover:text-primary">
+                        <span class="material-symbols-outlined">menu</span>
+                    </button>
+                    <div class="hidden md:block w-10 h-10 rounded-full bg-gray-200 bg-cover bg-center" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDZUyveFYYQbPXKMsGGm-XewoonB8fhOHLvqzXgqlRaqXSzjqsqQ5YuMXJyBL_TWKBYuy1DIcHW6rg37-Km1rcUPv8g_DcFNb_3TP_dzkSPxTxlBxBCCW-02uQbGzEXrU-DM6BNeOmaA8nImcC6Xc2YgIbRRfYUL-eNCkLd6JLba9laQUeto9EZLcK_bdKZQTOUnDYUR0yTuLqlSpJcHQyrNPKKUyfoLaP78w2CWFQlI6vQcgnJE6_oLaDuUR6hcvKUfTUO7UBnqZU')"></div>
+                </div>
+            </div>
+
+            <!-- Menú móvil (SIN ADMIN) -->
+            <div id="mobileMenu" class="md:hidden hidden py-4 border-t border-gray-200">
+                <nav class="flex flex-col space-y-4">
+                    <a href="index.html" class="text-gray-700 hover:text-primary px-2 py-1">Inicio</a>
+                    <a href="product-detail.html" class="text-gray-700 hover:text-primary px-2 py-1">Plantas</a>
+                    <a href="about.html" class="text-primary font-bold px-2 py-1">Nosotros</a>
+                    <a href="contact.html" class="text-gray-700 hover:text-primary px-2 py-1">Contacto</a>
+                    <a href="faq.html" class="text-gray-700 hover:text-primary px-2 py-1">FAQ</a>
+                    <!-- ✅ ADMIN ELIMINADO -->
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Script menú hamburguesa -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuBtn = document.getElementById('menuBtn');
+            const mobileMenu = document.getElementById('mobileMenu');
+            if (menuBtn && mobileMenu) {
+                menuBtn.addEventListener('click', function() {
+                    mobileMenu.classList.toggle('hidden');
+                });
+                const mobileLinks = mobileMenu.querySelectorAll('a');
+                mobileLinks.forEach(link => {
+                    link.addEventListener('click', function() {
+                        mobileMenu.classList.add('hidden');
+                    });
+                });
+                document.addEventListener('click', function(event) {
+                    if (!menuBtn.contains(event.target) && !mobileMenu.contains(event.target)) {
+                        mobileMenu.classList.add('hidden');
+                    }
+                });
+            }
+        });
+    </script>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="relative h-[60vh] flex items-center justify-center overflow-hidden">
+            <div class="absolute inset-0 bg-cover bg-center" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)), url('https://lh3.googleusercontent.com/aida-public/AB6AXuCQxyOgO3FI2PgxUbl38WkXJvdNA0fXw6cA4mWFPJ_FvhxL5s9R_0tHeo9n8dqEgM3O43_o7GQDr0t9R47Mu-GCva5vQC6ihStqSkLSzHvX4Do0pV06W-ajrdHtUwbqeFfcADKGQ_OPhJnCyREhiwkjTaS7vTCzB04U3Vy0Eb6dzIyiO-reiWmaKoGQMFxkquOV-fElBcQpdhws6MVAPkHSMTO_gRVKRzvasjflqgxwC8sPBd0JObbhKHWbN6HU9xGALJGBcQyapl0');"></div>
+            <div class="relative z-10 text-center px-4 max-w-4xl">
+                <h1 class="text-white text-5xl md:text-7xl font-black mb-6">Nuestra Historia</h1>
+                <p class="text-white/90 text-lg md:text-xl max-w-2xl mx-auto">
+                    Llevando la naturaleza a los hogares, una planta a la vez.
+                </p>
+            </div>
+        </section>
+
+        <!-- Historia -->
+        <section class="py-20 px-6 bg-white">
+            <div class="max-w-6xl mx-auto">
+                <div class="grid lg:grid-cols-2 gap-16 items-center">
+                    <div>
+                        <h4 class="text-primary font-bold uppercase tracking-widest text-sm mb-4">Nuestros orígenes</h4>
+                        <h2 class="text-3xl md:text-5xl font-extrabold text-gray-900 mb-6">
+                            Una pasión nacida en un pequeño apartamento
+                        </h2>
+                        <div class="space-y-6 text-gray-600 text-lg">
+                            <p>Greenery comenzó con una simple creencia: todos merecen un toque de naturaleza en su hogar, sin importar su código postal o metros cuadrados.</p>
+                            <p>Lo que empezó como un proyecto personal de jardinería urbana en un pequeño estudio rápidamente creció. Nos dimos cuenta de que, aunque mucha gente quería plantas, la falta de conocimiento y las dificultades de transporte eran una barrera.</p>
+                            <p>Hoy conectamos amantes de las plantas directamente con los mejores cultivadores, asegurando que cada planta sea seleccionada por su salud y facilidad de cuidado.</p>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="aspect-square rounded-xl overflow-hidden shadow-2xl rotate-2">
+                            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuB5HBvkLuDLCJt0CV8T9FD4-BZHOL52JvJBi3iXBrHL3a7cd4CQtNw74D1GakumCotV3ImlyLvYXkxZIbFHVRij4zym8YbOt7QuNGY6cuFQZehbVgVYYfAso7TA_2KlfSBclgWozxfrgVNpDX03ukjCz9PNEC_7z7E3a-limrKEoWYxNPYeSOLvgIYH5_qKhNGiwdARhlTz7ltBYBQqjBC7HVPRQwmBWaRii35966cEoY6_745FvdpBl7jTmAHSAgrkaCB_ZsWz4ZU" alt="Fundador" class="w-full h-full object-cover">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Valores -->
+        <section class="py-20 px-6 bg-gray-50">
+            <div class="max-w-6xl mx-auto text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-black text-gray-900 mb-4">Nuestros valores</h2>
+                <p class="text-gray-600 max-w-xl mx-auto text-lg">
+                    Los principios que guían cada hoja que enviamos y cada consejo que damos.
+                </p>
+            </div>
+            <div class="max-w-6xl mx-auto grid md:grid-cols-3 gap-8">
+                <div class="bg-white p-8 rounded-xl border-t-4 border-primary shadow-sm">
+                    <div class="w-14 h-14 bg-primary/10 rounded-lg flex items-center justify-center text-primary mb-6">
+                        <span class="material-symbols-outlined text-3xl">language</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Sostenibilidad</h3>
+                    <p class="text-gray-600">Usamos empaques 100% biodegradables y trabajamos con cultivadores que priorizan prácticas orgánicas.</p>
+                </div>
+                <div class="bg-white p-8 rounded-xl border-t-4 border-primary shadow-sm">
+                    <div class="w-14 h-14 bg-primary/10 rounded-lg flex items-center justify-center text-primary mb-6">
+                        <span class="material-symbols-outlined text-3xl">psychology</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Guía experta</h3>
+                    <p class="text-gray-600">Cada planta incluye una guía de cuidado digital personalizada y soporte vitalicio.</p>
+                </div>
+                <div class="bg-white p-8 rounded-xl border-t-4 border-primary shadow-sm">
+                    <div class="w-14 h-14 bg-primary/10 rounded-lg flex items-center justify-center text-primary mb-6">
+                        <span class="material-symbols-outlined text-3xl">groups</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Comunidad</h3>
+                    <p class="text-gray-600">Organizamos talleres y donamos parte de las ganancias a la reforestación.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Compromiso -->
+        <section class="py-20 px-6 bg-white">
+            <div class="max-w-4xl mx-auto bg-gray-900 rounded-2xl p-8 md:p-16 text-center text-white relative overflow-hidden">
+                <div class="absolute top-0 right-0 -mr-20 -mt-20 w-64 h-64 bg-primary/20 rounded-full blur-3xl"></div>
+                <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-64 h-64 bg-primary/10 rounded-full blur-3xl"></div>
+                <span class="material-symbols-outlined text-primary text-5xl mb-6">verified</span>
+                <h2 class="text-3xl md:text-4xl font-black mb-6 relative z-10">Nuestro compromiso</h2>
+                <p class="text-lg md:text-xl text-gray-300 mb-8 relative z-10">
+                    Ofrecemos una <strong>garantía de 30 días</strong>. Si tu planta llega estresada o no prospera durante el primer mes, la reemplazamos gratis, sin preguntas.
+                </p>
+                <div class="flex flex-col md:flex-row justify-center items-center gap-8 relative z-10">
+                    <div class="text-center">
+                        <div class="text-3xl font-black text-primary">50k+</div>
+                        <div class="text-sm uppercase tracking-widest font-bold">Hogares felices</div>
+                    </div>
+                    <div class="w-px h-12 bg-white/20 hidden md:block"></div>
+                    <div class="text-center">
+                        <div class="text-3xl font-black text-primary">98%</div>
+                        <div class="text-sm uppercase tracking-widest font-bold">Entregas exitosas</div>
+                    </div>
+                    <div class="w-px h-12 bg-white/20 hidden md:block"></div>
+                    <div class="text-center">
+                        <div class="text-3xl font-black text-primary">120+</div>
+                        <div class="text-sm uppercase tracking-widest font-bold">Especies</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-400 py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-4">
+                        <span class="material-symbols-outlined text-primary text-3xl">potted_plant</span>
+                        <span class="text-xl font-bold text-white">Greenery</span>
+                    </div>
+                    <p class="text-sm">Plantas premium, cultivadas éticamente y entregadas a tu puerta.</p>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4">Explorar</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="product-detail.html" class="hover:text-primary">Plantas</a></li>
+                        <li><a href="about.html" class="hover:text-primary">Nosotros</a></li>
+                        <li><a href="contact.html" class="hover:text-primary">Contacto</a></li>
+                        <li><a href="faq.html" class="hover:text-primary">FAQ</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4">Soporte</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="faq.html" class="hover:text-primary">Envíos</a></li>
+                        <li><a href="faq.html" class="hover:text-primary">Devoluciones</a></li>
+                        <li><a href="contact.html" class="hover:text-primary">Contacto</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4">Newsletter</h4>
+                    <p class="text-sm mb-4">Recibe consejos y ofertas</p>
+                    <form class="flex">
+                        <input type="email" placeholder="Tu email" class="flex-1 px-4 py-2 rounded-l-lg bg-gray-800 border-none text-white text-sm">
+                        <button type="submit" class="bg-primary text-white px-4 py-2 rounded-r-lg hover:bg-primary/90">
+                            <span class="material-symbols-outlined text-sm">send</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-12 pt-8 text-center text-sm">
+                <p>© 2024 Greenery. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
