@@ -1,2 +1,1 @@
-release: python manage.py collectstatic --noinput && python manage.py migrate
-web: gunicorn greenery_project.wsgi --log-file -
+web: python manage.py collectstatic --noinput && python manage.py migrate && gunicorn greenery_project.wsgi --log-file -
