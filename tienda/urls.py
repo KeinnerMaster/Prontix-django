@@ -1,10 +1,14 @@
-"""
-URL configuration for greenery_project project.
-"""
-from django.contrib import admin
-from django.urls import path, include
+from django.urls import path
+from . import views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('tienda.urls')),
+    path('', views.index, name='index'),
+    path('about/', views.about, name='about'),
+    path('contact/', views.contact, name='contact'),
+    path('faq/', views.faq, name='faq'),
+    path('privacy/', views.privacy, name='privacy'),
+    path('producto/<slug:slug>/', views.producto_detalle, name='producto_detalle'),
+    path('carrito/', views.cart, name='cart'),
+    path('checkout/', views.checkout, name='checkout'),
+    path('confirmado/', views.order_confirmed, name='order_confirmed'),
 ]
