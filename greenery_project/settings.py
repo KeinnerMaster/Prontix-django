@@ -18,7 +18,9 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'cloudinary_storage',
     'django.contrib.staticfiles',
+    'cloudinary',
     'tienda',        # Tu app para la tienda pública
     'admin_panel',   # Tu app para el panel de administración personalizado
 ]
@@ -120,3 +122,11 @@ if 'RAILWAY_ENVIRONMENT' in os.environ:
     # Necesario para que Django confíe en peticiones POST (login, admin, formularios)
     # que llegan por HTTPS a través del dominio de Railway
     CSRF_TRUSTED_ORIGINS = ['https://*.up.railway.app']
+
+    # Configuración de Cloudinary para media files
+    CLOUDINARY_STORAGE = {
+        'CLOUD_NAME': os.environ.get('CLOUDINARY_CLOUD_NAME'),
+        'API_KEY': os.environ.get('CLOUDINARY_API_KEY'),
+        'API_SECRET': os.environ.get('CLOUDINARY_API_SECRET'),
+    }
+    DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
