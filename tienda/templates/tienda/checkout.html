@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -24,12 +24,12 @@
     <header class="sticky top-0 z-50 bg-white shadow-sm border-b border-gray-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-20">
-                <a href="index.html" class="flex items-center space-x-2">
+                <a href="{% url 'index' %}" class="flex items-center space-x-2">
                     <span class="material-symbols-outlined text-3xl text-primary">potted_plant</span>
                     <span class="text-xl font-bold text-gray-900">Greenery</span>
                 </a>
                 <div class="flex items-center space-x-4">
-                    <a href="shopping-cart.html" class="p-2 text-gray-600 hover:text-primary">
+                    <a href="{% url 'cart' %}" class="p-2 text-gray-600 hover:text-primary">
                         <span class="material-symbols-outlined">shopping_cart</span>
                     </a>
                     <button id="menuBtn" class="md:hidden p-2 text-gray-600 hover:text-primary">
@@ -162,11 +162,11 @@
 
                 <!-- Botones de navegación -->
                 <div class="flex justify-between pt-4">
-                    <a href="shopping-cart.html" class="flex items-center gap-2 text-gray-500 hover:text-primary">
+                    <a href="{% url 'cart' %}" class="flex items-center gap-2 text-gray-500 hover:text-primary">
                         <span class="material-symbols-outlined">arrow_back</span>
                         Volver al carrito
                     </a>
-                    <a href="order-confirmed.html">
+                    <a href="{% url 'order_confirmed' %}">
                         <button class="bg-primary text-white font-bold px-8 py-4 rounded-xl hover:bg-primary/90 transition shadow-lg shadow-primary/20">
                             Completar pedido
                         </button>
@@ -250,7 +250,7 @@
 
         <!-- Botón flotante para móvil -->
         <div class="lg:hidden fixed bottom-0 left-0 right-0 p-4 bg-white border-t border-gray-200 z-50">
-            <a href="order-confirmed.html">
+            <a href="{% url 'order_confirmed' %}">
                 <button class="w-full bg-primary text-white font-bold py-4 rounded-xl shadow-lg">
                     Pagar $75.60
                 </button>
@@ -266,3 +266,4 @@
     </footer>
 </body>
 </html>
+

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -24,19 +24,19 @@
     <header class="sticky top-0 z-50 bg-white shadow-sm border-b border-gray-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-20">
-                <a href="index.html" class="flex items-center space-x-2">
+                <a href="{% url 'index' %}" class="flex items-center space-x-2">
                     <span class="material-symbols-outlined text-3xl text-primary">potted_plant</span>
                     <span class="text-xl font-bold text-gray-900">Greenery</span>
                 </a>
                 <nav class="hidden md:flex items-center space-x-8">
-                    <a href="index.html" class="text-gray-700 hover:text-primary">Inicio</a>
-                    <a href="product-detail.html" class="text-primary font-bold">Plantas</a>
-                    <a href="about.html" class="text-gray-700 hover:text-primary">Nosotros</a>
-                    <a href="contact.html" class="text-gray-700 hover:text-primary">Contacto</a>
-                    <a href="faq.html" class="text-gray-700 hover:text-primary">FAQ</a>
+                    <a href="{% url 'index' %}" class="text-gray-700 hover:text-primary">Inicio</a>
+                    <a href="{% url 'index' %}" class="text-primary font-bold">Plantas</a>
+                    <a href="{% url 'about' %}" class="text-gray-700 hover:text-primary">Nosotros</a>
+                    <a href="{% url 'contact' %}" class="text-gray-700 hover:text-primary">Contacto</a>
+                    <a href="{% url 'faq' %}" class="text-gray-700 hover:text-primary">FAQ</a>
                 </nav>
                 <div class="flex items-center space-x-4">
-                    <a href="shopping-cart.html" class="relative p-2 text-gray-600 hover:text-primary">
+                    <a href="{% url 'cart' %}" class="relative p-2 text-gray-600 hover:text-primary">
                         <span class="material-symbols-outlined">shopping_cart</span>
                         <span class="absolute -top-1 -right-1 bg-primary text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">2</span>
                     </a>
@@ -49,11 +49,11 @@
             <!-- Menú móvil -->
             <div id="mobileMenu" class="md:hidden hidden py-4 border-t border-gray-200">
                 <nav class="flex flex-col space-y-4">
-                    <a href="index.html" class="text-gray-700 hover:text-primary px-2 py-1">Inicio</a>
-                    <a href="product-detail.html" class="text-primary font-bold px-2 py-1">Plantas</a>
-                    <a href="about.html" class="text-gray-700 hover:text-primary px-2 py-1">Nosotros</a>
-                    <a href="contact.html" class="text-gray-700 hover:text-primary px-2 py-1">Contacto</a>
-                    <a href="faq.html" class="text-gray-700 hover:text-primary px-2 py-1">FAQ</a>
+                    <a href="{% url 'index' %}" class="text-gray-700 hover:text-primary px-2 py-1">Inicio</a>
+                    <a href="{% url 'index' %}" class="text-primary font-bold px-2 py-1">Plantas</a>
+                    <a href="{% url 'about' %}" class="text-gray-700 hover:text-primary px-2 py-1">Nosotros</a>
+                    <a href="{% url 'contact' %}" class="text-gray-700 hover:text-primary px-2 py-1">Contacto</a>
+                    <a href="{% url 'faq' %}" class="text-gray-700 hover:text-primary px-2 py-1">FAQ</a>
                 </nav>
             </div>
         </div>
@@ -86,9 +86,9 @@
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <!-- Breadcrumbs -->
         <nav class="flex items-center gap-2 text-sm text-gray-500 mb-8">
-            <a href="index.html" class="hover:text-primary">Inicio</a>
+            <a href="{% url 'index' %}" class="hover:text-primary">Inicio</a>
             <span class="material-symbols-outlined text-xs">chevron_right</span>
-            <a href="index.html" class="hover:text-primary">Plantas</a>
+            <a href="{% url 'index' %}" class="hover:text-primary">Plantas</a>
             <span class="material-symbols-outlined text-xs">chevron_right</span>
             <span class="text-gray-900 font-medium">Monstera Deliciosa</span>
         </nav>
@@ -135,7 +135,7 @@
                             <span class="material-symbols-outlined">add</span>
                         </button>
                     </div>
-                    <a href="shopping-cart.html" class="flex-1">
+                    <a href="{% url 'cart' %}" class="flex-1">
                         <button class="w-full bg-primary text-white font-bold py-3 rounded-lg hover:bg-primary/90 transition shadow-lg shadow-primary/20">
                             Añadir al carrito
                         </button>
@@ -188,11 +188,11 @@
         <section class="mt-24">
             <div class="flex justify-between items-center mb-8">
                 <h2 class="text-2xl font-bold text-gray-900">Productos relacionados</h2>
-                <a href="index.html" class="text-primary font-semibold hover:underline">Ver todos →</a>
+                <a href="{% url 'index' %}" class="text-primary font-semibold hover:underline">Ver todos →</a>
             </div>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
                 <!-- Relacionado 1 -->
-                <a href="product-detail.html" class="group">
+                <a href="{% url 'index' %}" class="group">
                     <div class="aspect-square rounded-xl overflow-hidden bg-gray-100 mb-3">
                         <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuAdaDTQZnEP3p9bRS3UQE_DfeaWp8vf6PAMK2NPpONyBTmPHWv5lHLI_apQRe2z1QYaO0E5_EJqzKAUsCl6k1zVOpNL5bpfof8zNIgY8NeOorpQsTcUEmmq9F7Z9fj4cdLM3l1F3yin6aGD79__JjNmyTuiI_vECxNjg0lWCSQBFdfKW4HxeUr_Cm9JVD1cGAtoWHCr9e9jsLfRf3wClfc9RkERuqPVsjLIwMzYMKsBIDgZyZCyNmBEsoPjkVFraED0WRjoRRstoBk" alt="Sansevieria" class="w-full h-full object-cover group-hover:scale-110 transition">
                     </div>
@@ -200,7 +200,7 @@
                     <p class="text-primary font-semibold">$25.00</p>
                 </a>
                 <!-- Relacionado 2 -->
-                <a href="product-detail.html" class="group">
+                <a href="{% url 'index' %}" class="group">
                     <div class="aspect-square rounded-xl overflow-hidden bg-gray-100 mb-3">
                         <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDlRFK-R-mDgGnClbKFAwH0DEw8fKl9ikkSHEHlFKtBACcBKVptlwcpJ_jcYZpgx3vM8wE-RYC_BBKZ1k66VN4Okl1DbnPAvwpNxy_d7sbfScpbtXcyplcMfwpatDFizAqohvdKs4WgHI30v1Euir-2uGWXOp643RvX5lwKz_XdPQkli_GN7VpObhIZVb710D3f2L0nbvxMbct4cEs4xyrE-iwj7UUjfnqOPmcWS_mrVjENoJdGlx9FOU_rHhovqUbu47fePywtBIw" alt="Pothos" class="w-full h-full object-cover group-hover:scale-110 transition">
                     </div>
@@ -208,7 +208,7 @@
                     <p class="text-primary font-semibold">$18.00</p>
                 </a>
                 <!-- Relacionado 3 -->
-                <a href="product-detail.html" class="group">
+                <a href="{% url 'index' %}" class="group">
                     <div class="aspect-square rounded-xl overflow-hidden bg-gray-100 mb-3">
                         <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuD9ci00fJxKkWDjXnGFcTMQNanovjZ7Ppo6IHj7Gx-SQnm_4HpPl66-6XVa2DFOqm_YqiCPRrlEZc5JqoImDhmM6_BIJAY4Q-6KgvhWZwKsumRM-PFUpJ0el9Z7lvsexU2u8wXw6uNt4mwKM86TR78tErpUT_RS_x--5dH03ZrtmQM23EYSh8OflqOOxV-xN4_ucCLTV0xIWY3XHuw5qYSvuz6PjeK0NldvziDAUhoNkDUqssAGDsXXFxJD6VUaSovi12W5V2Jr3c8" alt="Ficus" class="w-full h-full object-cover group-hover:scale-110 transition">
                     </div>
@@ -216,7 +216,7 @@
                     <p class="text-primary font-semibold">$55.00</p>
                 </a>
                 <!-- Relacionado 4 -->
-                <a href="product-detail.html" class="group">
+                <a href="{% url 'index' %}" class="group">
                     <div class="aspect-square rounded-xl overflow-hidden bg-gray-100 mb-3">
                         <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuB8KIjvftF7RwgC8rJS9kYkzJDdl7Rlxj0mnDX2oi5GpOwXy7MFWE88C2OZi5BGEKo8IO7tjrNSzNk5sFXgMZa3-2yrIufml5QOqTFp6FiKwY9c9rNxH0bVjoJjfgCpknchhwHYc7SXgnb5m7K0ruTVG_O7P3VBWUdEj23_ny67Hy0ou5_j1UgqgRwj4J9rTJK7kDIE2rOUiaDUlAtq_yIGm-zclYnG4VPd1ihrQS7wemRyN3E9OZa-Rwh60PQlJDU-JSvMoP-D4Y8" alt="Ficus Elástica" class="w-full h-full object-cover group-hover:scale-110 transition">
                     </div>
@@ -241,17 +241,17 @@
                 <div>
                     <h4 class="text-white font-bold mb-4">Explorar</h4>
                     <ul class="space-y-2 text-sm">
-                        <li><a href="product-detail.html" class="hover:text-primary">Plantas</a></li>
-                        <li><a href="about.html" class="hover:text-primary">Nosotros</a></li>
-                        <li><a href="contact.html" class="hover:text-primary">Contacto</a></li>
+                        <li><a href="{% url 'index' %}" class="hover:text-primary">Plantas</a></li>
+                        <li><a href="{% url 'about' %}" class="hover:text-primary">Nosotros</a></li>
+                        <li><a href="{% url 'contact' %}" class="hover:text-primary">Contacto</a></li>
                     </ul>
                 </div>
                 <div>
                     <h4 class="text-white font-bold mb-4">Soporte</h4>
                     <ul class="space-y-2 text-sm">
-                        <li><a href="faq.html" class="hover:text-primary">Envíos</a></li>
-                        <li><a href="faq.html" class="hover:text-primary">Devoluciones</a></li>
-                        <li><a href="contact.html" class="hover:text-primary">Contacto</a></li>
+                        <li><a href="{% url 'faq' %}" class="hover:text-primary">Envíos</a></li>
+                        <li><a href="{% url 'faq' %}" class="hover:text-primary">Devoluciones</a></li>
+                        <li><a href="{% url 'contact' %}" class="hover:text-primary">Contacto</a></li>
                     </ul>
                 </div>
                 <div>
