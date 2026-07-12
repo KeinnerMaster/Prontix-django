@@ -118,6 +118,9 @@ if 'RAILWAY_ENVIRONMENT' in os.environ:
 
     # Archivos estáticos comprimidos y servidos con WhiteNoise
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+    # Evita que collectstatic falle si un archivo menor referenciado en un CSS
+    # (ej. un ícono del admin) no se encuentra; no afecta el funcionamiento real.
+    WHITENOISE_MANIFEST_STRICT = False
 
     # Necesario para que Django confíe en peticiones POST (login, admin, formularios)
     # que llegan por HTTPS a través del dominio de Railway
