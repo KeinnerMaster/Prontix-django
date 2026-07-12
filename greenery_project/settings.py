@@ -17,12 +17,12 @@ INSTALLED_APPS = [
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
+    'django.contrib.staticfiles',
     'django.contrib.messages',
     'cloudinary_storage',
-    'django.contrib.staticfiles',
     'cloudinary',
-    'tienda',        # Tu app para la tienda pública
-    'admin_panel',   # Tu app para el panel de administración personalizado
+    'tienda',
+    'admin_panel',
 ]
 
 MIDDLEWARE = [
