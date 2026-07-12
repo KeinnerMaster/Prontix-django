@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from .models import Producto
+from .models import Producto, Categoria
 
 def index(request):
     productos_destacados = Producto.objects.filter(destacado=True, activo=True)[:4]
@@ -37,3 +37,18 @@ def checkout(request):
 
 def order_confirmed(request):
     return render(request, 'tienda/order-confirmed.html')
+
+def catalogo(request):
+    productos = Producto.objects.filter(activo=True)
+    categorias = Categoria.objects.all()
+
+    categoria_slug = request.GET.get('categoria')
+    if categoria_slug:
+        productos = productos.filter(categoria__slug=categoria_slug)
+
+    context = {
+        'productos': productos,
+        'categorias': categorias,
+        'categoria_activa': categoria_slug,
+    }
+    return render(request, 'tienda/catalogo.html', context)
