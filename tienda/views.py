@@ -15,7 +15,7 @@ def producto_detalle(request, slug):
         'producto': producto,
         'relacionados': relacionados
     }
-    return render(request, 'tienda/producto_detalle.html', context)
+    return render(request, 'tienda/product-detail.html', context)
 
 def about(request):
     return render(request, 'tienda/about.html')
