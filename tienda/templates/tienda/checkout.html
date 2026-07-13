@@ -1,9 +1,9 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Greenery - Finalizar Compra</title>
+    <title>Greenery - Finalizar compra</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,0..1" />
@@ -14,13 +14,10 @@
         .text-primary { color: #0bda50; }
         .bg-primary { background-color: #0bda50; }
         .border-primary { border-color: #0bda50; }
-        .hover\:text-primary:hover { color: #0bda50; }
-        .hover\:bg-primary:hover { background-color: #0bda50; }
-        .step-active { color: #0bda50; border-color: #0bda50; }
+        input:focus, textarea:focus { outline: none; border-color: #0bda50; box-shadow: 0 0 0 2px rgba(11,218,80,0.15); }
     </style>
 </head>
 <body class="antialiased">
-    <!-- Header simplificado para checkout -->
     <header class="sticky top-0 z-50 bg-white shadow-sm border-b border-gray-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-20">
@@ -28,242 +25,93 @@
                     <span class="material-symbols-outlined text-3xl text-primary">potted_plant</span>
                     <span class="text-xl font-bold text-gray-900">Greenery</span>
                 </a>
-                <div class="flex items-center space-x-4">
-                    <a href="{% url 'cart' %}" class="p-2 text-gray-600 hover:text-primary">
-                        <span class="material-symbols-outlined">shopping_cart</span>
-                    </a>
-                    <button id="menuBtn" class="md:hidden p-2 text-gray-600 hover:text-primary">
-                        <span class="material-symbols-outlined">menu</span>
-                    </button>
-                </div>
+                <a href="{% url 'cart' %}" class="text-sm font-semibold text-gray-600 hover:text-primary">← Volver al carrito</a>
             </div>
         </div>
     </header>
 
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <!-- Stepper -->
-        <div class="flex items-center justify-center mb-12">
-            <div class="flex items-center">
-                <div class="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center font-bold">1</div>
-                <span class="ml-2 text-primary font-bold hidden sm:inline">Información</span>
-                <div class="w-16 h-0.5 bg-primary/20 mx-2"></div>
-            </div>
-            <div class="flex items-center">
-                <div class="w-8 h-8 rounded-full border-2 border-gray-300 text-gray-400 flex items-center justify-center font-bold">2</div>
-                <span class="ml-2 text-gray-500 hidden sm:inline">Envío</span>
-                <div class="w-16 h-0.5 bg-gray-200 mx-2"></div>
-            </div>
-            <div class="flex items-center">
-                <div class="w-8 h-8 rounded-full border-2 border-gray-300 text-gray-400 flex items-center justify-center font-bold">3</div>
-                <span class="ml-2 text-gray-500 hidden sm:inline">Pago</span>
-            </div>
-        </div>
+    <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <h1 class="text-4xl font-extrabold text-gray-900 mb-10">Finalizar compra</h1>
 
-        <div class="lg:flex lg:gap-12">
-            <!-- Formulario de checkout -->
-            <div class="lg:w-2/3 space-y-8">
-                <!-- Dirección de envío -->
-                <section>
-                    <h2 class="text-2xl font-bold text-gray-900 mb-6">Dirección de envío</h2>
+        <div class="grid lg:grid-cols-3 gap-10">
+            <!-- Formulario de datos -->
+            <div class="lg:col-span-2">
+                <form method="post" class="bg-white rounded-xl p-6 shadow-sm border border-gray-100 space-y-5">
+                    {% csrf_token %}
+
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-1">Nombre completo *</label>
+                        <input type="text" name="nombre" required
+                               class="w-full border border-gray-300 rounded-lg px-4 py-2.5">
+                    </div>
+
                     <div class="grid sm:grid-cols-2 gap-4">
-                        <div class="sm:col-span-2">
-                            <label class="block text-sm font-semibold text-gray-700 mb-2">Email</label>
-                            <input type="email" placeholder="tucorreo@ejemplo.com" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary outline-none">
-                        </div>
-                        <div class="sm:col-span-2">
-                            <label class="block text-sm font-semibold text-gray-700 mb-2">Nombre completo</label>
-                            <input type="text" placeholder="Tu nombre" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary outline-none">
-                        </div>
-                        <div class="sm:col-span-2">
-                            <label class="block text-sm font-semibold text-gray-700 mb-2">Dirección</label>
-                            <input type="text" placeholder="Calle y número" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary outline-none">
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-1">Email *</label>
+                            <input type="email" name="email" required
+                                   class="w-full border border-gray-300 rounded-lg px-4 py-2.5">
                         </div>
                         <div>
-                            <label class="block text-sm font-semibold text-gray-700 mb-2">Ciudad</label>
-                            <input type="text" placeholder="Ciudad" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary outline-none">
-                        </div>
-                        <div>
-                            <label class="block text-sm font-semibold text-gray-700 mb-2">Código postal</label>
-                            <input type="text" placeholder="C.P." class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary outline-none">
-                        </div>
-                        <div class="sm:col-span-2">
-                            <label class="block text-sm font-semibold text-gray-700 mb-2">País</label>
-                            <select class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary outline-none">
-                                <option>Estados Unidos</option>
-                                <option>México</option>
-                                <option>Canadá</option>
-                                <option>España</option>
-                            </select>
+                            <label class="block text-sm font-semibold text-gray-700 mb-1">Teléfono *</label>
+                            <input type="tel" name="telefono" required
+                                   class="w-full border border-gray-300 rounded-lg px-4 py-2.5">
                         </div>
                     </div>
-                </section>
 
-                <!-- Método de envío -->
-                <section>
-                    <h2 class="text-2xl font-bold text-gray-900 mb-6">Método de envío</h2>
-                    <div class="space-y-3">
-                        <label class="flex items-center p-4 border-2 border-primary bg-primary/5 rounded-xl cursor-pointer">
-                            <input type="radio" name="shipping" checked class="w-4 h-4 text-primary focus:ring-primary">
-                            <div class="ml-4 flex-1 flex justify-between">
-                                <div>
-                                    <p class="font-bold">Envío estándar</p>
-                                    <p class="text-sm text-gray-500">3-5 días hábiles</p>
-                                </div>
-                                <span class="font-bold text-primary">Gratis</span>
-                            </div>
-                        </label>
-                        <label class="flex items-center p-4 border-2 border-gray-200 rounded-xl cursor-pointer hover:border-primary/50">
-                            <input type="radio" name="shipping" class="w-4 h-4 text-primary focus:ring-primary">
-                            <div class="ml-4 flex-1 flex justify-between">
-                                <div>
-                                    <p class="font-bold">Envío exprés</p>
-                                    <p class="text-sm text-gray-500">1-2 días hábiles</p>
-                                </div>
-                                <span class="font-bold">$15.00</span>
-                            </div>
-                        </label>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-1">Dirección de envío *</label>
+                        <input type="text" name="direccion" required placeholder="Calle, número, colonia/barrio"
+                               class="w-full border border-gray-300 rounded-lg px-4 py-2.5">
                     </div>
-                </section>
 
-                <!-- Método de pago -->
-                <section>
-                    <h2 class="text-2xl font-bold text-gray-900 mb-6">Método de pago</h2>
-                    <div class="bg-white border border-gray-200 rounded-xl overflow-hidden">
-                        <div class="p-4 border-b border-gray-200 bg-gray-50">
-                            <label class="flex items-center gap-3">
-                                <input type="radio" name="payment" checked class="w-4 h-4 text-primary">
-                                <span class="font-bold">Tarjeta de crédito/débito</span>
-                            </label>
-                        </div>
-                        <div class="p-6 space-y-4">
-                            <div>
-                                <label class="block text-sm font-semibold text-gray-700 mb-2">Número de tarjeta</label>
-                                <input type="text" placeholder="0000 0000 0000 0000" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary outline-none">
-                            </div>
-                            <div class="grid grid-cols-2 gap-4">
-                                <div>
-                                    <label class="block text-sm font-semibold text-gray-700 mb-2">Fecha de expiración</label>
-                                    <input type="text" placeholder="MM/AA" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary outline-none">
-                                </div>
-                                <div>
-                                    <label class="block text-sm font-semibold text-gray-700 mb-2">CVV</label>
-                                    <input type="text" placeholder="123" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary outline-none">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="p-4 border-t border-gray-200 hover:bg-gray-50 cursor-pointer">
-                            <label class="flex items-center gap-3">
-                                <input type="radio" name="payment" class="w-4 h-4 text-primary">
-                                <span class="font-bold">PayPal</span>
-                            </label>
-                        </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-1">Ciudad *</label>
+                        <input type="text" name="ciudad" required
+                               class="w-full border border-gray-300 rounded-lg px-4 py-2.5">
                     </div>
-                </section>
 
-                <!-- Botones de navegación -->
-                <div class="flex justify-between pt-4">
-                    <a href="{% url 'cart' %}" class="flex items-center gap-2 text-gray-500 hover:text-primary">
-                        <span class="material-symbols-outlined">arrow_back</span>
-                        Volver al carrito
-                    </a>
-                    <a href="{% url 'order_confirmed' %}">
-                        <button class="bg-primary text-white font-bold px-8 py-4 rounded-xl hover:bg-primary/90 transition shadow-lg shadow-primary/20">
-                            Completar pedido
-                        </button>
-                    </a>
-                </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-1">Notas adicionales (opcional)</label>
+                        <textarea name="notas" rows="3" placeholder="Referencias de entrega, horario preferido, etc."
+                                  class="w-full border border-gray-300 rounded-lg px-4 py-2.5"></textarea>
+                    </div>
+
+                    <div class="bg-primary/5 border border-primary/20 rounded-lg p-4 text-sm text-gray-600">
+                        <span class="material-symbols-outlined text-primary text-base align-middle mr-1">info</span>
+                        Al confirmar tu pedido, nos pondremos en contacto contigo para coordinar el pago y la entrega.
+                    </div>
+
+                    <button type="submit" class="w-full bg-primary text-white font-bold py-4 rounded-lg hover:bg-primary/90 transition">
+                        Confirmar pedido
+                    </button>
+                </form>
             </div>
 
-            <!-- Resumen del pedido (sticky) -->
-            <div class="lg:w-1/3 mt-8 lg:mt-0">
-                <div class="bg-white rounded-2xl p-6 border border-gray-200 sticky top-24">
-                    <h2 class="text-xl font-bold text-gray-900 mb-6">Tu pedido</h2>
-                    
-                    <!-- Productos -->
-                    <div class="space-y-4 mb-6">
-                        <div class="flex gap-4">
-                            <div class="w-16 h-16 rounded-lg bg-gray-100 overflow-hidden">
-                                <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuB-H3BGNwRarU8VC544vRGLIr6Jy35z6iOztEmj3KRaJ2VohXEYNd0cTWLo5r9uBontTv1KFMAokM4-fDCDq55bl5hnvc78PAlMXikOq32vg5PQJKtCgMPCxHo6R7GRwrlYlUcqenB7Le78eTTSyEYK4DFY_JCzkzzjf8MVUC3t2SndLDaTYmbVT7K8QaQSECLsSFx7LeMVMmfk7k-yuFtngTxPgdVip68y1yyZWhgeqZl_iOAiwvcPgjUq-Oo1FJ9d1SMWY1IW9AI" alt="Monstera" class="w-full h-full object-cover">
-                            </div>
-                            <div class="flex-1">
-                                <p class="font-bold text-gray-900">Monstera Deliciosa</p>
-                                <p class="text-sm text-gray-500">Cantidad: 1</p>
-                            </div>
-                            <span class="font-bold">$45.00</span>
+            <!-- Resumen del pedido -->
+            <div class="lg:col-span-1">
+                <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100 sticky top-24">
+                    <h2 class="font-bold text-gray-900 mb-4">Resumen del pedido</h2>
+                    <div class="space-y-3 mb-4">
+                        {% for item in carrito %}
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-600">{{ item.cantidad }}x {{ item.producto.nombre }}</span>
+                            <span class="font-semibold text-gray-900">${{ item.subtotal }}</span>
                         </div>
-                        <div class="flex gap-4">
-                            <div class="w-16 h-16 rounded-lg bg-gray-100 overflow-hidden">
-                                <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuB4vvFvQUwe88SqZ6xBVnNISxCmZyt3UKxT6Q3L9fI2DS6kPVMM8OCTGIXNXIE2PjL-zW_Z9UjJ433_MeCPvVDhU5TBHixi8blCW884ZCnHTyGMjDZ843NWc__gk4uZX3N2Uifw_mPIGWLYdXCLV83Th_oXtDnWiqDVacx5-bcd3LnJy8V7uCNHReSgT1S87fxm9Lfh8lXSIGcXI-LHe6jMJa5OAJXDEmTV4-D2RdvE3W8WuGEiE8evdn1OzxP8lfPv6g6bnGE8LvY" alt="Sansevieria" class="w-full h-full object-cover">
-                            </div>
-                            <div class="flex-1">
-                                <p class="font-bold text-gray-900">Sansevieria</p>
-                                <p class="text-sm text-gray-500">Cantidad: 1</p>
-                            </div>
-                            <span class="font-bold">$25.00</span>
-                        </div>
+                        {% endfor %}
                     </div>
-
-                    <!-- Cupón -->
-                    <div class="flex gap-2 mb-6">
-                        <input type="text" placeholder="Código de descuento" class="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none text-sm">
-                        <button class="px-4 py-2 bg-gray-100 text-gray-700 font-semibold rounded-lg hover:bg-gray-200">Aplicar</button>
-                    </div>
-
-                    <!-- Totales -->
-                    <div class="space-y-3 border-t border-gray-200 pt-6">
-                        <div class="flex justify-between text-gray-600">
-                            <span>Subtotal</span>
-                            <span class="font-semibold">$70.00</span>
-                        </div>
-                        <div class="flex justify-between text-gray-600">
-                            <span>Envío</span>
-                            <span class="font-semibold text-primary">GRATIS</span>
-                        </div>
-                        <div class="flex justify-between text-gray-600">
-                            <span>Impuestos estimados</span>
-                            <span class="font-semibold">$5.60</span>
-                        </div>
-                        <div class="flex justify-between items-center border-t border-gray-200 pt-4">
-                            <span class="font-bold">Total</span>
-                            <span class="text-3xl font-bold text-primary">$75.60</span>
-                        </div>
-                    </div>
-
-                    <!-- Sellos de confianza -->
-                    <div class="mt-6 grid grid-cols-3 gap-2 text-center text-[10px] text-gray-500">
-                        <div>
-                            <span class="material-symbols-outlined text-primary block mb-1">lock</span>
-                            Pago seguro
-                        </div>
-                        <div>
-                            <span class="material-symbols-outlined text-primary block mb-1">local_shipping</span>
-                            Envío ecológico
-                        </div>
-                        <div>
-                            <span class="material-symbols-outlined text-primary block mb-1">eco</span>
-                            Cultivo sostenible
-                        </div>
+                    <div class="border-t border-gray-200 pt-4 flex justify-between items-center">
+                        <span class="font-bold text-gray-900">Total</span>
+                        <span class="font-extrabold text-primary text-xl">${{ carrito.total }}</span>
                     </div>
                 </div>
             </div>
-        </div>
-
-        <!-- Botón flotante para móvil -->
-        <div class="lg:hidden fixed bottom-0 left-0 right-0 p-4 bg-white border-t border-gray-200 z-50">
-            <a href="{% url 'order_confirmed' %}">
-                <button class="w-full bg-primary text-white font-bold py-4 rounded-xl shadow-lg">
-                    Pagar $75.60
-                </button>
-            </a>
         </div>
     </main>
 
-    <!-- Footer simplificado -->
-    <footer class="bg-gray-900 text-gray-400 py-12 mt-12">
-        <div class="max-w-7xl mx-auto px-4 text-center text-sm">
+    <footer class="bg-gray-900 text-gray-400 py-12 mt-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-sm">
             <p>© 2024 Greenery. Todos los derechos reservados.</p>
         </div>
     </footer>
 </body>
 </html>
-
