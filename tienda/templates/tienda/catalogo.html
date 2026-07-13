@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -27,11 +27,11 @@
                     <img src="https://res.cloudinary.com/nck1eugv/image/upload/e_trim/v1783978936/ChatGPT_Image_13_jul_2026_18_41_21_d5078b.png" alt="Prontix" class="h-10">
                 </a>
                 <nav class="hidden md:flex items-center space-x-8">
-                    <a href="{% url 'index' %}" class="text-gray-700 hover:text-primary transition">Início</a>
-                    <a href="{% url 'index' %}" class="text-gray-700 hover:text-primary transition">Produtos</a>
-                    <a href="{% url 'about' %}" class="text-primary font-bold transition">Sobre Nós</a>
-                    <a href="{% url 'contact' %}" class="text-gray-700 hover:text-primary transition">Contato</a>
-                    <a href="{% url 'faq' %}" class="text-gray-700 hover:text-primary transition">FAQ</a>
+                    <a href="{% url 'index' %}" class="text-gray-700 hover:text-primary">Inicio</a>
+                    <a href="{% url 'catalogo' %}" class="text-primary font-bold">Productos</a>
+                    <a href="{% url 'about' %}" class="text-gray-700 hover:text-primary">Nosotros</a>
+                    <a href="{% url 'contact' %}" class="text-gray-700 hover:text-primary">Contacto</a>
+                    <a href="{% url 'faq' %}" class="text-gray-700 hover:text-primary">FAQ</a>
                 </nav>
                 <div class="flex items-center space-x-4">
                     <a href="{% url 'cart' %}" class="relative p-2 text-gray-600 hover:text-primary">
@@ -121,7 +121,7 @@
         {% endif %}
     </main>
 
-   <!-- Footer -->
+    <!-- Footer -->
     <footer class="bg-gray-900 pt-20 pb-10 text-gray-400">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
