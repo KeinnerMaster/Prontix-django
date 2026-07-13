@@ -1,5 +1,7 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib import messages
 from .models import Producto, Categoria
+from .cart import Cart
 
 def index(request):
     productos_destacados = Producto.objects.filter(destacado=True, activo=True)[:4]
@@ -30,7 +32,34 @@ def privacy(request):
     return render(request, 'tienda/privacy-policy.html')
 
 def cart(request):
-    return render(request, 'tienda/shopping-cart.html')
+    carrito = Cart(request)
+    context = {
+        'carrito': carrito,
+    }
+    return render(request, 'tienda/shopping-cart.html', context)
+
+
+def add_to_cart(request, producto_id):
+    producto = get_object_or_404(Producto, id=producto_id, activo=True)
+    cantidad = int(request.POST.get('cantidad', 1))
+    carrito = Cart(request)
+    carrito.agregar(producto, cantidad)
+    messages.success(request, f'{producto.nombre} añadido al carrito.')
+    return redirect('cart')
+
+
+def update_cart_item(request, producto_id):
+    cantidad = int(request.POST.get('cantidad', 1))
+    carrito = Cart(request)
+    carrito.actualizar_cantidad(producto_id, cantidad)
+    return redirect('cart')
+
+
+def remove_from_cart(request, producto_id):
+    carrito = Cart(request)
+    carrito.eliminar(producto_id)
+    messages.info(request, 'Producto eliminado del carrito.')
+    return redirect('cart')
 
 def checkout(request):
     return render(request, 'tienda/checkout.html')
