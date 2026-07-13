@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -35,7 +35,7 @@
                 <!-- Menú para escritorio -->
                 <nav class="hidden md:flex items-center space-x-8">
                     <a href="{% url 'index' %}" class="text-gray-700 hover:text-primary font-medium transition">Inicio</a>
-                    <a href="{% url 'index' %}" class="text-gray-700 hover:text-primary font-medium transition">Plantas</a>
+                    <a href="{% url 'catalogo' %}" class="text-gray-700 hover:text-primary font-medium transition">Productos</a>
                     <a href="{% url 'about' %}" class="text-gray-700 hover:text-primary font-medium transition">Nosotros</a>
                     <a href="{% url 'contact' %}" class="text-gray-700 hover:text-primary font-medium transition">Contacto</a>
                     <a href="{% url 'faq' %}" class="text-gray-700 hover:text-primary font-medium transition">FAQ</a>
@@ -47,22 +47,19 @@
                         <span class="material-symbols-outlined">shopping_cart</span>
                         <span class="absolute -top-1 -right-1 bg-primary text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">2</span>
                     </a>
-                    
+
                     <!-- Botón hamburguesa -->
                     <button id="menuBtn" class="md:hidden p-2 text-gray-600 hover:text-primary transition">
                         <span class="material-symbols-outlined">menu</span>
                     </button>
-
-                    <!-- Avatar escritorio -->
-                    <div class="hidden md:block w-10 h-10 rounded-full bg-gray-200 bg-cover bg-center" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDZUyveFYYQbPXKMsGGm-XewoonB8fhOHLvqzXgqlRaqXSzjqsqQ5YuMXJyBL_TWKBYuy1DIcHW6rg37-Km1rcUPv8g_DcFNb_3TP_dzkSPxTxlBxBCCW-02uQbGzEXrU-DM6BNeOmaA8nImcC6Xc2YgIbRRfYUL-eNCkLd6JLba9laQUeto9EZLcK_bdKZQTOUnDYUR0yTuLqlSpJcHQyrNPKKUyfoLaP78w2CWFQlI6vQcgnJE6_oLaDuUR6hcvKUfTUO7UBnqZU')"></div>
                 </div>
             </div>
 
-            <!-- Menú móvil desplegable (SIN ADMIN) -->
+            <!-- Menú móvil desplegable -->
             <div id="mobileMenu" class="md:hidden hidden py-4 border-t border-gray-200">
                 <nav class="flex flex-col space-y-4">
                     <a href="{% url 'index' %}" class="text-gray-700 hover:text-primary font-medium transition px-2 py-1">Inicio</a>
-                    <a href="{% url 'index' %}" class="text-gray-700 hover:text-primary font-medium transition px-2 py-1">Plantas</a>
+                    <a href="{% url 'catalogo' %}" class="text-gray-700 hover:text-primary font-medium transition px-2 py-1">Productos</a>
                     <a href="{% url 'about' %}" class="text-gray-700 hover:text-primary font-medium transition px-2 py-1">Nosotros</a>
                     <a href="{% url 'contact' %}" class="text-gray-700 hover:text-primary font-medium transition px-2 py-1">Contacto</a>
                     <a href="{% url 'faq' %}" class="text-gray-700 hover:text-primary font-medium transition px-2 py-1">FAQ</a>
@@ -115,7 +112,7 @@
                             Plantas de interior seleccionadas, entregadas desde nuestro invernadero a tu puerta. Mejora tu espacio con nuestra colección de fácil cuidado.
                         </p>
                         <div class="flex flex-wrap gap-4">
-                            <a href="{% url 'index' %}">
+                            <a href="{% url 'catalogo' %}">
                                 <button class="rounded-lg bg-primary px-8 py-4 text-sm font-bold text-white shadow-lg shadow-primary/30 hover:bg-primary/90 transition-all hover:-translate-y-0.5">
                                     Comprar ahora
                                 </button>
@@ -172,7 +169,7 @@
             </div>
         </section>
 
-        <!-- Productos Destacados -->
+        <!-- Productos Destacados (conectado a la base de datos) -->
         <section class="py-24">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex items-end justify-between mb-12">
@@ -180,75 +177,38 @@
                         <h2 class="text-3xl font-extrabold tracking-tight text-gray-900">Los más vendidos</h2>
                         <p class="text-gray-500">Las plantas que nuestra comunidad más ama</p>
                     </div>
-                    <a class="text-sm font-bold text-primary hover:underline underline-offset-4" href="{% url 'index' %}">Ver todas →</a>
+                    <a class="text-sm font-bold text-primary hover:underline underline-offset-4" href="{% url 'catalogo' %}">Ver todas →</a>
                 </div>
 
+                {% if productos %}
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                    <!-- Producto 1 -->
-                    <a href="{% url 'index' %}" class="group relative flex flex-col gap-4">
+                    {% for producto in productos %}
+                    <a href="{% url 'producto_detalle' producto.slug %}" class="group relative flex flex-col gap-4">
                         <div class="relative aspect-[4/5] overflow-hidden rounded-xl bg-gray-100">
-                            <img alt="Monstera Deliciosa" class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuANT2AwW0rJSOrIbaoJSbTJqTpDhWOei2yDK3VLWB6XJZ2p-bBI9lQRyzlv7laVQO_epzy37SfbqdsI9Ctc-mLn0a168_Kuvwh1s1HzjynJbnue3zG8LeS6dAFRtXM1c3tMMrVmOsYBavnueQC9klNnVBtUgbIycZszLN-IwRjlVsabtnW9Us8YuT_99IZG42ymtAbSAxuGebKXOCtGLsLBfskrzDW-ghmYcSgSDpqjr6EqYd5JL_6p_iuGNDk-dyiPehLvrJ00ZUk">
+                            {% if producto.imagen %}
+                                <img alt="{{ producto.nombre }}" class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110" src="{{ producto.imagen.url }}">
+                            {% else %}
+                                <div class="w-full h-full flex items-center justify-center text-gray-400 text-sm">Sin imagen</div>
+                            {% endif %}
                             <div class="absolute bottom-4 left-4 right-4 flex h-11 translate-y-4 items-center justify-center gap-2 rounded-lg bg-white/90 py-2 text-xs font-bold opacity-0 transition-all group-hover:translate-y-0 group-hover:opacity-100">
                                 <span class="material-symbols-outlined text-base">add</span>Añadir al carrito
                             </div>
                         </div>
                         <div class="flex flex-col gap-1 px-1">
-                            <h4 class="font-bold text-gray-900">Monstera Deliciosa</h4>
+                            <h4 class="font-bold text-gray-900">{{ producto.nombre }}</h4>
                             <div class="flex items-center justify-between">
-                                <p class="text-sm text-gray-500">Fácil cuidado</p>
-                                <p class="font-bold text-primary">$45.00</p>
+                                <p class="text-sm text-gray-500">{% if producto.categoria %}{{ producto.categoria.nombre }}{% endif %}</p>
+                                <p class="font-bold text-primary">${{ producto.precio }}</p>
                             </div>
                         </div>
                     </a>
-                    <!-- Producto 2 -->
-                    <a href="{% url 'index' %}" class="group relative flex flex-col gap-4">
-                        <div class="relative aspect-[4/5] overflow-hidden rounded-xl bg-gray-100">
-                            <img alt="Snake Plant" class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCn3k8NdqHG1z-vKbmst_rlsXE62ddYIcTkRlN0SOlb9laxxSyFejAqPctOIyKYzR0r-pcKzpavW1kXN2K-GpfaNGUeYacYsrQr6WBWAOyyvro0FaCpWwDRXnLsaF3H6ROKvC_jhvqCpTQ1PjnjMA61UTfYS9x4gpHbtlMI9MRJIAJ7rYelEOthgNG-BWLLTO0QIskcXzVajEJbAqVr4A7hK2y892ugwx5ZYRFqoGTTgfW20ODRAzbRppaXzYxs92D52yU-6Kv9thI">
-                            <div class="absolute bottom-4 left-4 right-4 flex h-11 translate-y-4 items-center justify-center gap-2 rounded-lg bg-white/90 py-2 text-xs font-bold opacity-0 transition-all group-hover:translate-y-0 group-hover:opacity-100">
-                                <span class="material-symbols-outlined text-base">add</span>Añadir al carrito
-                            </div>
-                        </div>
-                        <div class="flex flex-col gap-1 px-1">
-                            <h4 class="font-bold text-gray-900">Sansevieria</h4>
-                            <div class="flex items-center justify-between">
-                                <p class="text-sm text-gray-500">Purifica el aire</p>
-                                <p class="font-bold text-primary">$32.00</p>
-                            </div>
-                        </div>
-                    </a>
-                    <!-- Producto 3 -->
-                    <a href="{% url 'index' %}" class="group relative flex flex-col gap-4">
-                        <div class="relative aspect-[4/5] overflow-hidden rounded-xl bg-gray-100">
-                            <img alt="Rubber Tree" class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDaaTAKFrHWvNImeT7ihcdH73AKZf257WrrDrDs69RCHXXZWo9lx1cEOeGWbzxHMDUfceSWZTTJKOSR6emxwOrXg2kpSd6f_Y5D44PK6AWBTYeYQrJYPsXolB7pp9b7csxDQlwv44qtUENafjRy5NkgZoOJP4y-_lqWlv7kdAqqLaaRzmeG9yZZca4uHjeutiSFg5jWE00tIYVc9ykNU-Zh4IsUfBA9OYqkB9oL-5M5leR_rRPLnEv9GtDkcDBE67Pn-PTEV_xEvtA">
-                            <div class="absolute bottom-4 left-4 right-4 flex h-11 translate-y-4 items-center justify-center gap-2 rounded-lg bg-white/90 py-2 text-xs font-bold opacity-0 transition-all group-hover:translate-y-0 group-hover:opacity-100">
-                                <span class="material-symbols-outlined text-base">add</span>Añadir al carrito
-                            </div>
-                        </div>
-                        <div class="flex flex-col gap-1 px-1">
-                            <h4 class="font-bold text-gray-900">Ficus Elástica</h4>
-                            <div class="flex items-center justify-between">
-                                <p class="text-sm text-gray-500">Mascotas seguras</p>
-                                <p class="font-bold text-primary">$38.00</p>
-                            </div>
-                        </div>
-                    </a>
-                    <!-- Producto 4 -->
-                    <a href="{% url 'index' %}" class="group relative flex flex-col gap-4">
-                        <div class="relative aspect-[4/5] overflow-hidden rounded-xl bg-gray-100">
-                            <img alt="Calathea Orbifolia" class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD7BjnoStLOXIG5KDuXgeQe-70yLvUJ3GbypyfXmIkvVtAPgEy5z0TXoqW1HhAkhnghH0GPCLIFKS7jPtpI9lC100rY89kt-CLCvIqejobWzVtJ-KhBJrZNufOVJl-xX1BHNd-juphh6huYLfPvr1Dwm_0Ld79CmC7688qSZtBOEmbgBPlP0zhBDnmMglt8c--MroJy9AmMC2K8GY4z3lyN4FClWrzWnwgKwB9sCPuYDB__9JRHZ_CXfqawnz-A55b7elOVZod1d6M">
-                            <div class="absolute bottom-4 left-4 right-4 flex h-11 translate-y-4 items-center justify-center gap-2 rounded-lg bg-white/90 py-2 text-xs font-bold opacity-0 transition-all group-hover:translate-y-0 group-hover:opacity-100">
-                                <span class="material-symbols-outlined text-base">add</span>Añadir al carrito
-                            </div>
-                        </div>
-                        <div class="flex flex-col gap-1 px-1">
-                            <h4 class="font-bold text-gray-900">Calathea Orbifolia</h4>
-                            <div class="flex items-center justify-between">
-                                <p class="text-sm text-gray-500">Vibra tropical</p>
-                                <p class="font-bold text-primary">$29.00</p>
-                            </div>
-                        </div>
-                    </a>
+                    {% endfor %}
                 </div>
+                {% else %}
+                <div class="text-center py-16 text-gray-500">
+                    Aún no hay productos destacados. Márcalos como "destacado" desde el admin para que aparezcan aquí.
+                </div>
+                {% endif %}
             </div>
         </section>
 
@@ -263,14 +223,6 @@
                                 <p class="text-lg text-gray-600 leading-relaxed">
                                     ¿Nuevo en el mundo de las plantas? Nuestros jardineros expertos han preparado la guía definitiva para mantener tu jungla interior floreciendo todo el año.
                                 </p>
-                            </div>
-                            <div class="flex items-center gap-6">
-                                <div class="flex -space-x-3">
-                                    <div class="h-10 w-10 rounded-full border-2 border-white bg-cover bg-center" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBHTUKYJ6WsUQbPpjoHMHdzL8hvoFS5qMct98QajC5WXJyU10Kk24IAMwCG267DXre_L2SA33Tnmj2Tk4h2C-vKIbgTvFPk9jZ1onZVQOSbQ2s8yyj2EjLHaDud8xE7ghIDAIUUxn4kDjUY7BQyYGkokSXFp47uHZU7CR8Gad8eNjKaFlNoVv3B9LxcaKU9RywPBRce3r18rXIBONZSl_06Fpq4U2GnxSckO81EPS2RN9nOaLnq2OaM5SxTXiQ6SXCbJmR85rNg8Xg')"></div>
-                                    <div class="h-10 w-10 rounded-full border-2 border-white bg-cover bg-center" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuC8dWy6KlJNKQd87sbQXJBaeAB_5TWePG_YZSqgfi-u3VsJ5NTJhpmc5GdYoNH1jAphewWP0ArJLJNOI-o8VuG2jT4yx6wH96yEiYETc3bZthu83lza5ICoWNHVANQhSF7aUDf3P5QPcWX0uNjLukrPS9EwnfK3jFFMfA4bxH7T81CBNRzcKWCGsjSfVO0siVffehyvlkivJRtTDW3DDA8UpOwH2n8VABAobhpRf8hWlvI_3dAkW8L4OSpGveL2mF0gdPliV9FO-Ng')"></div>
-                                    <div class="h-10 w-10 rounded-full border-2 border-white bg-cover bg-center" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDHrAKp60ThROL_EIEq1ItsPzticvzNDu8dQ4fsCi-6rUQFlrYhcKQmv-AgbaIwVdLTW2YTyrFAMlnE_1VGd_KoJMhEYP0ojat5PHnR0oESXNfTmI_0cpdYwvrAdpi4BJHf9jGfpcez6-yxQa1s2zqHtTW89ftzHgFqVF8oCDMGTBwhU22s8ATgrDXh0aY6THph-egngEf6B-I6Dg33nyks7Sdvmy8_PUeaBWbyEmqWVcwhq8uiMkihFlXRU6s6uyJRN10SHixw5gw')"></div>
-                                </div>
-                                <p class="text-sm font-medium text-gray-500">Únete a 2,000+ amantes de las plantas</p>
                             </div>
                             <div>
                                 <a href="{% url 'about' %}">
@@ -307,10 +259,7 @@
                 <div>
                     <h4 class="text-white font-bold mb-6">Explorar</h4>
                     <ul class="flex flex-col gap-4 text-sm">
-                        <li><a class="hover:text-primary transition-colors" href="{% url 'index' %}">Nuestras plantas</a></li>
-                        <li><a class="hover:text-primary transition-colors" href="{% url 'index' %}">Paquetes</a></li>
-                        <li><a class="hover:text-primary transition-colors" href="{% url 'index' %}">Accesorios</a></li>
-                        <li><a class="hover:text-primary transition-colors" href="{% url 'index' %}">Tarjetas de regalo</a></li>
+                        <li><a class="hover:text-primary transition-colors" href="{% url 'catalogo' %}">Todos los productos</a></li>
                     </ul>
                 </div>
                 <div>
