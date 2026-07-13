@@ -72,10 +72,13 @@
             const btnPlus = document.getElementById('qtyPlus');
             const maxStock = parseInt(qtyInput.dataset.max, 10) || 1;
 
+            const qtyHidden = document.getElementById('qtyHiddenInput');
+
             btnMinus.addEventListener('click', function() {
                 let val = parseInt(qtyInput.textContent, 10);
                 if (val > 1) {
                     qtyInput.textContent = val - 1;
+                    qtyHidden.value = val - 1;
                 }
             });
 
@@ -83,6 +86,7 @@
                 let val = parseInt(qtyInput.textContent, 10);
                 if (val < maxStock) {
                     qtyInput.textContent = val + 1;
+                    qtyHidden.value = val + 1;
                 }
             });
         });
@@ -141,22 +145,28 @@
                 {% endif %}
 
                 <!-- Selector de cantidad + agregar al carrito -->
-                <div class="flex items-center gap-4">
+                <form method="post" action="{% url 'add_to_cart' producto.id %}" class="flex items-center gap-4">
+                    {% csrf_token %}
                     <div class="flex items-center border border-gray-300 rounded-lg">
                         <button type="button" id="qtyMinus" class="px-3 py-2 hover:text-primary">
                             <span class="material-symbols-outlined">remove</span>
                         </button>
                         <span id="qtyValue" data-max="{{ producto.stock }}" class="w-12 text-center font-semibold">1</span>
+                        <input type="hidden" name="cantidad" id="qtyHiddenInput" value="1">
                         <button type="button" id="qtyPlus" class="px-3 py-2 hover:text-primary">
                             <span class="material-symbols-outlined">add</span>
                         </button>
                     </div>
-                    <a href="{% url 'cart' %}" class="flex-1">
-                        <button class="w-full bg-primary text-white font-bold py-3 rounded-lg hover:bg-primary/90 transition shadow-lg shadow-primary/20">
-                            Añadir al carrito
-                        </button>
-                    </a>
-                </div>
+                    {% if producto.stock > 0 %}
+                    <button type="submit" class="flex-1 bg-primary text-white font-bold py-3 rounded-lg hover:bg-primary/90 transition shadow-lg shadow-primary/20">
+                        Añadir al carrito
+                    </button>
+                    {% else %}
+                    <button type="button" disabled class="flex-1 bg-gray-300 text-gray-500 font-bold py-3 rounded-lg cursor-not-allowed">
+                        Sin stock
+                    </button>
+                    {% endif %}
+                </form>
 
                 <p class="text-sm text-gray-500">
                     {% if producto.stock > 0 %}
