@@ -10,6 +10,9 @@ urlpatterns = [
     path('privacy/', views.privacy, name='privacy'),
     path('producto/<slug:slug>/', views.producto_detalle, name='producto_detalle'),
     path('carrito/', views.cart, name='cart'),
+    path('carrito/agregar/<int:producto_id>/', views.add_to_cart, name='add_to_cart'),
+    path('carrito/actualizar/<int:producto_id>/', views.update_cart_item, name='update_cart_item'),
+    path('carrito/eliminar/<int:producto_id>/', views.remove_from_cart, name='remove_from_cart'),
     path('checkout/', views.checkout, name='checkout'),
     path('confirmado/', views.order_confirmed, name='order_confirmed'),
 ]
