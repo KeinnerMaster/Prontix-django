@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
-from .models import Producto, Categoria
+from .models import Producto, Categoria, Pedido, ItemPedido
 from .cart import Cart
 
 def index(request):
@@ -81,3 +81,57 @@ def catalogo(request):
         'categoria_activa': categoria_slug,
     }
     return render(request, 'tienda/catalogo.html', context)
+
+def checkout(request):
+    carrito = Cart(request)
+
+    if len(carrito) == 0:
+        return redirect('cart')
+
+    if request.method == 'POST':
+        nombre = request.POST.get('nombre')
+        email = request.POST.get('email')
+        telefono = request.POST.get('telefono')
+        direccion = request.POST.get('direccion')
+        ciudad = request.POST.get('ciudad')
+        notas = request.POST.get('notas', '')
+
+        pedido = Pedido.objects.create(
+            nombre_cliente=nombre,
+            email_cliente=email,
+            telefono_cliente=telefono,
+            direccion=direccion,
+            ciudad=ciudad,
+            notas=notas,
+            total=carrito.total(),
+        )
+
+        for item in carrito:
+            ItemPedido.objects.create(
+                pedido=pedido,
+                producto=item['producto'],
+                nombre_producto=item['producto'].nombre,
+                precio_unitario=item['precio_unitario'],
+                cantidad=item['cantidad'],
+            )
+            # Descontar del stock
+            producto = item['producto']
+            producto.stock = max(0, producto.stock - item['cantidad'])
+            producto.save()
+
+        carrito.vaciar()
+        request.session['ultimo_pedido_id'] = pedido.id
+
+        return redirect('order_confirmed')
+
+    context = {'carrito': carrito}
+    return render(request, 'tienda/checkout.html', context)
+
+
+def order_confirmed(request):
+    pedido_id = request.session.get('ultimo_pedido_id')
+    pedido = None
+    if pedido_id:
+        pedido = Pedido.objects.filter(id=pedido_id).first()
+    context = {'pedido': pedido}
+    return render(request, 'tienda/order-confirmed.html', context)
