@@ -45,3 +45,44 @@ class Variante(models.Model):
         partes = [p for p in [self.talla, self.color] if p]
         detalle = " / ".join(partes) if partes else "Única"
         return f"{self.producto.nombre} - {detalle}"
+
+class Pedido(models.Model):
+    ESTADO_CHOICES = [
+        ('pendiente', 'Pendiente de pago'),
+        ('pagado', 'Pagado'),
+        ('enviado', 'Enviado'),
+        ('entregado', 'Entregado'),
+        ('cancelado', 'Cancelado'),
+    ]
+
+    nombre_cliente = models.CharField(max_length=200)
+    email_cliente = models.EmailField()
+    telefono_cliente = models.CharField(max_length=30)
+    direccion = models.CharField(max_length=300)
+    ciudad = models.CharField(max_length=100)
+    notas = models.TextField(blank=True, help_text="Instrucciones adicionales del cliente (opcional)")
+
+    total = models.DecimalField(max_digits=10, decimal_places=2)
+    estado = models.CharField(max_length=20, choices=ESTADO_CHOICES, default='pendiente')
+    creado_en = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name_plural = "Pedidos"
+        ordering = ['-creado_en']
+
+    def __str__(self):
+        return f"Pedido #{self.id} - {self.nombre_cliente}"
+
+
+class ItemPedido(models.Model):
+    pedido = models.ForeignKey(Pedido, on_delete=models.CASCADE, related_name='items')
+    producto = models.ForeignKey(Producto, on_delete=models.SET_NULL, null=True)
+    nombre_producto = models.CharField(max_length=200)  # copia por si el producto se borra después
+    precio_unitario = models.DecimalField(max_digits=10, decimal_places=2)
+    cantidad = models.IntegerField()
+
+    def subtotal(self):
+        return self.precio_unitario * self.cantidad
+
+    def __str__(self):
+        return f"{self.cantidad}x {self.nombre_producto}"
