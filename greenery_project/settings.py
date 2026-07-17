@@ -17,12 +17,12 @@ INSTALLED_APPS = [
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
-    'django.contrib.staticfiles',
     'django.contrib.messages',
     'cloudinary_storage',
+    'django.contrib.staticfiles',
     'cloudinary',
-    'tienda',
-    'admin_panel',
+    'tienda',        # Tu app para la tienda pública
+    'admin_panel',   # Tu app para el panel de administración personalizado
 ]
 
 MIDDLEWARE = [
@@ -49,7 +49,6 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'tienda.context_processors.cart_count',
             ],
         },
     },
@@ -115,19 +114,11 @@ if 'RAILWAY_ENVIRONMENT' in os.environ:
             default=os.environ.get('DATABASE_URL'),
             conn_max_age=600
         )
-        EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-    EMAIL_HOST = 'smtp.gmail.com'
-    EMAIL_PORT = 587
-    EMAIL_USE_TLS = True
-    EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
-    EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
-    DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
-    CONTACT_EMAIL_DESTINO = 'hoccebr@gmail.com'
     }
 
     # Archivos estáticos comprimidos con WhiteNoise (sin manifest de hashes,
     # para evitar fallos de post-procesamiento con archivos vendor del admin)
-    STATICFILES_STORAGE = 'whitenoise.storage.StaticFilesStorage'
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
     # Necesario para que Django confíe en peticiones POST (login, admin, formularios)
     # que llegan por HTTPS a través del dominio de Railway
