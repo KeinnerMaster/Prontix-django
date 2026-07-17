@@ -23,6 +23,28 @@ def about(request):
     return render(request, 'tienda/about.html')
 
 def contact(request):
+    if request.method == 'POST':
+        nombre = request.POST.get('nombre')
+        email = request.POST.get('email')
+        asunto = request.POST.get('asunto')
+        mensaje = request.POST.get('mensaje')
+
+        cuerpo = f"Nome: {nombre}\nEmail: {email}\nAssunto: {asunto}\n\nMensagem:\n{mensaje}"
+
+        try:
+            send_mail(
+                subject=f'[HOCCE Contato] {asunto}',
+                message=cuerpo,
+                from_email=None,
+                recipient_list=[getattr(settings, 'CONTACT_EMAIL_DESTINO', 'hoccebr@gmail.com')],
+                fail_silently=False,
+            )
+            messages.success(request, 'Mensagem enviada com sucesso! Responderemos em breve.')
+        except Exception:
+            messages.error(request, 'Erro ao enviar a mensagem. Tente novamente mais tarde.')
+
+        return redirect('contact')
+
     return render(request, 'tienda/contact.html')
 
 def faq(request):
