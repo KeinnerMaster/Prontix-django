@@ -118,7 +118,7 @@ if 'RAILWAY_ENVIRONMENT' in os.environ:
 
     # Archivos estáticos comprimidos con WhiteNoise (sin manifest de hashes,
     # para evitar fallos de post-procesamiento con archivos vendor del admin)
-    STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
+    STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 
     # Necesario para que Django confíe en peticiones POST (login, admin, formularios)
     # que llegan por HTTPS a través del dominio de Railway
