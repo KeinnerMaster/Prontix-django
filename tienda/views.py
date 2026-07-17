@@ -42,7 +42,8 @@ def contact(request):
                 fail_silently=False,
             )
             messages.success(request, 'Mensagem enviada com sucesso! Responderemos em breve.')
-        except Exception:
+        except Exception as e:
+            print(f"ERROR EMAIL: {e}")
             messages.error(request, 'Erro ao enviar a mensagem. Tente novamente mais tarde.')
 
         return redirect('contact')
