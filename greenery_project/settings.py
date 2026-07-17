@@ -122,7 +122,7 @@ if 'RAILWAY_ENVIRONMENT' in os.environ:
     EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
     EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
     DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
-    CONTACT_EMAIL_DESTINO = 'imkeinner@gmail.com'
+    CONTACT_EMAIL_DESTINO = 'hoccebr@gmail.com'
     }
 
     # Archivos estáticos comprimidos con WhiteNoise (sin manifest de hashes,
