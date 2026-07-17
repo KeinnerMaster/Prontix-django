@@ -34,13 +34,14 @@ def contact(request):
         cuerpo = f"Nome: {nombre}\nEmail: {email}\nAssunto: {asunto}\n\nMensagem:\n{mensaje}"
 
         try:
-            send_mail(
-                subject=f'[HOCCE Contato] {asunto}',
-                message=cuerpo,
-                from_email=None,
-                recipient_list=[getattr(settings, 'CONTACT_EMAIL_DESTINO', 'hoccebr@gmail.com')],
-                fail_silently=False,
-            )
+            resend.api_key = settings.RESEND_API_KEY
+            resend.Emails.send({
+                "from": "HOCCE <onboarding@resend.dev>",
+                "to": [getattr(settings, 'CONTACT_EMAIL_DESTINO', 'hoccebr@gmail.com')],
+                "subject": f'[HOCCE Contato] {asunto}',
+                "text": cuerpo,
+                "reply_to": email,
+            })
             messages.success(request, 'Mensagem enviada com sucesso! Responderemos em breve.')
         except Exception as e:
             print(f"ERROR EMAIL: {e}")
