@@ -126,4 +126,4 @@ if 'RAILWAY_ENVIRONMENT' in os.environ:
 
     # Configuración de envío de emails (formulario de contacto) vía Resend
     RESEND_API_KEY = os.environ.get('RESEND_API_KEY')
-    CONTACT_EMAIL_DESTINO = 'hoccebr@gmail.com'
+    CONTACT_EMAIL_DESTINO = 'imkeinner@gmail.com'
