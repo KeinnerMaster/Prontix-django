@@ -2,6 +2,8 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from .models import Producto, Categoria, Pedido, ItemPedido
 from .cart import Cart
+from django.core.mail import send_mail
+from django.conf import settings
 
 def index(request):
     productos_destacados = Producto.objects.filter(destacado=True, activo=True)[:4]
