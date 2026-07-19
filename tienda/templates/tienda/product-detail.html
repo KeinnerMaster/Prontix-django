@@ -133,21 +133,39 @@
                 </div>
 
                 {% if producto.variantes.all %}
-                <div>
-                    <h3 class="font-bold text-sm text-gray-900 mb-2">Selecciona una opción</h3>
-                    <div class="flex flex-wrap gap-2">
+                <div class="space-y-4">
+                    {% if tallas %}
+                    <div>
+                        <label class="block text-sm font-bold text-gray-900 mb-2">Tamanho</label>
+                        <select id="tallaSelect" class="w-full sm:w-64 border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:ring-2 focus:ring-primary focus:border-primary outline-none">
+                            <option value="">Selecione o tamanho</option>
+                            {% for t in tallas %}
+                            <option value="{{ t }}">{{ t }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    {% endif %}
+
+                    {% if colores %}
+                    <div>
+                        <label class="block text-sm font-bold text-gray-900 mb-2">Cor</label>
+                        <select id="colorSelect" class="w-full sm:w-64 border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:ring-2 focus:ring-primary focus:border-primary outline-none">
+                            <option value="">Selecione a cor</option>
+                            {% for c in colores %}
+                            <option value="{{ c }}">{{ c }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    {% endif %}
+
+                    <!-- Datos ocultos de cada variante, usados por JS para encontrar la combinación exacta -->
+                    <div id="varianteData" class="hidden">
                         {% for variante in producto.variantes.all %}
-                            <button type="button" class="px-4 py-2 border border-gray-300 rounded-lg text-sm hover:border-primary hover:text-primary transition">
-                                {% if variante.talla and variante.color %}
-                                    {{ variante.talla }} / {{ variante.color }}
-                                {% elif variante.talla %}
-                                    {{ variante.talla }}
-                                {% elif variante.color %}
-                                    {{ variante.color }}
-                                {% endif %}
-                            </button>
+                        <span data-id="{{ variante.id }}" data-talla="{{ variante.talla }}" data-color="{{ variante.color }}"></span>
                         {% endfor %}
                     </div>
+
+                    <p id="varianteError" class="text-red-500 text-xs hidden">Selecione as opções disponíveis antes de continuar</p>
                 </div>
                 {% endif %}
 
