@@ -72,8 +72,9 @@ def cart(request):
 def add_to_cart(request, producto_id):
     producto = get_object_or_404(Producto, id=producto_id, activo=True)
     cantidad = int(request.POST.get('cantidad', 1))
+    variante_id = request.POST.get('variante_id') or None
     carrito = Cart(request)
-    carrito.agregar(producto, cantidad)
+    carrito.agregar(producto, cantidad, variante_id)
     messages.success(request, f'{producto.nombre} añadido al carrito.')
     return redirect('cart')
 
