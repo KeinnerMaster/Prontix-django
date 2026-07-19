@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HOCCE - Política de Envio</title>
+    <link rel="icon" type="image/png" href="https://res.cloudinary.com/nck1eugv/image/upload/e_trim/v1784158962/ChatGPT_Image_15_jul_2026_20_42_32_mm2nfi.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,0..1" />
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Manrope', sans-serif; background-color: #f5f8f6; color: #1e293b; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .text-primary { color: #0d9488; }
+        .bg-primary { background-color: #0d9488; }
+        .border-primary { border-color: #0d9488; }
+        .hover\:text-primary:hover { color: #0d9488; }
+        .hover\:bg-primary:hover { background-color: #0d9488; }
+    </style>
+</head>
+<body class="antialiased">
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-white shadow-sm border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <a href="{% url 'index' %}" class="flex items-center space-x-2">
+                    <img src="https://res.cloudinary.com/nck1eugv/image/upload/e_trim/v1784155878/ChatGPT_Image_15_jul_2026_19_51_12_ahiz8f.png" alt="hocce" class="h-10">
+                </a>
+                <nav class="hidden md:flex items-center space-x-8">
+                    <a href="{% url 'index' %}" class="text-gray-700 hover:text-primary">Início</a>
+                    <a href="{% url 'catalogo' %}" class="text-gray-700 hover:text-primary">Produtos</a>
+                    <a href="{% url 'about' %}" class="text-gray-700 hover:text-primary">Sobre Nós</a>
+                    <a href="{% url 'contact' %}" class="text-gray-700 hover:text-primary">Contato</a>
+                    <a href="{% url 'faq' %}" class="text-gray-700 hover:text-primary">FAQ</a>
+                </nav>
+                <div class="flex items-center space-x-4">
+                    <a href="{% url 'cart' %}" class="relative p-2 text-gray-600 hover:text-primary">
+                        <span class="material-symbols-outlined">shopping_cart</span>
+                        {% if cart_count > 0 %}
+                        <span class="absolute -top-1 -right-1 bg-primary text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">{{ cart_count }}</span>
+                        {% endif %}
+                    </a>
+                    <button id="menuBtn" class="md:hidden p-2 text-gray-600 hover:text-primary">
+                        <span class="material-symbols-outlined">menu</span>
+                    </button>
+                </div>
+            </div>
+            <div id="mobileMenu" class="md:hidden hidden py-4 border-t border-gray-200">
+                <nav class="flex flex-col space-y-4">
+                    <a href="{% url 'index' %}" class="text-gray-700 hover:text-primary px-2 py-1">Início</a>
+                    <a href="{% url 'catalogo' %}" class="text-gray-700 hover:text-primary px-2 py-1">Produtos</a>
+                    <a href="{% url 'about' %}" class="text-gray-700 hover:text-primary px-2 py-1">Sobre Nós</a>
+                    <a href="{% url 'contact' %}" class="text-gray-700 hover:text-primary px-2 py-1">Contato</a>
+                    <a href="{% url 'faq' %}" class="text-gray-700 hover:text-primary px-2 py-1">FAQ</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuBtn = document.getElementById('menuBtn');
+            const mobileMenu = document.getElementById('mobileMenu');
+            if (menuBtn && mobileMenu) {
+                menuBtn.addEventListener('click', function() {
+                    mobileMenu.classList.toggle('hidden');
+                });
+            }
+        });
+    </script>
+
+    <main class="max-w-4xl mx-auto px-4 py-16">
+        <div class="mb-12">
+            <nav class="flex items-center gap-2 text-sm text-gray-500 mb-4">
+                <a href="{% url 'index' %}" class="hover:text-primary">Início</a>
+                <span class="material-symbols-outlined text-xs">chevron_right</span>
+                <span>Política de Envio</span>
+            </nav>
+            <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-2">Política de Envio</h1>
+            <p class="text-gray-500">Tudo sobre prazos, custos e acompanhamento do seu pedido</p>
+        </div>
+
+        <div class="space-y-10">
+            <section class="bg-white rounded-xl p-8 border border-gray-100 shadow-sm">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="material-symbols-outlined text-primary bg-primary/10 p-2 rounded-lg">schedule</span>
+                    <h2 class="text-xl font-bold text-gray-900">Prazo de entrega</h2>
+                </div>
+                <p class="text-gray-600 leading-relaxed">
+                    O prazo estimado de entrega é de 7 a 20 dias úteis, variando de acordo com o produto e a região de entrega. Assim que seu pedido for confirmado, nossa equipe entrará em contato para informar o prazo exato.
+                </p>
+            </section>
+
+            <section class="bg-white rounded-xl p-8 border border-gray-100 shadow-sm">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="material-symbols-outlined text-primary bg-primary/10 p-2 rounded-lg">payments</span>
+                    <h2 class="text-xl font-bold text-gray-900">Custo de envio</h2>
+                </div>
+                <p class="text-gray-600 leading-relaxed">
+                    O valor do frete é calculado de acordo com o seu endereço e o(s) produto(s) escolhido(s), e será informado antes da confirmação final do pedido.
+                </p>
+            </section>
+
+            <section class="bg-white rounded-xl p-8 border border-gray-100 shadow-sm">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="material-symbols-outlined text-primary bg-primary/10 p-2 rounded-lg">local_shipping</span>
+                    <h2 class="text-xl font-bold text-gray-900">Rastreamento</h2>
+                </div>
+                <p class="text-gray-600 leading-relaxed">
+                    Assim que seu pedido for despachado, você receberá o código de rastreamento por email ou telefone, para acompanhar cada etapa da entrega até a sua casa.
+                </p>
+            </section>
+
+            <section class="bg-white rounded-xl p-8 border border-gray-100 shadow-sm">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="material-symbols-outlined text-primary bg-primary/10 p-2 rounded-lg">public</span>
+                    <h2 class="text-xl font-bold text-gray-900">Área de cobertura</h2>
+                </div>
+                <p class="text-gray-600 leading-relaxed">
+                    Realizamos entregas para todo o território brasileiro. Em algumas regiões mais remotas, o prazo de entrega pode ser um pouco maior.
+                </p>
+            </section>
+        </div>
+
+        <div class="mt-16 p-8 bg-primary/5 rounded-2xl border border-primary/10 text-center">
+            <h3 class="text-xl font-bold text-gray-900 mb-2">Dúvidas sobre o seu pedido?</h3>
+            <p class="text-gray-600 mb-6">Nossa equipe está pronta para ajudar</p>
+            <a href="{% url 'contact' %}">
+                <button class="px-8 py-3 bg-primary text-white font-bold rounded-lg hover:bg-primary/90 transition shadow-lg shadow-primary/20">
+                    Falar com o suporte
+                </button>
+            </a>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 pt-20 pb-10 text-gray-400">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+                <div class="flex flex-col gap-6">
+                    <div class="flex items-center gap-2 text-white">
+                        <a href="{% url 'index' %}" class="flex items-center gap-2">
+                            <img src="https://res.cloudinary.com/nck1eugv/image/upload/e_trim/v1784156162/ChatGPT_Image_15_jul_2026_19_55_56_uftxs1.png" alt="hocce" class="h-6">
+                        </a>
+                    </div>
+                    <p class="text-sm leading-relaxed">
+                        Sua loja online com as melhores ofertas em eletrônicos, moda, calçados, casa e muito mais.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-6">Explorar</h4>
+                    <ul class="flex flex-col gap-4 text-sm">
+                        <li><a class="hover:text-primary transition-colors" href="{% url 'catalogo' %}">Todos os produtos</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-6">Suporte</h4>
+                    <ul class="flex flex-col gap-4 text-sm">
+                        <li><a class="hover:text-primary transition-colors" href="{% url 'faq' %}">Central de Ajuda</a></li>
+                        <li><a class="hover:text-primary transition-colors" href="{% url 'faq' %}">Trocas e Devoluções</a></li>
+                        <li><a class="hover:text-primary transition-colors" href="{% url 'shipping_policy' %}">Política de Envio</a></li>
+                        <li><a class="hover:text-primary transition-colors" href="{% url 'contact' %}">Contato</a></li>
+                    </ul>
+                </div>
+                <div class="flex flex-col gap-6">
+                    <h4 class="text-white font-bold">Newsletter</h4>
+                    <p class="text-sm">Receba nossas ofertas</p>
+                    <form class="flex flex-col gap-3">
+                        <input class="rounded-lg border-gray-700 bg-gray-800 text-sm text-white placeholder:text-gray-500 focus:border-primary focus:ring-primary px-4 py-2" placeholder="Seu e-mail" type="email"/>
+                        <button class="rounded-lg bg-primary py-2.5 text-sm font-bold text-white hover:bg-primary/90 transition-all">Inscrever-se</button>
+                    </form>
+                </div>
+            </div>
+            <div class="flex flex-col md:flex-row items-center justify-between pt-10 border-t border-gray-800 text-xs">
+                <p>© 2026 HOCCE. Todos os direitos reservados.</p>
+                <div class="flex gap-6 mt-4 md:mt-0">
+                    <a class="hover:text-white" href="{% url 'privacy' %}">Política de Privacidade</a>
+                    <a class="hover:text-white" href="{% url 'privacy' %}">Termos de Uso</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
