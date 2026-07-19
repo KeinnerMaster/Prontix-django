@@ -1,9 +1,9 @@
-﻿<!DOCTYPE html>
-<html lang="es">
+<!DOCTYPE html>
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HOCCE - Política de Privacidad</title>
+    <title>HOCCE - Política de Privacidade</title>
     <link rel="icon" type="image/png" href="https://res.cloudinary.com/nck1eugv/image/upload/e_trim/v1784158962/ChatGPT_Image_15_jul_2026_20_42_32_mm2nfi.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -29,7 +29,7 @@
                 </a>
                 <nav class="hidden md:flex items-center space-x-8">
                     <a href="{% url 'index' %}" class="text-gray-700 hover:text-primary">Início</a>
-                    <a href="{% url 'index' %}" class="text-gray-700 hover:text-primary">Produtos</a>
+                    <a href="{% url 'catalogo' %}" class="text-gray-700 hover:text-primary">Produtos</a>
                     <a href="{% url 'about' %}" class="text-gray-700 hover:text-primary">Sobre Nós</a>
                     <a href="{% url 'contact' %}" class="text-gray-700 hover:text-primary">Contato</a>
                     <a href="{% url 'faq' %}" class="text-gray-700 hover:text-primary">FAQ</a>
@@ -37,19 +37,20 @@
                 <div class="flex items-center space-x-4">
                     <a href="{% url 'cart' %}" class="relative p-2 text-gray-600 hover:text-primary">
                         <span class="material-symbols-outlined">shopping_cart</span>
-                        <span class="absolute -top-1 -right-1 bg-primary text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">2</span>
+                        {% if cart_count > 0 %}
+                        <span class="absolute -top-1 -right-1 bg-primary text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">{{ cart_count }}</span>
+                        {% endif %}
                     </a>
                     <button id="menuBtn" class="md:hidden p-2 text-gray-600 hover:text-primary">
                         <span class="material-symbols-outlined">menu</span>
                     </button>
-                    <div class="hidden md:block w-10 h-10 rounded-full bg-gray-200 bg-cover bg-center" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDZUyveFYYQbPXKMsGGm-XewoonB8fhOHLvqzXgqlRaqXSzjqsqQ5YuMXJyBL_TWKBYuy1DIcHW6rg37-Km1rcUPv8g_DcFNb_3TP_dzkSPxTxlBxBCCW-02uQbGzEXrU-DM6BNeOmaA8nImcC6Xc2YgIbRRfYUL-eNCkLd6JLba9laQUeto9EZLcK_bdKZQTOUnDYUR0yTuLqlSpJcHQyrNPKKUyfoLaP78w2CWFQlI6vQcgnJE6_oLaDuUR6hcvKUfTUO7UBnqZU')"></div>
                 </div>
             </div>
             <!-- Menú móvil -->
             <div id="mobileMenu" class="md:hidden hidden py-4 border-t border-gray-200">
                 <nav class="flex flex-col space-y-4">
                     <a href="{% url 'index' %}" class="text-gray-700 hover:text-primary px-2 py-1">Início</a>
-                    <a href="{% url 'index' %}" class="text-gray-700 hover:text-primary px-2 py-1">Produtos</a>
+                    <a href="{% url 'catalogo' %}" class="text-gray-700 hover:text-primary px-2 py-1">Produtos</a>
                     <a href="{% url 'about' %}" class="text-gray-700 hover:text-primary px-2 py-1">Sobre Nós</a>
                     <a href="{% url 'contact' %}" class="text-gray-700 hover:text-primary px-2 py-1">Contato</a>
                     <a href="{% url 'faq' %}" class="text-gray-700 hover:text-primary px-2 py-1">FAQ</a>
@@ -86,20 +87,20 @@
         <!-- Título -->
         <div class="mb-12">
             <nav class="flex items-center gap-2 text-sm text-gray-500 mb-4">
-                <a href="{% url 'index' %}" class="hover:text-primary">Inicio</a>
+                <a href="{% url 'index' %}" class="hover:text-primary">Início</a>
                 <span class="material-symbols-outlined text-xs">chevron_right</span>
                 <span>Legal</span>
             </nav>
-            <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-2">Política de Privacidad</h1>
-            <p class="text-primary font-medium">Última actualización: 20 de octubre, 2023</p>
+            <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-2">Política de Privacidade</h1>
+            <p class="text-primary font-medium">Última atualização: 17 de julho de 2026</p>
         </div>
 
         <!-- Navegación rápida -->
         <div class="flex flex-wrap gap-3 mb-12 pb-4 border-b border-gray-200">
-            <a href="#collection" class="px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-semibold">1. Recopilación</a>
-            <a href="#usage" class="px-4 py-2 hover:bg-gray-100 text-gray-600 rounded-full text-sm font-semibold">2. Uso</a>
+            <a href="#collection" class="px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-semibold">1. Coleta de dados</a>
+            <a href="#usage" class="px-4 py-2 hover:bg-gray-100 text-gray-600 rounded-full text-sm font-semibold">2. Uso dos dados</a>
             <a href="#cookies" class="px-4 py-2 hover:bg-gray-100 text-gray-600 rounded-full text-sm font-semibold">3. Cookies</a>
-            <a href="#rights" class="px-4 py-2 hover:bg-gray-100 text-gray-600 rounded-full text-sm font-semibold">4. Tus derechos</a>
+            <a href="#rights" class="px-4 py-2 hover:bg-gray-100 text-gray-600 rounded-full text-sm font-semibold">4. Seus direitos</a>
         </div>
 
         <!-- Contenido -->
@@ -107,36 +108,36 @@
             <section id="collection">
                 <h2 class="flex items-center gap-3 text-2xl font-bold text-gray-900 mb-6">
                     <span class="w-8 h-8 rounded-lg bg-primary/20 text-primary flex items-center justify-center text-sm">1</span>
-                    Información que recopilamos
+                    Informações que coletamos
                 </h2>
                 <div class="space-y-4 text-gray-600">
-                    <p>En Greenery, recopilamos información personal que nos proporcionas directamente al realizar una compra, suscribirte a nuestro boletín o contactar a nuestro equipo de soporte. Esto incluye tu nombre, dirección de envío, correo electrónico e información de pago.</p>
-                    <p>También recopilamos automáticamente cierta información cuando visitas nuestro sitio, incluyendo tu dirección IP, tipo de navegador, sistema operativo, URLs de referencia, información del dispositivo y acciones realizadas en nuestro sitio web.</p>
+                    <p>Na HOCCE, coletamos as informações pessoais que você nos fornece diretamente ao realizar uma compra, entrar em contato com nossa equipe de suporte ou se cadastrar em nossa newsletter. Isso inclui seu nome, endereço de entrega, email e telefone.</p>
+                    <p>Também coletamos automaticamente algumas informações quando você visita nosso site, incluindo endereço IP, tipo de navegador, sistema operacional e páginas acessadas, para melhorar sua experiência de navegação.</p>
                 </div>
             </section>
 
             <section id="usage">
                 <h2 class="flex items-center gap-3 text-2xl font-bold text-gray-900 mb-6">
                     <span class="w-8 h-8 rounded-lg bg-primary/20 text-primary flex items-center justify-center text-sm">2</span>
-                    Cómo usamos tus datos
+                    Como usamos seus dados
                 </h2>
-                <p class="text-gray-600 mb-6">La información que recopilamos se utiliza para proporcionar, mantener y mejorar nuestros servicios. Específicamente, usamos tu información para:</p>
+                <p class="text-gray-600 mb-6">As informações que coletamos são usadas para fornecer, manter e melhorar nossos serviços. Especificamente, usamos seus dados para:</p>
                 <ul class="space-y-4 pl-4 border-l-2 border-primary/20">
                     <li class="flex gap-3">
                         <span class="material-symbols-outlined text-primary">check_circle</span>
-                        <span class="text-gray-600">Procesar y enviar tus pedidos de plantas con precisión</span>
+                        <span class="text-gray-600">Processar e entregar seus pedidos com precisão</span>
                     </li>
                     <li class="flex gap-3">
                         <span class="material-symbols-outlined text-primary">check_circle</span>
-                        <span class="text-gray-600">Comunicarnos contigo sobre pedidos, productos y ofertas promocionales</span>
+                        <span class="text-gray-600">Entrar em contato sobre o status do pedido, produtos e ofertas</span>
                     </li>
                     <li class="flex gap-3">
                         <span class="material-symbols-outlined text-primary">check_circle</span>
-                        <span class="text-gray-600">Personalizar tu experiencia de compja según tus preferencias</span>
+                        <span class="text-gray-600">Personalizar sua experiência de compra de acordo com suas preferências</span>
                     </li>
                     <li class="flex gap-3">
                         <span class="material-symbols-outlined text-primary">check_circle</span>
-                        <span class="text-gray-600">Monitorear y analizar tendencias, uso y actividades</span>
+                        <span class="text-gray-600">Monitorar e analisar tendências e uso do site para melhorá-lo continuamente</span>
                     </li>
                 </ul>
             </section>
@@ -144,28 +145,28 @@
             <section id="cookies">
                 <h2 class="flex items-center gap-3 text-2xl font-bold text-gray-900 mb-6">
                     <span class="w-8 h-8 rounded-lg bg-primary/20 text-primary flex items-center justify-center text-sm">3</span>
-                    Cookies y tecnologías de seguimiento
+                    Cookies e tecnologias de rastreamento
                 </h2>
                 <div class="space-y-4 text-gray-600">
-                    <p>Utilizamos cookies y tecnologías de seguimiento similares para rastrear la actividad en nuestro servicio y almacenar cierta información. Las cookies son archivos con pequeñas cantidades de datos que pueden incluir un identificador único anónimo.</p>
-                    <p>Puedes configurar tu navegador para rechazar todas las cookies o para indicar cuándo se envía una cookie. Sin embargo, si no aceptas cookies, es posible que no puedas usar algunas partes de nuestro servicio.</p>
+                    <p>Utilizamos cookies e tecnologias similares para acompanhar a atividade em nosso site e armazenar certas informações, como itens do seu carrinho de compras.</p>
+                    <p>Você pode configurar seu navegador para recusar cookies. No entanto, se optar por não aceitá-los, algumas partes do site podem não funcionar corretamente.</p>
                 </div>
             </section>
 
             <section id="rights">
                 <h2 class="flex items-center gap-3 text-2xl font-bold text-gray-900 mb-6">
                     <span class="w-8 h-8 rounded-lg bg-primary/20 text-primary flex items-center justify-center text-sm">4</span>
-                    Tus derechos y control
+                    Seus direitos e controle
                 </h2>
-                <p class="text-gray-600 mb-6">Dependiendo de tu ubicación, es posible que tengas los siguientes derechos con respecto a tus datos personales:</p>
+                <p class="text-gray-600 mb-6">De acordo com a Lei Geral de Proteção de Dados (LGPD), você tem os seguintes direitos sobre seus dados pessoais:</p>
                 <div class="grid md:grid-cols-2 gap-6">
                     <div class="p-6 bg-white rounded-xl border border-gray-200">
-                        <h4 class="font-bold text-gray-900 mb-2">Acceso y corrección</h4>
-                        <p class="text-sm text-gray-600">Derecho a acceder a los datos personales que tenemos sobre ti y solicitar correcciones.</p>
+                        <h4 class="font-bold text-gray-900 mb-2">Acesso e correção</h4>
+                        <p class="text-sm text-gray-600">Direito de acessar os dados pessoais que temos sobre você e solicitar correções.</p>
                     </div>
                     <div class="p-6 bg-white rounded-xl border border-gray-200">
-                        <h4 class="font-bold text-gray-900 mb-2">Eliminación de datos</h4>
-                        <p class="text-sm text-gray-600">Derecho a solicitar que eliminemos tu información personal de nuestros sistemas.</p>
+                        <h4 class="font-bold text-gray-900 mb-2">Exclusão de dados</h4>
+                        <p class="text-sm text-gray-600">Direito de solicitar a exclusão das suas informações pessoais de nossos sistemas.</p>
                     </div>
                 </div>
             </section>
@@ -174,17 +175,17 @@
             <div class="p-8 bg-primary/5 rounded-2xl border border-primary/10">
                 <h3 class="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
                     <span class="material-symbols-outlined text-primary">mail</span>
-                    ¿Preguntas sobre tu privacidad?
+                    Dúvidas sobre sua privacidade?
                 </h3>
-                <p class="text-gray-600 mb-6">Si tienes alguna pregunta sobre esta Política de Privacidad, contacta a nuestro oficial de privacidad.</p>
+                <p class="text-gray-600 mb-6">Se você tiver alguma dúvida sobre esta Política de Privacidade, entre em contato com nossa equipe.</p>
                 <a href="{% url 'contact' %}" class="inline-flex items-center px-6 py-3 bg-primary text-white font-bold rounded-lg hover:bg-primary/90 transition">
-                    Contactar equipo de privacidad
+                    Falar com a equipe
                 </a>
             </div>
         </div>
     </main>
 
-     <!-- Footer -->
+    <!-- Footer -->
     <footer class="bg-gray-900 pt-20 pb-10 text-gray-400">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
@@ -195,18 +196,17 @@
                         </a>
                     </div>
                     <p class="text-sm leading-relaxed">
-                        Sua loja online com as melhores ofertas em eletrônicos,
-moda, calçados, casa e muito mais.
+                        Sua loja online com as melhores ofertas em eletrônicos, moda, calçados, casa e muito mais.
                     </p>
                 </div>
                 <div>
                     <h4 class="text-white font-bold mb-6">Explorar</h4>
                     <ul class="flex flex-col gap-4 text-sm">
-                        <li><a class="hover:text-primary transition-colors" href="{% url 'catalogo' %}">Todos los productos</a></li>
+                        <li><a class="hover:text-primary transition-colors" href="{% url 'catalogo' %}">Todos os produtos</a></li>
                     </ul>
                 </div>
                 <div>
-                    <h4 class="text-white font-bold mb-6">Soporte</h4>
+                    <h4 class="text-white font-bold mb-6">Suporte</h4>
                     <ul class="flex flex-col gap-4 text-sm">
                         <li><a class="hover:text-primary transition-colors" href="{% url 'faq' %}">Central de Ajuda</a></li>
                         <li><a class="hover:text-primary transition-colors" href="{% url 'faq' %}">Trocas e Devoluções</a></li>
@@ -234,6 +234,3 @@ moda, calçados, casa e muito mais.
     </footer>
 </body>
 </html>
-
-
-
