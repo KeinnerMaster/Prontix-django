@@ -79,16 +79,16 @@ def add_to_cart(request, producto_id):
     return redirect('cart')
 
 
-def update_cart_item(request, producto_id):
+def update_cart_item(request, clave):
     cantidad = int(request.POST.get('cantidad', 1))
     carrito = Cart(request)
-    carrito.actualizar_cantidad(producto_id, cantidad)
+    carrito.actualizar_cantidad(clave, cantidad)
     return redirect('cart')
 
 
-def remove_from_cart(request, producto_id):
+def remove_from_cart(request, clave):
     carrito = Cart(request)
-    carrito.eliminar(producto_id)
+    carrito.eliminar(clave)
     messages.info(request, 'Producto eliminado del carrito.')
     return redirect('cart')
 
