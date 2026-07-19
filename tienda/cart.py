@@ -42,18 +42,18 @@ class Cart:
             self.carrito[clave]['cantidad'] = max_stock
         self.guardar()
 
-    def actualizar_cantidad(self, producto_id, cantidad):
-        producto_id = str(producto_id)
-        if producto_id in self.carrito and cantidad > 0:
-            self.carrito[producto_id]['cantidad'] = cantidad
+    def actualizar_cantidad(self, clave, cantidad):
+        clave = str(clave)
+        if clave in self.carrito and cantidad > 0:
+            self.carrito[clave]['cantidad'] = cantidad
             self.guardar()
-        elif producto_id in self.carrito and cantidad <= 0:
-            self.eliminar(producto_id)
+        elif clave in self.carrito and cantidad <= 0:
+            self.eliminar(clave)
 
-    def eliminar(self, producto_id):
-        producto_id = str(producto_id)
-        if producto_id in self.carrito:
-            del self.carrito[producto_id]
+    def eliminar(self, clave):
+        clave = str(clave)
+        if clave in self.carrito:
+            del self.carrito[clave]
             self.guardar()
 
     def guardar(self):
