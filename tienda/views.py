@@ -15,9 +15,13 @@ def index(request):
 def producto_detalle(request, slug):
     producto = get_object_or_404(Producto, slug=slug, activo=True)
     relacionados = Producto.objects.filter(categoria=producto.categoria, activo=True).exclude(id=producto.id)[:4]
+    tallas = sorted(set(v.talla for v in producto.variantes.all() if v.talla))
+    colores = sorted(set(v.color for v in producto.variantes.all() if v.color))
     context = {
         'producto': producto,
-        'relacionados': relacionados
+        'relacionados': relacionados,
+        'tallas': tallas,
+        'colores': colores,
     }
     return render(request, 'tienda/product-detail.html', context)
 
