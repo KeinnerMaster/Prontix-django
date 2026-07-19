@@ -2,6 +2,8 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from .models import Producto, Categoria, Pedido, ItemPedido
 from .cart import Cart
+import resend
+from django.conf import settings
 
 def index(request):
     productos_destacados = Producto.objects.filter(destacado=True, activo=True)[:4]
@@ -23,6 +25,30 @@ def about(request):
     return render(request, 'tienda/about.html')
 
 def contact(request):
+    if request.method == 'POST':
+        nombre = request.POST.get('nombre')
+        email = request.POST.get('email')
+        asunto = request.POST.get('asunto')
+        mensaje = request.POST.get('mensaje')
+
+        cuerpo = f"Nome: {nombre}\nEmail: {email}\nAssunto: {asunto}\n\nMensagem:\n{mensaje}"
+
+        try:
+            resend.api_key = settings.RESEND_API_KEY
+            resend.Emails.send({
+                "from": "HOCCE <onboarding@resend.dev>",
+                "to": [getattr(settings, 'CONTACT_EMAIL_DESTINO', 'hoccebr@gmail.com')],
+                "subject": f'[HOCCE Contato] {asunto}',
+                "text": cuerpo,
+                "reply_to": email,
+            })
+            messages.success(request, 'Mensagem enviada com sucesso! Responderemos em breve.')
+        except Exception as e:
+            print(f"ERROR EMAIL: {e}")
+            messages.error(request, 'Erro ao enviar a mensagem. Tente novamente mais tarde.')
+
+        return redirect('contact')
+
     return render(request, 'tienda/contact.html')
 
 def faq(request):
@@ -135,3 +161,6 @@ def order_confirmed(request):
         pedido = Pedido.objects.filter(id=pedido_id).first()
     context = {'pedido': pedido}
     return render(request, 'tienda/order-confirmed.html', context)
+
+def shipping_policy(request):
+    return render(request, 'tienda/shipping-policy.html')

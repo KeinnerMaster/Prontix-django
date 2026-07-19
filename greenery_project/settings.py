@@ -27,7 +27,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',  # Para servir estáticos en producción
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -42,7 +42,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [],
-        'APP_DIRS': True,  # Esto es importante: busca templates dentro de las apps
+        'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
@@ -58,8 +58,6 @@ TEMPLATES = [
 WSGI_APPLICATION = 'greenery_project.wsgi.application'
 
 # Database
-# Por defecto (desarrollo local) usamos SQLite.
-# En Railway, más abajo, esto se sobreescribe con PostgreSQL.
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -84,21 +82,20 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 # Internationalization
-LANGUAGE_CODE = 'es-es'  # Cambia a 'es-cl' si tu negocio es en Chile, etc.
-TIME_ZONE = 'America/Santiago'  # Ajusta según tu zona horaria
+LANGUAGE_CODE = 'pt-br'
+TIME_ZONE = 'America/Sao_Paulo'
 USE_I18N = True
 USE_TZ = True
 
-# Static files (CSS, JavaScript, Images)
+# Static files
 STATIC_URL = 'static/'
-STATICFILES_DIRS = [BASE_DIR / 'static']  # Si tienes archivos estáticos propios
-STATIC_ROOT = BASE_DIR / 'staticfiles'  # Para producción (collectstatic los deja aquí)
+STATICFILES_DIRS = [BASE_DIR / 'static']
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-# Media files (para subir imágenes)
+# Media files
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
-# Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # ------------------------------------------------------------------
@@ -108,7 +105,6 @@ if 'RAILWAY_ENVIRONMENT' in os.environ:
     DEBUG = False
     ALLOWED_HOSTS = ['.up.railway.app', 'prontix-django-production.up.railway.app']
 
-    # Base de datos PostgreSQL en Railway
     import dj_database_url
     DATABASES = {
         'default': dj_database_url.config(
@@ -117,18 +113,17 @@ if 'RAILWAY_ENVIRONMENT' in os.environ:
         )
     }
 
-    # Archivos estáticos comprimidos con WhiteNoise (sin manifest de hashes,
-    # para evitar fallos de post-procesamiento con archivos vendor del admin)
-    STATICFILES_STORAGE = 'whitenoise.storage.StaticFilesStorage'
+    STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 
-    # Necesario para que Django confíe en peticiones POST (login, admin, formularios)
-    # que llegan por HTTPS a través del dominio de Railway
     CSRF_TRUSTED_ORIGINS = ['https://*.up.railway.app']
 
-    # Configuración de Cloudinary para media files
     CLOUDINARY_STORAGE = {
         'CLOUD_NAME': os.environ.get('CLOUDINARY_CLOUD_NAME'),
         'API_KEY': os.environ.get('CLOUDINARY_API_KEY'),
         'API_SECRET': os.environ.get('CLOUDINARY_API_SECRET'),
     }
     DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+    # Configuración de envío de emails (formulario de contacto) vía Resend
+    RESEND_API_KEY = os.environ.get('RESEND_API_KEY')
+    CONTACT_EMAIL_DESTINO = 'imkeinner@gmail.com'
