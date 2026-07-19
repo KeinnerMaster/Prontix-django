@@ -91,6 +91,43 @@
                     qtyHidden.value = val + 1;
                 }
             });
+
+            // --- Selección de talla y color (variante) ---
+            const tallaSelect = document.getElementById('tallaSelect');
+            const colorSelect = document.getElementById('colorSelect');
+            const varianteInput = document.getElementById('varianteIdInput');
+            const varianteError = document.getElementById('varianteError');
+            const addToCartForm = document.getElementById('addToCartForm');
+            const varianteSpans = document.querySelectorAll('#varianteData span');
+
+            function actualizarVariante() {
+                const talla = tallaSelect ? tallaSelect.value : '';
+                const color = colorSelect ? colorSelect.value : '';
+                let encontrada = '';
+                varianteSpans.forEach(function(span) {
+                    const spanTalla = span.dataset.talla || '';
+                    const spanColor = span.dataset.color || '';
+                    if (spanTalla === talla && spanColor === color) {
+                        encontrada = span.dataset.id;
+                    }
+                });
+                varianteInput.value = encontrada;
+                if (encontrada) {
+                    varianteError.classList.add('hidden');
+                }
+            }
+
+            if (tallaSelect) tallaSelect.addEventListener('change', actualizarVariante);
+            if (colorSelect) colorSelect.addEventListener('change', actualizarVariante);
+
+            if (addToCartForm && (tallaSelect || colorSelect)) {
+                addToCartForm.addEventListener('submit', function(e) {
+                    if (!varianteInput.value) {
+                        e.preventDefault();
+                        varianteError.classList.remove('hidden');
+                    }
+                });
+            }
         });
     </script>
 
@@ -170,8 +207,9 @@
                 {% endif %}
 
                 <!-- Selector de cantidad + agregar al carrito -->
-                <form method="post" action="{% url 'add_to_cart' producto.id %}" class="flex items-center gap-4">
+                <form method="post" action="{% url 'add_to_cart' producto.id %}" class="flex items-center gap-4" id="addToCartForm">
                     {% csrf_token %}
+                    <input type="hidden" name="variante_id" id="varianteIdInput" value="">
                     <div class="flex items-center border border-gray-300 rounded-lg">
                         <button type="button" id="qtyMinus" class="px-3 py-2 hover:text-primary">
                             <span class="material-symbols-outlined">remove</span>
