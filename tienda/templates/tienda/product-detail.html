@@ -128,9 +128,9 @@
                     <p class="text-3xl font-bold text-primary mt-4">${{ producto.precio }}</p>
                 </div>
 
-                <p class="text-gray-600 leading-relaxed">
-                    {{ producto.descripcion }}
-                </p>
+                <div class="text-gray-600 leading-relaxed">
+                    {{ producto.descripcion|linebreaks }}
+                </div>
 
                 {% if producto.variantes.all %}
                 <div>
