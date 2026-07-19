@@ -67,11 +67,18 @@
                     <a href="{% url 'producto_detalle' item.producto.slug %}" class="font-bold text-gray-900 hover:text-primary">
                         {{ item.producto.nombre }}
                     </a>
+                    {% if item.variante %}
+                    <p class="text-sm text-gray-600">
+                        {% if item.variante.talla %}Tamanho: {{ item.variante.talla }}{% endif %}
+                        {% if item.variante.talla and item.variante.color %} • {% endif %}
+                        {% if item.variante.color %}Cor: {{ item.variante.color }}{% endif %}
+                    </p>
+                    {% endif %}
                     <p class="text-sm text-gray-500">${{ item.precio_unitario }} c/u</p>
                 </div>
 
                 <!-- Actualizar cantidad -->
-                <form method="post" action="{% url 'update_cart_item' item.producto.id %}" class="flex items-center border border-gray-300 rounded-lg">
+                <form method="post" action="{% url 'update_cart_item' item.clave %}" class="flex items-center border border-gray-300 rounded-lg">
                     {% csrf_token %}
                     <input type="number" name="cantidad" value="{{ item.cantidad }}" min="1" max="{{ item.producto.stock }}"
                            class="w-16 text-center py-2 border-none focus:ring-0" onchange="this.form.submit()">
@@ -80,7 +87,7 @@
                 <p class="font-bold text-primary w-24 text-right">${{ item.subtotal }}</p>
 
                 <!-- Eliminar -->
-                <form method="post" action="{% url 'remove_from_cart' item.producto.id %}">
+                <form method="post" action="{% url 'remove_from_cart' item.clave %}">
                     {% csrf_token %}
                     <button type="submit" class="p-2 text-gray-400 hover:text-red-500 transition">
                         <span class="material-symbols-outlined">delete</span>
