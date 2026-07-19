@@ -161,3 +161,6 @@ def order_confirmed(request):
         pedido = Pedido.objects.filter(id=pedido_id).first()
     context = {'pedido': pedido}
     return render(request, 'tienda/order-confirmed.html', context)
+
+def shipping_policy(request):
+    return render(request, 'tienda/shipping-policy.html')
