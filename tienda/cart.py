@@ -17,18 +17,29 @@ class Cart:
             carrito = self.session[CART_SESSION_KEY] = {}
         self.carrito = carrito
 
-    def agregar(self, producto, cantidad=1):
-        producto_id = str(producto.id)
-        if producto_id in self.carrito:
-            self.carrito[producto_id]['cantidad'] += cantidad
+    def agregar(self, producto, cantidad=1, variante_id=None):
+        # Usamos una clave compuesta (producto + variante) para que
+        # "Camiseta Talla M" y "Camiseta Talla L" sean items distintos en el carrito
+        clave = f"{producto.id}_{variante_id}" if variante_id else str(producto.id)
+
+        if clave in self.carrito:
+            self.carrito[clave]['cantidad'] += cantidad
         else:
-            self.carrito[producto_id] = {
+            self.carrito[clave] = {
+                'producto_id': producto.id,
+                'variante_id': variante_id,
                 'cantidad': cantidad,
                 'precio': str(producto.precio),
             }
-        # Que la cantidad nunca supere el stock disponible
-        if self.carrito[producto_id]['cantidad'] > producto.stock:
-            self.carrito[producto_id]['cantidad'] = producto.stock
+
+        max_stock = producto.stock
+        if variante_id:
+            variante = producto.variantes.filter(id=variante_id).first()
+            if variante:
+                max_stock = variante.stock
+
+        if self.carrito[clave]['cantidad'] > max_stock:
+            self.carrito[clave]['cantidad'] = max_stock
         self.guardar()
 
     def actualizar_cantidad(self, producto_id, cantidad):
@@ -53,20 +64,27 @@ class Cart:
         self.guardar()
 
     def __iter__(self):
-        """Recorre los items del carrito trayendo el producto real de la base
-        de datos (para mostrar nombre, imagen, etc. en el template)."""
-        producto_ids = self.carrito.keys()
+        """Recorre los items del carrito trayendo el producto (y la variante,
+        si aplica) reales de la base de datos."""
+        producto_ids = [item['producto_id'] for item in self.carrito.values()]
         productos = Producto.objects.filter(id__in=producto_ids)
-        productos_map = {str(p.id): p for p in productos}
+        productos_map = {p.id: p for p in productos}
 
-        for producto_id, item in self.carrito.items():
-            producto = productos_map.get(producto_id)
+        for clave, item in self.carrito.items():
+            producto = productos_map.get(item['producto_id'])
             if not producto:
                 continue
+
+            variante = None
+            if item.get('variante_id'):
+                variante = producto.variantes.filter(id=item['variante_id']).first()
+
             precio = Decimal(item['precio'])
             cantidad = item['cantidad']
             yield {
+                'clave': clave,
                 'producto': producto,
+                'variante': variante,
                 'cantidad': cantidad,
                 'precio_unitario': precio,
                 'subtotal': precio * cantidad,
