@@ -1,9 +1,9 @@
-﻿<!DOCTYPE html>
-<html lang="es">
+<!DOCTYPE html>
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HOCCE - Preguntas Frecuentes</title>
+    <title>HOCCE - Perguntas Frequentes</title>
     <link rel="icon" type="image/png" href="https://res.cloudinary.com/nck1eugv/image/upload/e_trim/v1784158962/ChatGPT_Image_15_jul_2026_20_42_32_mm2nfi.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -31,7 +31,7 @@
                 </a>
                 <nav class="hidden md:flex items-center space-x-8">
                     <a href="{% url 'index' %}" class="text-gray-700 hover:text-primary">Início</a>
-                    <a href="{% url 'index' %}" class="text-gray-700 hover:text-primary">Produtos</a>
+                    <a href="{% url 'catalogo' %}" class="text-gray-700 hover:text-primary">Produtos</a>
                     <a href="{% url 'about' %}" class="text-gray-700 hover:text-primary">Sobre Nós</a>
                     <a href="{% url 'contact' %}" class="text-gray-700 hover:text-primary">Contato</a>
                     <a href="{% url 'faq' %}" class="text-primary font-bold">FAQ</a>
@@ -39,19 +39,20 @@
                 <div class="flex items-center space-x-4">
                     <a href="{% url 'cart' %}" class="relative p-2 text-gray-600 hover:text-primary">
                         <span class="material-symbols-outlined">shopping_cart</span>
-                        <span class="absolute -top-1 -right-1 bg-primary text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">2</span>
+                        {% if cart_count > 0 %}
+                        <span class="absolute -top-1 -right-1 bg-primary text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">{{ cart_count }}</span>
+                        {% endif %}
                     </a>
                     <button id="menuBtn" class="md:hidden p-2 text-gray-600 hover:text-primary">
                         <span class="material-symbols-outlined">menu</span>
                     </button>
-                    <div class="hidden md:block w-10 h-10 rounded-full bg-gray-200 bg-cover bg-center" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDZUyveFYYQbPXKMsGGm-XewoonB8fhOHLvqzXgqlRaqXSzjqsqQ5YuMXJyBL_TWKBYuy1DIcHW6rg37-Km1rcUPv8g_DcFNb_3TP_dzkSPxTxlBxBCCW-02uQbGzEXrU-DM6BNeOmaA8nImcC6Xc2YgIbRRfYUL-eNCkLd6JLba9laQUeto9EZLcK_bdKZQTOUnDYUR0yTuLqlSpJcHQyrNPKKUyfoLaP78w2CWFQlI6vQcgnJE6_oLaDuUR6hcvKUfTUO7UBnqZU')"></div>
                 </div>
             </div>
             <!-- Menú móvil -->
             <div id="mobileMenu" class="md:hidden hidden py-4 border-t border-gray-200">
                 <nav class="flex flex-col space-y-4">
                     <a href="{% url 'index' %}" class="text-gray-700 hover:text-primary px-2 py-1">Início</a>
-                    <a href="{% url 'index' %}" class="text-gray-700 hover:text-primary px-2 py-1">Produtos</a>
+                    <a href="{% url 'catalogo' %}" class="text-gray-700 hover:text-primary px-2 py-1">Produtos</a>
                     <a href="{% url 'about' %}" class="text-gray-700 hover:text-primary px-2 py-1">Sobre Nós</a>
                     <a href="{% url 'contact' %}" class="text-gray-700 hover:text-primary px-2 py-1">Contato</a>
                     <a href="{% url 'faq' %}" class="text-primary font-bold px-2 py-1">FAQ</a>
@@ -86,27 +87,8 @@
 
     <main class="max-w-4xl mx-auto px-4 py-16">
         <div class="text-center mb-12">
-            <h1 class="text-4xl md:text-5xl font-black text-gray-900 mb-4">Preguntas Frecuentes</h1>
-            <p class="text-lg text-gray-600">Todo lo que necesitas saber sobre tus plantas y cómo las enviamos</p>
-        </div>
-
-        <!-- Buscador (decorativo) -->
-        <div class="mb-12">
-            <div class="relative">
-                <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
-                    <span class="material-symbols-outlined">search</span>
-                </span>
-                <input type="text" placeholder="Buscar preguntas..." class="w-full pl-12 pr-4 py-4 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary focus:border-primary outline-none">
-            </div>
-        </div>
-
-        <!-- Categorías -->
-        <div class="flex flex-wrap gap-3 mb-12">
-            <button class="px-6 py-2 rounded-full bg-primary text-white font-semibold">Todas</button>
-            <button class="px-6 py-2 rounded-full bg-gray-100 text-gray-700 hover:bg-gray-200 font-semibold">Envíos</button>
-            <button class="px-6 py-2 rounded-full bg-gray-100 text-gray-700 hover:bg-gray-200 font-semibold">Cuidado</button>
-            <button class="px-6 py-2 rounded-full bg-gray-100 text-gray-700 hover:bg-gray-200 font-semibold">Devoluciones</button>
-            <button class="px-6 py-2 rounded-full bg-gray-100 text-gray-700 hover:bg-gray-200 font-semibold">Pedidos</button>
+            <h1 class="text-4xl md:text-5xl font-black text-gray-900 mb-4">Perguntas Frequentes</h1>
+            <p class="text-lg text-gray-600">Tudo o que você precisa saber sobre pedidos, entregas e trocas</p>
         </div>
 
         <!-- FAQ Accordion -->
@@ -114,72 +96,83 @@
             <!-- Pregunta 1 -->
             <details class="group bg-white rounded-xl border border-gray-200 open:border-primary open:ring-1 open:ring-primary/20">
                 <summary class="flex cursor-pointer items-center justify-between p-6">
-                    <span class="text-lg font-bold text-gray-900">¿Cómo empacan las plantas vivas?</span>
+                    <span class="text-lg font-bold text-gray-900">Quanto tempo leva para meu pedido chegar?</span>
                     <span class="material-symbols-outlined text-primary group-open:rotate-180 transition-transform">expand_more</span>
                 </summary>
                 <div class="px-6 pb-6 text-gray-600">
-                    Usamos empaques ecológicos y transpirables diseñados para mantener tus plantas seguras e hidratadas durante el envío. Cada planta va protegida con materiales biodegradables y soportes especializados para evitar movimientos. Hemos probado nuestros métodos con miles de envíos para asegurar que tus plantas lleguen felices.
+                    O prazo de entrega varia de acordo com o produto e a região, mas normalmente leva entre 7 e 20 dias úteis. Assim que seu pedido for confirmado, entraremos em contato para informar o prazo estimado e, quando disponível, o código de rastreamento.
                 </div>
             </details>
 
             <!-- Pregunta 2 -->
             <details class="group bg-white rounded-xl border border-gray-200 open:border-primary open:ring-1 open:ring-primary/20">
                 <summary class="flex cursor-pointer items-center justify-between p-6">
-                    <span class="text-lg font-bold text-gray-900">¿Cuándo llegará mi pedido?</span>
+                    <span class="text-lg font-bold text-gray-900">Como faço para pagar meu pedido?</span>
                     <span class="material-symbols-outlined text-primary group-open:rotate-180 transition-transform">expand_more</span>
                 </summary>
                 <div class="px-6 pb-6 text-gray-600">
-                    El envío estándar toma de 3 a 5 días hábiles. Enviamos los lunes, martes y miércoles para evitar que las plantas pasen el fin de semana en bodegas. Recibirás un número de seguimiento tan pronto como tu pedido salga de nuestro vivero.
+                    Após finalizar seu pedido no site, nossa equipe entrará em contato pelo telefone ou email informado para combinar a melhor forma de pagamento e confirmar os detalhes da entrega.
                 </div>
             </details>
 
             <!-- Pregunta 3 -->
             <details class="group bg-white rounded-xl border border-gray-200 open:border-primary open:ring-1 open:ring-primary/20">
                 <summary class="flex cursor-pointer items-center justify-between p-6">
-                    <span class="text-lg font-bold text-gray-900">¿Ofrecen garantía de llegada con vida?</span>
+                    <span class="text-lg font-bold text-gray-900">Posso trocar ou devolver um produto?</span>
                     <span class="material-symbols-outlined text-primary group-open:rotate-180 transition-transform">expand_more</span>
                 </summary>
                 <div class="px-6 pb-6 text-gray-600">
-                    ¡Sí! Garantizamos que tu planta llegue en condiciones saludables. Si llega muerta o con daños graves, toma una foto dentro de las 24 horas posteriores a la entrega y contacta a nuestro equipo. Enviaremos un reemplazo o emitiremos un reembolso inmediato.
+                    Sim! Você tem até 7 dias corridos após o recebimento para solicitar troca ou devolução, desde que o produto esteja em sua embalagem original e sem sinais de uso. Entre em contato conosco para iniciar o processo.
                 </div>
             </details>
 
             <!-- Pregunta 4 -->
             <details class="group bg-white rounded-xl border border-gray-200 open:border-primary open:ring-1 open:ring-primary/20">
                 <summary class="flex cursor-pointer items-center justify-between p-6">
-                    <span class="text-lg font-bold text-gray-900">¿Cuál es su política de devoluciones?</span>
+                    <span class="text-lg font-bold text-gray-900">O produto chegou com defeito, o que eu faço?</span>
                     <span class="material-symbols-outlined text-primary group-open:rotate-180 transition-transform">expand_more</span>
                 </summary>
                 <div class="px-6 pb-6 text-gray-600">
-                    Para artículos no vivos como macetas y herramientas, aceptamos devoluciones dentro de los 14 días posteriores a la compra. Debido a la naturaleza perecedera de las plantas, no podemos aceptar devoluciones una vez entregadas, pero nuestra Garantía de Llegada con Vida cubre cualquier problema al recibirlas.
+                    Lamentamos pelo inconveniente. Entre em contato com nossa equipe em até 7 dias após o recebimento, com fotos do produto e da embalagem, e faremos a troca ou o reembolso o mais rápido possível.
                 </div>
             </details>
 
             <!-- Pregunta 5 -->
             <details class="group bg-white rounded-xl border border-gray-200 open:border-primary open:ring-1 open:ring-primary/20">
                 <summary class="flex cursor-pointer items-center justify-between p-6">
-                    <span class="text-lg font-bold text-gray-900">¿Cómo cuido mi planta cuando llega?</span>
+                    <span class="text-lg font-bold text-gray-900">Vocês têm loja física?</span>
                     <span class="material-symbols-outlined text-primary group-open:rotate-180 transition-transform">expand_more</span>
                 </summary>
                 <div class="px-6 pb-6 text-gray-600">
-                    Cada planta incluye una tarjeta de cuidado personalizada. En general, recomendamos dejar que la planta se aclimate durante 24 horas antes de regar, y colocarla en un lugar con luz indirecta. Evita el sol directo los primeros días y no la trasplantes inmediatamente.
+                    Não, a HOCCE é uma loja 100% online. Isso nos permite oferecer preços mais competitivos e entregar em todo o Brasil, sem custos de manutenção de loja física.
+                </div>
+            </details>
+
+            <!-- Pregunta 6 -->
+            <details class="group bg-white rounded-xl border border-gray-200 open:border-primary open:ring-1 open:ring-primary/20">
+                <summary class="flex cursor-pointer items-center justify-between p-6">
+                    <span class="text-lg font-bold text-gray-900">Como acompanho meu pedido?</span>
+                    <span class="material-symbols-outlined text-primary group-open:rotate-180 transition-transform">expand_more</span>
+                </summary>
+                <div class="px-6 pb-6 text-gray-600">
+                    Assim que seu pedido for enviado, você receberá as informações de rastreamento pelo email ou telefone cadastrado. Se tiver dúvidas sobre o status, pode falar diretamente com a gente pela página de Contato.
                 </div>
             </details>
         </div>
 
         <!-- CTA de contacto -->
         <div class="mt-20 p-8 bg-primary/5 rounded-2xl border border-primary/10 text-center">
-            <h3 class="text-xl font-bold text-gray-900 mb-2">¿Aún tienes preguntas?</h3>
-            <p class="text-gray-600 mb-6">Nuestros expertos en plantas están aquí para ayudarte</p>
+            <h3 class="text-xl font-bold text-gray-900 mb-2">Ainda tem dúvidas?</h3>
+            <p class="text-gray-600 mb-6">Nossa equipe está pronta para te ajudar</p>
             <a href="{% url 'contact' %}">
                 <button class="px-8 py-3 bg-primary text-white font-bold rounded-lg hover:bg-primary/90 transition shadow-lg shadow-primary/20">
-                    Contactar soporte
+                    Falar com o suporte
                 </button>
             </a>
         </div>
     </main>
 
-     <!-- Footer -->
+    <!-- Footer -->
     <footer class="bg-gray-900 pt-20 pb-10 text-gray-400">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
@@ -190,18 +183,17 @@
                         </a>
                     </div>
                     <p class="text-sm leading-relaxed">
-                        Sua loja online com as melhores ofertas em eletrônicos,
-moda, calçados, casa e muito mais.
+                        Sua loja online com as melhores ofertas em eletrônicos, moda, calçados, casa e muito mais.
                     </p>
                 </div>
                 <div>
                     <h4 class="text-white font-bold mb-6">Explorar</h4>
                     <ul class="flex flex-col gap-4 text-sm">
-                        <li><a class="hover:text-primary transition-colors" href="{% url 'catalogo' %}">Todos los productos</a></li>
+                        <li><a class="hover:text-primary transition-colors" href="{% url 'catalogo' %}">Todos os produtos</a></li>
                     </ul>
                 </div>
                 <div>
-                    <h4 class="text-white font-bold mb-6">Soporte</h4>
+                    <h4 class="text-white font-bold mb-6">Suporte</h4>
                     <ul class="flex flex-col gap-4 text-sm">
                         <li><a class="hover:text-primary transition-colors" href="{% url 'faq' %}">Central de Ajuda</a></li>
                         <li><a class="hover:text-primary transition-colors" href="{% url 'faq' %}">Trocas e Devoluções</a></li>
@@ -229,6 +221,3 @@ moda, calçados, casa e muito mais.
     </footer>
 </body>
 </html>
-
-
-
