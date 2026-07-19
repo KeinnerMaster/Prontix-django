@@ -39,12 +39,11 @@
                 <div class="flex items-center space-x-4">
                     <a href="{% url 'cart' %}" class="relative p-2 text-gray-600 hover:text-primary">
                         <span class="material-symbols-outlined">shopping_cart</span>
-                        <span class="absolute -top-1 -right-1 bg-primary text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">2</span>
+                        {% if cart_count > 0 %}<span class="absolute -top-1 -right-1 bg-primary text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">{{ cart_count }}</span>{% endif %}
                     </a>
                     <button id="menuBtn" class="md:hidden p-2 text-gray-600 hover:text-primary">
                         <span class="material-symbols-outlined">menu</span>
                     </button>
-                    <div class="hidden md:block w-10 h-10 rounded-full bg-gray-200 bg-cover bg-center" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDZUyveFYYQbPXKMsGGm-XewoonB8fhOHLvqzXgqlRaqXSzjqsqQ5YuMXJyBL_TWKBYuy1DIcHW6rg37-Km1rcUPv8g_DcFNb_3TP_dzkSPxTxlBxBCCW-02uQbGzEXrU-DM6BNeOmaA8nImcC6Xc2YgIbRRfYUL-eNCkLd6JLba9laQUeto9EZLcK_bdKZQTOUnDYUR0yTuLqlSpJcHQyrNPKKUyfoLaP78w2CWFQlI6vQcgnJE6_oLaDuUR6hcvKUfTUO7UBnqZU')"></div>
                 </div>
             </div>
             <!-- Menú móvil -->
@@ -205,7 +204,7 @@ moda, calçados, casa e muito mais.
                     <ul class="flex flex-col gap-4 text-sm">
                         <li><a class="hover:text-primary transition-colors" href="{% url 'faq' %}">Central de Ajuda</a></li>
                         <li><a class="hover:text-primary transition-colors" href="{% url 'faq' %}">Trocas e Devoluções</a></li>
-                        <li><a class="hover:text-primary transition-colors" href="{% url 'about' %}">Política de Envio</a></li>
+                        <li><a class="hover:text-primary transition-colors" href="{% url 'shipping_policy' %}">Política de Envio</a></li>
                         <li><a class="hover:text-primary transition-colors" href="{% url 'contact' %}">Contato</a></li>
                     </ul>
                 </div>
@@ -229,6 +228,9 @@ moda, calçados, casa e muito mais.
     </footer>
 </body>
 </html>
+
+
+
 
 
 
