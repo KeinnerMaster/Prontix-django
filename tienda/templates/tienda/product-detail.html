@@ -128,6 +128,22 @@
                     }
                 });
             }
+
+            // --- Galería de imágenes ---
+            const imagenPrincipal = document.getElementById('imagenPrincipal');
+            const thumbButtons = document.querySelectorAll('.thumb-btn');
+
+            thumbButtons.forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    imagenPrincipal.src = btn.dataset.src;
+                    thumbButtons.forEach(function(b) {
+                        b.classList.remove('border-primary');
+                        b.classList.add('border-transparent');
+                    });
+                    btn.classList.remove('border-transparent');
+                    btn.classList.add('border-primary');
+                });
+            });
         });
     </script>
 
@@ -148,11 +164,26 @@
             <div class="space-y-4">
                 <div class="aspect-square rounded-2xl overflow-hidden bg-gray-100">
                     {% if producto.imagen %}
-                        <img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}" class="w-full h-full object-cover">
+                        <img id="imagenPrincipal" src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}" class="w-full h-full object-cover">
                     {% else %}
-                        <div class="w-full h-full flex items-center justify-center text-gray-400">Sin imagen</div>
+                        <div id="imagenPrincipal" class="w-full h-full flex items-center justify-center text-gray-400">Sin imagen</div>
                     {% endif %}
                 </div>
+
+                {% if producto.imagenes_adicionales.all %}
+                <div class="grid grid-cols-4 gap-3">
+                    {% if producto.imagen %}
+                    <button type="button" class="thumb-btn aspect-square rounded-lg overflow-hidden border-2 border-primary" data-src="{{ producto.imagen.url }}">
+                        <img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}" class="w-full h-full object-cover">
+                    </button>
+                    {% endif %}
+                    {% for img in producto.imagenes_adicionales.all %}
+                    <button type="button" class="thumb-btn aspect-square rounded-lg overflow-hidden border-2 border-transparent hover:border-primary/50" data-src="{{ img.imagen.url }}">
+                        <img src="{{ img.imagen.url }}" alt="{{ producto.nombre }}" class="w-full h-full object-cover">
+                    </button>
+                    {% endfor %}
+                </div>
+                {% endif %}
             </div>
 
             <!-- Información del producto -->
