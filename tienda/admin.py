@@ -28,7 +28,7 @@ class ProductoAdmin(admin.ModelAdmin):
 class ItemPedidoInline(admin.TabularInline):
     model = ItemPedido
     extra = 0
-    readonly_fields = ('producto', 'nombre_producto', 'precio_unitario', 'cantidad', 'subtotal')
+    readonly_fields = ('producto', 'nombre_producto', 'variante_info', 'precio_unitario', 'cantidad', 'subtotal')
     can_delete = False
 
 
