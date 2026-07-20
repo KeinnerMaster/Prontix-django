@@ -321,6 +321,7 @@ moda, calçados, casa e muito mais.
         document.addEventListener('DOMContentLoaded', function() {
             const popup = document.getElementById('newsletterPopup');
             const closeBtn = document.getElementById('closeNewsletterPopup');
+            const newsletterForm = popup ? popup.querySelector('form') : null;
             const yaVisto = localStorage.getItem('hocce_newsletter_visto');
 
             if (!yaVisto && popup) {
@@ -345,6 +346,12 @@ moda, calçados, casa e muito mais.
                     localStorage.setItem('hocce_newsletter_visto', 'true');
                 }
             });
+
+            if (newsletterForm) {
+                newsletterForm.addEventListener('submit', function() {
+                    localStorage.setItem('hocce_newsletter_visto', 'true');
+                });
+            }
         });
     </script>
 </body>
