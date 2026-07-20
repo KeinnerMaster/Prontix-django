@@ -294,6 +294,59 @@ moda, calçados, casa e muito mais.
             </div>
         </div>
     </footer>
+    <!-- Popup de Newsletter -->
+    <div id="newsletterPopup" class="fixed inset-0 bg-black/50 z-[100] hidden items-center justify-center px-4">
+        <div class="bg-white rounded-2xl max-w-md w-full p-8 relative">
+            <button id="closeNewsletterPopup" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+            <div class="text-center mb-6">
+                <span class="material-symbols-outlined text-primary text-5xl">mail</span>
+                <h2 class="text-2xl font-extrabold text-gray-900 mt-4 mb-2">Ofertas exclusivas para você</h2>
+                <p class="text-gray-500 text-sm">Cadastre seu email e receba promoções antes de todo mundo</p>
+            </div>
+            <form method="post" action="{% url 'suscribir_newsletter' %}" class="flex flex-col gap-3">
+                {% csrf_token %}
+                <input type="email" name="email" required placeholder="Seu melhor email"
+                       class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary outline-none">
+                <button type="submit" class="w-full bg-primary text-white font-bold py-3 rounded-lg hover:bg-primary/90 transition">
+                    Quero receber ofertas
+                </button>
+            </form>
+            <p class="text-xs text-gray-400 text-center mt-4">Não enviamos spam. Você pode cancelar quando quiser.</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const popup = document.getElementById('newsletterPopup');
+            const closeBtn = document.getElementById('closeNewsletterPopup');
+            const yaVisto = localStorage.getItem('hocce_newsletter_visto');
+
+            if (!yaVisto && popup) {
+                setTimeout(function() {
+                    popup.classList.remove('hidden');
+                    popup.classList.add('flex');
+                }, 2000);
+            }
+
+            if (closeBtn) {
+                closeBtn.addEventListener('click', function() {
+                    popup.classList.add('hidden');
+                    popup.classList.remove('flex');
+                    localStorage.setItem('hocce_newsletter_visto', 'true');
+                });
+            }
+
+            popup.addEventListener('click', function(e) {
+                if (e.target === popup) {
+                    popup.classList.add('hidden');
+                    popup.classList.remove('flex');
+                    localStorage.setItem('hocce_newsletter_visto', 'true');
+                }
+            });
+        });
+    </script>
 </body>
 </html>
 
