@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
-from .models import Producto, Categoria, Pedido, ItemPedido, Cliente
+from .models import Producto, Categoria, Pedido, ItemPedido, Cliente, SuscriptorNewsletter
 from .cart import Cart
 import resend
 from django.conf import settings
@@ -198,3 +198,11 @@ def order_confirmed(request):
 
 def shipping_policy(request):
     return render(request, 'tienda/shipping-policy.html')
+
+def suscribir_newsletter(request):
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        if email:
+            SuscriptorNewsletter.objects.get_or_create(email=email)
+        return redirect(request.META.get('HTTP_REFERER', 'index'))
+    return redirect('index')
