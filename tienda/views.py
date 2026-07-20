@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
-from .models import Producto, Categoria, Pedido, ItemPedido
+from .models import Producto, Categoria, Pedido, ItemPedido, Cliente
 from .cart import Cart
 import resend
 from django.conf import settings
@@ -136,6 +136,21 @@ def checkout(request):
             notas=notas,
             total=carrito.total(),
         )
+
+        # Crear o actualizar el registro de Cliente automáticamente
+        cliente, creado = Cliente.objects.get_or_create(
+            email=email,
+            defaults={'nombre': nombre, 'telefono': telefono, 'clasificacion': 'lead'}
+        )
+        if not creado:
+            cliente.nombre = nombre
+            cliente.telefono = telefono
+        cliente.total_gastado += carrito.total()
+        cliente.cantidad_pedidos += 1
+        # Si ya compró 2+ veces, lo subimos automáticamente a "activo"
+        if cliente.cantidad_pedidos >= 2 and cliente.clasificacion == 'lead':
+            cliente.clasificacion = 'activo'
+        cliente.save()
 
         for item in carrito:
             variante_info = ''
