@@ -34,6 +34,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'tienda.middleware.MantenimientoMiddleware',
 ]
 
 ROOT_URLCONF = 'greenery_project.urls'
