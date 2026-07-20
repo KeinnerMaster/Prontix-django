@@ -46,6 +46,44 @@ class PedidoAdmin(admin.ModelAdmin):
     readonly_fields = ('nombre_cliente', 'email_cliente', 'telefono_cliente', 'direccion', 'ciudad', 'notas', 'total', 'creado_en')
     inlines = [ItemPedidoInline]
 
+    def save_model(self, request, obj, form, change):
+        estado_anterior = None
+        if change and 'estado' in form.changed_data:
+            estado_anterior = Pedido.objects.get(pk=obj.pk).estado
+
+        super().save_model(request, obj, form, change)
+
+        if estado_anterior is not None and estado_anterior != obj.estado:
+            self._notificar_cliente(obj)
+
+    def save_formset(self, request, form, formset, change):
+        """Detecta cambios de estado hechos desde la edición masiva en la lista (list_editable)."""
+        super().save_formset(request, form, formset, change)
+
+    def _notificar_cliente(self, pedido):
+        import resend
+        from django.conf import settings
+
+        mensajes_estado = {
+            'pendiente': 'Seu pedido está pendente de pagamento.',
+            'pagado': 'Recebemos o pagamento do seu pedido! Em breve ele será enviado.',
+            'enviado': 'Seu pedido foi enviado! Em breve chegará até você.',
+            'entregado': 'Seu pedido foi entregue. Obrigado por comprar na HOCCE!',
+            'cancelado': 'Seu pedido foi cancelado.',
+        }
+        mensaje = mensajes_estado.get(pedido.estado, f'O status do seu pedido mudou para: {pedido.get_estado_display()}')
+
+        try:
+            resend.api_key = settings.RESEND_API_KEY
+            resend.Emails.send({
+                "from": "HOCCE <onboarding@resend.dev>",
+                "to": [pedido.email_cliente],
+                "subject": f'Atualização do seu pedido #{pedido.id} - HOCCE',
+                "text": f"Olá {pedido.nombre_cliente},\n\n{mensaje}\n\nPedido #{pedido.id}\nTotal: R$ {pedido.total}\n\nObrigado por comprar com a gente!",
+            })
+        except Exception as e:
+            print(f"ERROR notificando cliente: {e}")
+
 @admin.register(ConfiguracionSitio)
 class ConfiguracionSitioAdmin(admin.ModelAdmin):
     list_display = ('modo_mantenimiento',)
