@@ -100,6 +100,26 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+JAZZMIN_SETTINGS = {
+    "site_title": "HOCCE Admin",
+    "site_header": "HOCCE",
+    "site_brand": "HOCCE",
+    "welcome_sign": "Bem-vindo ao painel administrativo da HOCCE",
+    "copyright": "HOCCE",
+    "show_sidebar": True,
+    "navigation_expanded": True,
+    "icons": {
+        "auth.user": "fas fa-user",
+        "auth.Group": "fas fa-users",
+        "tienda.Categoria": "fas fa-tags",
+        "tienda.Producto": "fas fa-box",
+        "tienda.Variante": "fas fa-list",
+        "tienda.Pedido": "fas fa-shopping-cart",
+        "tienda.ImagenProducto": "fas fa-images",
+        "tienda.ConfiguracionSitio": "fas fa-cog",
+    },
+}
+
 # ------------------------------------------------------------------
 # Configuración específica para Railway (producción)
 # ------------------------------------------------------------------
