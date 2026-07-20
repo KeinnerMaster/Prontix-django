@@ -78,10 +78,16 @@
                 </div>
 
                 <!-- Actualizar cantidad -->
-                <form method="post" action="{% url 'update_cart_item' item.clave %}" class="flex items-center border border-gray-300 rounded-lg">
+                <form method="post" action="{% url 'update_cart_item' item.clave %}" class="flex items-center border border-gray-300 rounded-lg cart-qty-form">
                     {% csrf_token %}
+                    <button type="button" class="qty-minus px-3 py-2 hover:text-primary">
+                        <span class="material-symbols-outlined text-lg">remove</span>
+                    </button>
                     <input type="number" name="cantidad" value="{{ item.cantidad }}" min="1" max="{{ item.producto.stock }}"
-                           class="w-16 text-center py-2 border-none focus:ring-0" onchange="this.form.submit()">
+                           class="qty-input w-12 text-center py-2 border-none focus:ring-0" readonly>
+                    <button type="button" class="qty-plus px-3 py-2 hover:text-primary">
+                        <span class="material-symbols-outlined text-lg">add</span>
+                    </button>
                 </form>
 
                 <p class="font-bold text-primary w-24 text-right">${{ item.subtotal }}</p>
@@ -174,6 +180,30 @@ moda, calçados, casa e muito mais.
             </div>
         </div>
     </footer>
+    <script>
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.cart-qty-form').forEach(function(form) {
+        const input = form.querySelector('.qty-input');
+        const max = parseInt(input.max, 10) || 999;
+
+        form.querySelector('.qty-minus').addEventListener('click', function() {
+            let val = parseInt(input.value, 10);
+            if (val > 1) {
+                input.value = val - 1;
+                form.submit();
+            }
+        });
+
+        form.querySelector('.qty-plus').addEventListener('click', function() {
+            let val = parseInt(input.value, 10);
+            if (val < max) {
+                input.value = val + 1;
+                form.submit();
+            }
+        });
+    });
+});
+</script>
 </body>
 </html>
 
