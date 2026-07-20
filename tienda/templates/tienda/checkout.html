@@ -94,7 +94,16 @@
                     <div class="space-y-3 mb-4">
                         {% for item in carrito %}
                         <div class="flex justify-between text-sm">
-                            <span class="text-gray-600">{{ item.cantidad }}x {{ item.producto.nombre }}</span>
+                            <span class="text-gray-600">
+                                {{ item.cantidad }}x {{ item.producto.nombre }}
+                                {% if item.variante %}
+                                    <br><span class="text-xs text-gray-400">
+                                        {% if item.variante.talla %}Tamanho: {{ item.variante.talla }}{% endif %}
+                                        {% if item.variante.talla and item.variante.color %} • {% endif %}
+                                        {% if item.variante.color %}Cor: {{ item.variante.color }}{% endif %}
+                                    </span>
+                                {% endif %}
+                            </span>
                             <span class="font-semibold text-gray-900">${{ item.subtotal }}</span>
                         </div>
                         {% endfor %}
