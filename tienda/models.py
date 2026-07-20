@@ -118,3 +118,39 @@ class ConfiguracionSitio(models.Model):
         # Aseguramos que solo exista 1 registro de configuración
         self.pk = 1
         super().save(*args, **kwargs)
+
+class Cliente(models.Model):
+    CLASIFICACION_CHOICES = [
+        ('lead', 'Lead (Potencial)'),
+        ('activo', 'Cliente Ativo'),
+        ('inactivo', 'Cliente Inativo'),
+    ]
+
+    nombre = models.CharField(max_length=200)
+    email = models.EmailField(unique=True)
+    telefono = models.CharField(max_length=30, blank=True)
+    clasificacion = models.CharField(max_length=20, choices=CLASIFICACION_CHOICES, default='lead')
+    total_gastado = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    cantidad_pedidos = models.IntegerField(default=0)
+    creado_en = models.DateTimeField(auto_now_add=True)
+    notas = models.TextField(blank=True, help_text="Notas internas sobre este cliente")
+
+    class Meta:
+        verbose_name_plural = "Clientes"
+        ordering = ['-creado_en']
+
+    def __str__(self):
+        return f"{self.nombre} ({self.email})"
+
+
+class SuscriptorNewsletter(models.Model):
+    email = models.EmailField(unique=True)
+    creado_en = models.DateTimeField(auto_now_add=True)
+    activo = models.BooleanField(default=True)
+
+    class Meta:
+        verbose_name_plural = "Suscriptores Newsletter"
+        ordering = ['-creado_en']
+
+    def __str__(self):
+        return self.email
