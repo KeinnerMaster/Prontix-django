@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Categoria, Producto, Variante, Pedido, ItemPedido, ImagenProducto, ConfiguracionSitio
+from .models import Categoria, Producto, Variante, Pedido, ItemPedido, ImagenProducto, ConfiguracionSitio, Cliente, SuscriptorNewsletter
 
 @admin.register(Categoria)
 class CategoriaAdmin(admin.ModelAdmin):
@@ -94,3 +94,40 @@ class ConfiguracionSitioAdmin(admin.ModelAdmin):
 
     def has_delete_permission(self, request, obj=None):
         return False
+
+@admin.register(Cliente)
+class ClienteAdmin(admin.ModelAdmin):
+    list_display = ('nombre', 'email', 'telefono', 'clasificacion', 'cantidad_pedidos', 'total_gastado', 'creado_en')
+    list_filter = ('clasificacion',)
+    list_editable = ('clasificacion',)
+    search_fields = ('nombre', 'email', 'telefono')
+    readonly_fields = ('cantidad_pedidos', 'total_gastado', 'creado_en')
+    actions = ['enviar_email_masivo']
+
+    @admin.action(description='Enviar email promocional a los clientes seleccionados')
+    def enviar_email_masivo(self, request, queryset):
+        import resend
+        from django.conf import settings
+
+        enviados = 0
+        for cliente in queryset:
+            try:
+                resend.api_key = settings.RESEND_API_KEY
+                resend.Emails.send({
+                    "from": "HOCCE <onboarding@resend.dev>",
+                    "to": [cliente.email],
+                    "subject": "Ofertas especiais para você - HOCCE",
+                    "text": f"Olá {cliente.nombre},\n\nTemos novidades e ofertas especiais esperando por você na HOCCE!\n\nVisite nossa loja e confira.",
+                })
+                enviados += 1
+            except Exception as e:
+                print(f"ERROR enviando a {cliente.email}: {e}")
+
+        self.message_user(request, f'{enviados} email(s) enviado(s) correctamente.')
+
+
+@admin.register(SuscriptorNewsletter)
+class SuscriptorNewsletterAdmin(admin.ModelAdmin):
+    list_display = ('email', 'activo', 'creado_en')
+    list_filter = ('activo',)
+    search_fields = ('email',)
