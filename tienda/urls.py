@@ -16,4 +16,5 @@ urlpatterns = [
     path('carrito/eliminar/<str:clave>/', views.remove_from_cart, name='remove_from_cart'),
     path('checkout/', views.checkout, name='checkout'),
     path('confirmado/', views.order_confirmed, name='order_confirmed'),
+    path('newsletter/suscribir/', views.suscribir_newsletter, name='suscribir_newsletter'),
 ]
