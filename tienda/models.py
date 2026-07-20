@@ -78,6 +78,7 @@ class ItemPedido(models.Model):
     pedido = models.ForeignKey(Pedido, on_delete=models.CASCADE, related_name='items')
     producto = models.ForeignKey(Producto, on_delete=models.SET_NULL, null=True)
     nombre_producto = models.CharField(max_length=200)  # copia por si el producto se borra después
+    variante_info = models.CharField(max_length=100, blank=True, help_text="Ej: Tamanho M / Cor Azul")
     precio_unitario = models.DecimalField(max_digits=10, decimal_places=2)
     cantidad = models.IntegerField()
 
