@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Categoria, Producto, Variante, Pedido, ItemPedido
+from .models import Categoria, Producto, Variante, Pedido, ItemPedido, ImagenProducto
 
 
 @admin.register(Categoria)
@@ -15,6 +15,12 @@ class VarianteInline(admin.TabularInline):
     extra = 1
 
 
+class ImagenProductoInline(admin.TabularInline):
+    """Permite agregar varias fotos adicionales al producto."""
+    model = ImagenProducto
+    extra = 1
+
+
 @admin.register(Producto)
 class ProductoAdmin(admin.ModelAdmin):
     list_display = ['nombre', 'precio', 'stock', 'destacado', 'activo']
@@ -22,7 +28,7 @@ class ProductoAdmin(admin.ModelAdmin):
     search_fields = ['nombre', 'descripcion']
     prepopulated_fields = {'slug': ('nombre',)}
     list_editable = ['precio', 'stock', 'destacado', 'activo']
-    inlines = [VarianteInline]
+    inlines = [VarianteInline, ImagenProductoInline]
 
 
 class ItemPedidoInline(admin.TabularInline):
