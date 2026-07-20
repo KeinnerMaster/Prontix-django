@@ -87,3 +87,15 @@ class ItemPedido(models.Model):
 
     def __str__(self):
         return f"{self.cantidad}x {self.nombre_producto}"
+
+class ImagenProducto(models.Model):
+    producto = models.ForeignKey(Producto, on_delete=models.CASCADE, related_name='imagenes_adicionales')
+    imagen = models.ImageField(upload_to='productos/galeria/')
+    orden = models.PositiveIntegerField(default=0, help_text="Orden de aparición (menor número = primero)")
+
+    class Meta:
+        verbose_name_plural = "Imágenes de producto"
+        ordering = ['orden']
+
+    def __str__(self):
+        return f"Imagen de {self.producto.nombre}"
