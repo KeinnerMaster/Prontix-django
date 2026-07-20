@@ -36,7 +36,12 @@
                 <div class="space-y-3 mb-4">
                     {% for item in pedido.items.all %}
                     <div class="flex justify-between text-sm">
-                        <span class="text-gray-600">{{ item.cantidad }}x {{ item.nombre_producto }}</span>
+                        <span class="text-gray-600">
+                            {{ item.cantidad }}x {{ item.nombre_producto }}
+                            {% if item.variante_info %}
+                                <br><span class="text-xs text-gray-400">{{ item.variante_info }}</span>
+                            {% endif %}
+                        </span>
                         <span class="font-semibold text-gray-900">${{ item.subtotal }}</span>
                     </div>
                     {% endfor %}
