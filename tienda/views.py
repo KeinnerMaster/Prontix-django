@@ -138,17 +138,31 @@ def checkout(request):
         )
 
         for item in carrito:
+            variante_info = ''
+            if item['variante']:
+                partes = []
+                if item['variante'].talla:
+                    partes.append(f"Tamanho {item['variante'].talla}")
+                if item['variante'].color:
+                    partes.append(f"Cor {item['variante'].color}")
+                variante_info = ' / '.join(partes)
+
             ItemPedido.objects.create(
                 pedido=pedido,
                 producto=item['producto'],
                 nombre_producto=item['producto'].nombre,
+                variante_info=variante_info,
                 precio_unitario=item['precio_unitario'],
                 cantidad=item['cantidad'],
             )
-            # Descontar del stock
+            # Descontar del stock (de la variante si aplica, si no, del producto general)
             producto = item['producto']
-            producto.stock = max(0, producto.stock - item['cantidad'])
-            producto.save()
+            if item['variante']:
+                item['variante'].stock = max(0, item['variante'].stock - item['cantidad'])
+                item['variante'].save()
+            else:
+                producto.stock = max(0, producto.stock - item['cantidad'])
+                producto.save()
 
         carrito.vaciar()
         request.session['ultimo_pedido_id'] = pedido.id
