@@ -99,3 +99,22 @@ class ImagenProducto(models.Model):
 
     def __str__(self):
         return f"Imagen de {self.producto.nombre}"
+
+class ConfiguracionSitio(models.Model):
+    modo_mantenimiento = models.BooleanField(default=False, help_text="Si está activo, los visitantes verán una página de mantenimiento")
+    mensaje_mantenimiento = models.TextField(
+        default="Estamos realizando mejoras. Voltamos em breve!",
+        help_text="Mensaje que verán los visitantes durante el mantenimiento"
+    )
+
+    class Meta:
+        verbose_name = "Configuración del sitio"
+        verbose_name_plural = "Configuración del sitio"
+
+    def __str__(self):
+        return "Configuración del sitio"
+
+    def save(self, *args, **kwargs):
+        # Aseguramos que solo exista 1 registro de configuración
+        self.pk = 1
+        super().save(*args, **kwargs)
