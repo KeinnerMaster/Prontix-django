@@ -45,3 +45,14 @@ class PedidoAdmin(admin.ModelAdmin):
     search_fields = ('nombre_cliente', 'email_cliente', 'telefono_cliente')
     readonly_fields = ('nombre_cliente', 'email_cliente', 'telefono_cliente', 'direccion', 'ciudad', 'notas', 'total', 'creado_en')
     inlines = [ItemPedidoInline]
+
+@admin.register(ConfiguracionSitio)
+class ConfiguracionSitioAdmin(admin.ModelAdmin):
+    list_display = ('modo_mantenimiento',)
+
+    def has_add_permission(self, request):
+        # Evita que se creen múltiples registros de configuración
+        return not ConfiguracionSitio.objects.exists()
+
+    def has_delete_permission(self, request, obj=None):
+        return False
