@@ -104,18 +104,53 @@
                 const talla = tallaSelect ? tallaSelect.value : '';
                 const color = colorSelect ? colorSelect.value : '';
                 let encontrada = '';
+                let stockDisponible = null;
                 varianteSpans.forEach(function(span) {
                     const spanTalla = span.dataset.talla || '';
                     const spanColor = span.dataset.color || '';
                     if (spanTalla === talla && spanColor === color) {
                         encontrada = span.dataset.id;
+                        stockDisponible = parseInt(span.dataset.stock, 10);
                     }
                 });
                 varianteInput.value = encontrada;
-                if (encontrada) {
+
+                if (encontrada && stockDisponible === 0) {
+                    varianteError.textContent = 'Esta opção está sem estoque no momento';
+                    varianteError.classList.remove('hidden');
+                    varianteInput.value = '';
+                } else if (encontrada) {
                     varianteError.classList.add('hidden');
                 }
             }
+
+            // Deshabilita las opciones de talla/color que no tienen ninguna combinación con stock
+            function marcarSinStock() {
+                if (!tallaSelect && !colorSelect) return;
+
+                if (tallaSelect) {
+                    Array.from(tallaSelect.options).forEach(function(opt) {
+                        if (!opt.value) return;
+                        const hayStock = Array.from(varianteSpans).some(function(span) {
+                            return span.dataset.talla === opt.value && parseInt(span.dataset.stock, 10) > 0;
+                        });
+                        opt.disabled = !hayStock;
+                        opt.textContent = hayStock ? opt.value : opt.value + ' (esgotado)';
+                    });
+                }
+
+                if (colorSelect) {
+                    Array.from(colorSelect.options).forEach(function(opt) {
+                        if (!opt.value) return;
+                        const hayStock = Array.from(varianteSpans).some(function(span) {
+                            return span.dataset.color === opt.value && parseInt(span.dataset.stock, 10) > 0;
+                        });
+                        opt.disabled = !hayStock;
+                        opt.textContent = hayStock ? opt.value : opt.value + ' (esgotado)';
+                    });
+                }
+            }
+            marcarSinStock();
 
             if (tallaSelect) tallaSelect.addEventListener('change', actualizarVariante);
             if (colorSelect) colorSelect.addEventListener('change', actualizarVariante);
@@ -261,7 +296,7 @@
                     <!-- Datos ocultos de cada variante, usados por JS para encontrar la combinación exacta -->
                     <div id="varianteData" class="hidden">
                         {% for variante in producto.variantes.all %}
-                        <span data-id="{{ variante.id }}" data-talla="{{ variante.talla }}" data-color="{{ variante.color }}"></span>
+                        <span data-id="{{ variante.id }}" data-talla="{{ variante.talla }}" data-color="{{ variante.color }}" data-stock="{{ variante.stock }}"></span>
                         {% endfor %}
                     </div>
 
