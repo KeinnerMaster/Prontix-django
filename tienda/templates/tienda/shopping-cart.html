@@ -54,51 +54,63 @@
         {% if carrito|length > 0 %}
         <div class="space-y-6">
             {% for item in carrito %}
-            <div class="flex items-center gap-6 bg-white rounded-xl p-4 shadow-sm border border-gray-100">
-                <a href="{% url 'producto_detalle' item.producto.slug %}" class="shrink-0">
-                    <div class="w-24 h-24 rounded-lg overflow-hidden bg-gray-100">
-                        {% if item.producto.imagen %}
-                            <img src="{{ item.producto.imagen.url }}" alt="{{ item.producto.nombre }}" class="w-full h-full object-cover">
-                        {% endif %}
-                    </div>
-                </a>
-
-                <div class="flex-1">
-                    <a href="{% url 'producto_detalle' item.producto.slug %}" class="font-bold text-gray-900 hover:text-primary">
-                        {{ item.producto.nombre }}
+            <div class="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6 bg-white rounded-xl p-4 shadow-sm border border-gray-100">
+                <div class="flex gap-4">
+                    <a href="{% url 'producto_detalle' item.producto.slug %}" class="shrink-0">
+                        <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-lg overflow-hidden bg-gray-100">
+                            {% if item.producto.imagen %}
+                                <img src="{{ item.producto.imagen.url }}" alt="{{ item.producto.nombre }}" class="w-full h-full object-cover">
+                            {% endif %}
+                        </div>
                     </a>
-                    {% if item.variante %}
-                    <p class="text-sm text-gray-600">
-                        {% if item.variante.talla %}Tamanho: {{ item.variante.talla }}{% endif %}
-                        {% if item.variante.talla and item.variante.color %} • {% endif %}
-                        {% if item.variante.color %}Cor: {{ item.variante.color }}{% endif %}
-                    </p>
-                    {% endif %}
-                    <p class="text-sm text-gray-500">${{ item.precio_unitario }} c/u</p>
+
+                    <div class="flex-1 min-w-0">
+                        <a href="{% url 'producto_detalle' item.producto.slug %}" class="font-bold text-gray-900 hover:text-primary line-clamp-2">
+                            {{ item.producto.nombre }}
+                        </a>
+                        {% if item.variante %}
+                        <p class="text-sm text-gray-600">
+                            {% if item.variante.talla %}Tamanho: {{ item.variante.talla }}{% endif %}
+                            {% if item.variante.talla and item.variante.color %} • {% endif %}
+                            {% if item.variante.color %}Cor: {{ item.variante.color }}{% endif %}
+                        </p>
+                        {% endif %}
+                        <p class="text-sm text-gray-500">${{ item.precio_unitario }} c/u</p>
+                    </div>
+
+                    <!-- Eliminar (visible junto a la imagen en móvil) -->
+                    <form method="post" action="{% url 'remove_from_cart' item.clave %}" class="sm:hidden">
+                        {% csrf_token %}
+                        <button type="submit" class="p-2 text-gray-400 hover:text-red-500 transition">
+                            <span class="material-symbols-outlined">delete</span>
+                        </button>
+                    </form>
                 </div>
 
-                <!-- Actualizar cantidad -->
-                <form method="post" action="{% url 'update_cart_item' item.clave %}" class="flex items-center border border-gray-300 rounded-lg cart-qty-form">
-                    {% csrf_token %}
-                    <button type="button" class="qty-minus px-3 py-2 hover:text-primary">
-                        <span class="material-symbols-outlined text-lg">remove</span>
-                    </button>
-                    <input type="number" name="cantidad" value="{{ item.cantidad }}" min="1" max="{{ item.producto.stock }}"
-                           class="qty-input w-12 text-center py-2 border-none focus:ring-0" readonly>
-                    <button type="button" class="qty-plus px-3 py-2 hover:text-primary">
-                        <span class="material-symbols-outlined text-lg">add</span>
-                    </button>
-                </form>
+                <div class="flex items-center justify-between sm:justify-end gap-4 sm:gap-6">
+                    <!-- Actualizar cantidad -->
+                    <form method="post" action="{% url 'update_cart_item' item.clave %}" class="flex items-center border border-gray-300 rounded-lg cart-qty-form">
+                        {% csrf_token %}
+                        <button type="button" class="qty-minus px-3 py-2 hover:text-primary">
+                            <span class="material-symbols-outlined text-lg">remove</span>
+                        </button>
+                        <input type="number" name="cantidad" value="{{ item.cantidad }}" min="1" max="{{ item.producto.stock }}"
+                               class="qty-input w-10 sm:w-12 text-center py-2 border-none focus:ring-0" readonly>
+                        <button type="button" class="qty-plus px-3 py-2 hover:text-primary">
+                            <span class="material-symbols-outlined text-lg">add</span>
+                        </button>
+                    </form>
 
-                <p class="font-bold text-primary w-24 text-right">${{ item.subtotal }}</p>
+                    <p class="font-bold text-primary sm:w-24 sm:text-right">${{ item.subtotal }}</p>
 
-                <!-- Eliminar -->
-                <form method="post" action="{% url 'remove_from_cart' item.clave %}">
-                    {% csrf_token %}
-                    <button type="submit" class="p-2 text-gray-400 hover:text-red-500 transition">
-                        <span class="material-symbols-outlined">delete</span>
-                    </button>
-                </form>
+                    <!-- Eliminar (visible en desktop) -->
+                    <form method="post" action="{% url 'remove_from_cart' item.clave %}" class="hidden sm:block">
+                        {% csrf_token %}
+                        <button type="submit" class="p-2 text-gray-400 hover:text-red-500 transition">
+                            <span class="material-symbols-outlined">delete</span>
+                        </button>
+                    </form>
+                </div>
             </div>
             {% endfor %}
         </div>
