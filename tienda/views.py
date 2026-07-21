@@ -182,6 +182,8 @@ def checkout(request):
         carrito.vaciar()
         request.session['ultimo_pedido_id'] = pedido.id
 
+        _enviar_confirmacion_pedido(pedido)
+
         return redirect('order_confirmed')
 
     context = {'carrito': carrito}
@@ -206,3 +208,36 @@ def suscribir_newsletter(request):
             SuscriptorNewsletter.objects.get_or_create(email=email)
         return redirect(request.META.get('HTTP_REFERER', 'index'))
     return redirect('index')
+
+def _enviar_confirmacion_pedido(pedido):
+    import resend
+    from django.conf import settings
+
+    items_texto = '\n'.join([
+        f"- {item.cantidad}x {item.nombre_producto}" + (f" ({item.variante_info})" if item.variante_info else "") + f" - R$ {item.subtotal()}"
+        for item in pedido.items.all()
+    ])
+
+    cuerpo = f"""Olá {pedido.nombre_cliente},
+
+Recebemos seu pedido #{pedido.id} com sucesso!
+
+Itens do pedido:
+{items_texto}
+
+Total: R$ {pedido.total}
+
+Em breve entraremos em contato para confirmar o pagamento e a entrega.
+
+Obrigado por comprar na HOCCE!"""
+
+    try:
+        resend.api_key = settings.RESEND_API_KEY
+        resend.Emails.send({
+            "from": "HOCCE <onboarding@resend.dev>",
+            "to": [pedido.email_cliente],
+            "subject": f'Pedido #{pedido.id} confirmado - HOCCE',
+            "text": cuerpo,
+        })
+    except Exception as e:
+        print(f"ERROR enviando confirmacion: {e}")
