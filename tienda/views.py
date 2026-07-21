@@ -92,12 +92,6 @@ def remove_from_cart(request, clave):
     messages.info(request, 'Producto eliminado del carrito.')
     return redirect('cart')
 
-def checkout(request):
-    return render(request, 'tienda/checkout.html')
-
-def order_confirmed(request):
-    return render(request, 'tienda/order-confirmed.html')
-
 def catalogo(request):
     productos = Producto.objects.filter(activo=True)
     categorias = Categoria.objects.all()
@@ -241,3 +235,9 @@ Obrigado por comprar na HOCCE!"""
         })
     except Exception as e:
         print(f"ERROR enviando confirmacion: {e}")
+
+from django.http import HttpResponse
+
+def robots_txt(request):
+    contenido = "User-agent: *\nAllow: /\nDisallow: /admin/\n\nSitemap: https://web-production-5b2c9.up.railway.app/sitemap.xml"
+    return HttpResponse(contenido, content_type="text/plain")
