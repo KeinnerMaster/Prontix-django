@@ -17,4 +17,5 @@ urlpatterns = [
     path('checkout/', views.checkout, name='checkout'),
     path('confirmado/', views.order_confirmed, name='order_confirmed'),
     path('newsletter/suscribir/', views.suscribir_newsletter, name='suscribir_newsletter'),
+    path('robots.txt', views.robots_txt, name='robots_txt'),
 ]
