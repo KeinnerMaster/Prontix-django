@@ -241,3 +241,21 @@ from django.http import HttpResponse
 def robots_txt(request):
     contenido = "User-agent: *\nAllow: /\nDisallow: /admin/\n\nSitemap: https://web-production-5b2c9.up.railway.app/sitemap.xml"
     return HttpResponse(contenido, content_type="text/plain")
+
+def aplicar_cupon(request):
+    if request.method == 'POST':
+        codigo = request.POST.get('codigo', '')
+        carrito = Cart(request)
+        exito, mensaje = carrito.aplicar_cupon(codigo)
+        if exito:
+            messages.success(request, mensaje)
+        else:
+            messages.error(request, mensaje)
+    return redirect('cart')
+
+
+def quitar_cupon(request):
+    carrito = Cart(request)
+    carrito.quitar_cupon()
+    messages.info(request, 'Cupom removido.')
+    return redirect('cart')
