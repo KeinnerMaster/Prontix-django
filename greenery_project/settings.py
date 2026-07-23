@@ -151,5 +151,5 @@ if 'RAILWAY_ENVIRONMENT' in os.environ:
     RESEND_API_KEY = os.environ.get('RESEND_API_KEY')
     CONTACT_EMAIL_DESTINO = 'imkeinner@gmail.com'
 
-USE_X_FORWARDED_HOST = True
+    USE_X_FORWARDED_HOST = True
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
