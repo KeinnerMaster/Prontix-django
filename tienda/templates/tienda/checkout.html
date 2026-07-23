@@ -112,6 +112,16 @@
                         </div>
                         {% endfor %}
                     </div>
+                    {% if carrito.descuento > 0 %}
+                    <div class="flex justify-between text-sm text-gray-500 mb-2">
+                        <span>Subtotal</span>
+                        <span>${{ carrito.total_sin_descuento }}</span>
+                    </div>
+                    <div class="flex justify-between text-sm text-red-500 mb-2">
+                        <span>Desconto ({{ carrito.get_cupon.codigo }})</span>
+                        <span>-${{ carrito.descuento }}</span>
+                    </div>
+                    {% endif %}
                     <div class="border-t border-gray-200 pt-4 flex justify-between items-center">
                         <span class="font-bold text-gray-900">Total</span>
                         <span class="font-extrabold text-primary text-xl">${{ carrito.total }}</span>
