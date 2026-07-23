@@ -93,8 +93,50 @@ class Cart:
     def __len__(self):
         return sum(item['cantidad'] for item in self.carrito.values())
 
-    def total(self):
+    def total_sin_descuento(self):
         return sum(
             Decimal(item['precio']) * item['cantidad']
             for item in self.carrito.values()
         )
+
+    def aplicar_cupon(self, codigo):
+        from .models import Cupon
+        try:
+            cupon = Cupon.objects.get(codigo__iexact=codigo)
+        except Cupon.DoesNotExist:
+            return False, "Cupom não encontrado."
+
+        valido, mensaje = cupon.es_valido(self.total_sin_descuento())
+        if not valido:
+            return False, mensaje
+
+        self.session['cupon_codigo'] = cupon.codigo
+        self.guardar()
+        return True, f"Cupom {cupon.codigo} aplicado com sucesso!"
+
+    def quitar_cupon(self):
+        if 'cupon_codigo' in self.session:
+            del self.session['cupon_codigo']
+            self.guardar()
+
+    def get_cupon(self):
+        from .models import Cupon
+        codigo = self.session.get('cupon_codigo')
+        if not codigo:
+            return None
+        try:
+            return Cupon.objects.get(codigo__iexact=codigo)
+        except Cupon.DoesNotExist:
+            return None
+
+    def descuento(self):
+        cupon = self.get_cupon()
+        if not cupon:
+            return Decimal('0')
+        valido, _ = cupon.es_valido(self.total_sin_descuento())
+        if not valido:
+            return Decimal('0')
+        return cupon.calcular_descuento(self.total_sin_descuento())
+
+    def total(self):
+        return max(Decimal('0'), self.total_sin_descuento() - self.descuento())
