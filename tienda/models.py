@@ -154,3 +154,43 @@ class SuscriptorNewsletter(models.Model):
 
     def __str__(self):
         return self.email
+
+class Cupon(models.Model):
+    TIPO_CHOICES = [
+        ('porcentaje', 'Porcentagem (%)'),
+        ('fijo', 'Valor fixo (R$)'),
+    ]
+
+    codigo = models.CharField(max_length=50, unique=True, help_text="Ej: HOCCE10, BLACKFRIDAY")
+    tipo = models.CharField(max_length=20, choices=TIPO_CHOICES, default='porcentaje')
+    valor = models.DecimalField(max_digits=10, decimal_places=2, help_text="Si es porcentaje: 10 = 10%. Si es fijo: 15 = R$15,00")
+    activo = models.BooleanField(default=True)
+    fecha_inicio = models.DateTimeField()
+    fecha_fin = models.DateTimeField()
+    usos_maximos = models.PositiveIntegerField(default=1, help_text="Cuántas veces se puede usar este cupón en total")
+    usos_actuales = models.PositiveIntegerField(default=0, editable=False)
+    compra_minima = models.DecimalField(max_digits=10, decimal_places=2, default=0, help_text="Monto mínimo de compra para poder usarlo (0 = sin mínimo)")
+
+    class Meta:
+        verbose_name_plural = "Cupones"
+
+    def __str__(self):
+        return self.codigo.upper()
+
+    def es_valido(self, total_carrito=0):
+        from django.utils import timezone
+        ahora = timezone.now()
+        if not self.activo:
+            return False, "Este cupom não está mais ativo."
+        if ahora < self.fecha_inicio or ahora > self.fecha_fin:
+            return False, "Este cupom expirou ou ainda não está disponível."
+        if self.usos_actuales >= self.usos_maximos:
+            return False, "Este cupom atingiu o limite de usos."
+        if total_carrito < self.compra_minima:
+            return False, f"Valor mínimo de R$ {self.compra_minima} para usar este cupom."
+        return True, ""
+
+    def calcular_descuento(self, total_carrito):
+        if self.tipo == 'porcentaje':
+            return total_carrito * (self.valor / 100)
+        return min(self.valor, total_carrito)
