@@ -50,6 +50,12 @@
                     </div>
                     {% endfor %}
                 </div>
+                {% if pedido.descuento_aplicado > 0 %}
+                <div class="flex justify-between text-sm text-red-500 mb-2">
+                    <span>Desconto {% if pedido.cupon %}({{ pedido.cupon.codigo }}){% endif %}</span>
+                    <span>-${{ pedido.descuento_aplicado }}</span>
+                </div>
+                {% endif %}
                 <div class="border-t border-gray-200 pt-4 flex justify-between items-center">
                     <span class="font-bold text-gray-900">Total</span>
                     <span class="font-extrabold text-primary text-xl">${{ pedido.total }}</span>
