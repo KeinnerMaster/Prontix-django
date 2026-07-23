@@ -126,7 +126,7 @@ JAZZMIN_SETTINGS = {
 # ------------------------------------------------------------------
 if 'RAILWAY_ENVIRONMENT' in os.environ:
     DEBUG = False
-    ALLOWED_HOSTS = ['.up.railway.app', 'prontix-django-production.up.railway.app']
+    ALLOWED_HOSTS = ['.up.railway.app', 'prontix-django-production.up.railway.app', 'hocce.com.br', 'www.hocce.com.br']
 
     import dj_database_url
     DATABASES = {
