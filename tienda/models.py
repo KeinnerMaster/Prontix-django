@@ -55,6 +55,8 @@ class Pedido(models.Model):
         ('cancelado', 'Cancelado'),
     ]
 
+    cupon = models.ForeignKey('Cupon', on_delete=models.SET_NULL, null=True, blank=True)
+    descuento_aplicado = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     nombre_cliente = models.CharField(max_length=200)
     email_cliente = models.EmailField()
     telefono_cliente = models.CharField(max_length=30)
