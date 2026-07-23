@@ -138,7 +138,7 @@ if 'RAILWAY_ENVIRONMENT' in os.environ:
 
     STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 
-    CSRF_TRUSTED_ORIGINS = ['https://*.up.railway.app']
+    CSRF_TRUSTED_ORIGINS = ['https://*.up.railway.app', 'https://hocce.com.br', 'https://www.hocce.com.br']
 
     CLOUDINARY_STORAGE = {
         'CLOUD_NAME': os.environ.get('CLOUDINARY_CLOUD_NAME'),
