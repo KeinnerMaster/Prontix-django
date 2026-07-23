@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Categoria, Producto, Variante, Pedido, ItemPedido, ImagenProducto, ConfiguracionSitio, Cliente, SuscriptorNewsletter
+from .models import Categoria, Producto, Variante, Pedido, ItemPedido, ImagenProducto, ConfiguracionSitio, Cliente, SuscriptorNewsletter, Cupon
 
 @admin.register(Categoria)
 class CategoriaAdmin(admin.ModelAdmin):
@@ -131,3 +131,11 @@ class SuscriptorNewsletterAdmin(admin.ModelAdmin):
     list_display = ('email', 'activo', 'creado_en')
     list_filter = ('activo',)
     search_fields = ('email',)
+
+@admin.register(Cupon)
+class CuponAdmin(admin.ModelAdmin):
+    list_display = ('codigo', 'tipo', 'valor', 'usos_actuales', 'usos_maximos', 'activo', 'fecha_inicio', 'fecha_fin')
+    list_filter = ('activo', 'tipo')
+    search_fields = ('codigo',)
+    list_editable = ('activo',)
+    readonly_fields = ('usos_actuales',)
